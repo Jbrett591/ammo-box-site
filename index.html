@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Custom Ammo Boxes</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #eee;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1, h2 { text-align: center; }
+
+.section {
+  margin-top: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  border: 1px solid #333;
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background: #1a1a1a;
+  transition: 0.2s;
+}
+
+.card:hover { border-color: #666; }
+
+.selected {
+  border: 2px solid #4caf50;
+}
+
+.color-swatch {
+  height: 40px;
+  border: 1px solid #333;
+  cursor: pointer;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #4caf50;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.summary {
+  background: #1a1a1a;
+  padding: 15px;
+  margin-top: 20px;
+  border: 1px solid #333;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Custom Ammo Boxes</h1>
+
+<!-- CATEGORY -->
+<div class="section">
+  <h2>1. Select Category</h2>
+  <div class="grid" id="category">
+    <div class="card" data-value="pistol">Pistol</div>
+    <div class="card" data-value="rifle">Rifle</div>
+    <div class="card" data-value="shotgun">Shotgun</div>
+  </div>
+</div>
+
+<!-- CALIBER -->
+<div class="section">
+  <h2>2. Select Caliber</h2>
+  <div class="grid" id="caliber"></div>
+</div>
+
+<!-- CAPACITY -->
+<div class="section">
+  <h2>3. Capacity</h2>
+  <div class="grid" id="capacity"></div>
+</div>
+
+<!-- COLORS -->
+<div class="section">
+  <h2>4. Box Color</h2>
+  <div class="grid" id="boxColor"></div>
+
+  <h2>Text Color</h2>
+  <div class="grid" id="textColor"></div>
+</div>
+
+<!-- NOTES -->
+<div class="section">
+  <h2>5. Custom Notes</h2>
+  <textarea id="notes" style="width:100%; height:80px;"></textarea>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary" id="summary">
+  <strong>Order Summary:</strong>
+  <div id="summaryText">Nothing selected</div>
+</div>
+
+<button onclick="submitOrder()">Submit Order</button>
+
+<script>
+// PRODUCT DATA (expand later easily)
+const products = {
+  pistol: { "9mm": [50, 100], ".45": [50] },
+  rifle: { ".223": [20, 50, 100], ".308": [20, 50] },
+  shotgun: { "12ga": [10, 25] }
+};
+
+// COLORS
+const colors = {
+  "Black": "#000",
+  "OD Green": "#4b5320",
+  "FDE": "#c2b280",
+  "Gray": "#888"
+};
+
+const selections = {};
+
+// GENERIC SELECT HANDLER
+function selectHandler(container, key) {
+  container.querySelectorAll(".card").forEach(card => {
+    card.onclick = () => {
+      container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+      selections[key] = card.dataset.value;
+      updateSummary();
+
+      if (key === "category") loadCalibers();
+      if (key === "caliber") loadCapacity();
+    };
+  });
+}
+
+// LOAD CALIBERS
+function loadCalibers() {
+  const container = document.getElementById("caliber");
+  container.innerHTML = "";
+
+  const calibers = Object.keys(products[selections.category] || {});
+  calibers.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.dataset.value = c;
+    div.innerText = c;
+    container.appendChild(div);
+  });
+
+  selectHandler(container, "caliber");
+}
+
+// LOAD CAPACITY
+function loadCapacity() {
+  const container = document.getElementById("capacity");
+  container.innerHTML = "";
+
+  const caps = products[selections.category][selections.caliber] || [];
+  caps.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.dataset.value = c;
+    div.innerText = c + " rounds";
+    container.appendChild(div);
+  });
+
+  selectHandler(container, "capacity");
+}
+
+// LOAD COLORS
+function loadColors(id, key) {
+  const container = document.getElementById(id);
+
+  Object.entries(colors).forEach(([name, val]) => {
+    const div = document.createElement("div");
+    div.className = "color-swatch";
+    div.style.background = val;
+    div.dataset.value = name;
+
+    div.onclick = () => {
+      container.querySelectorAll(".color-swatch")
+        .forEach(c => c.classList.remove("selected"));
+      div.classList.add("selected");
+      selections[key] = name;
+      updateSummary();
+    };
+
+    container.appendChild(div);
+  });
+}
+
+// SUMMARY
+function updateSummary() {
+  document.getElementById("summaryText").innerHTML = `
+    ${selections.category || ""}<br>
+    ${selections.caliber || ""}<br>
+    ${selections.capacity || ""} rounds<br>
+    Box: ${selections.boxColor || ""}<br>
+    Text: ${selections.textColor || ""}
+  `;
+}
+
+// SUBMIT
+async function submitOrder() {
+  const order = {
+    ...selections,
+    notes: document.getElementById("notes").value
+  };
+
+  await fetch("/api/order", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(order)
+  });
+
+  alert("Order submitted. We’ll confirm details shortly.");
+}
+
+// INIT
+selectHandler(document.getElementById("category"), "category");
+loadColors("boxColor", "boxColor");
+loadColors("textColor", "textColor");
+</script>
+
+</body>
+</html>
