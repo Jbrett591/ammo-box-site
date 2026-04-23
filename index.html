@@ -148,7 +148,7 @@ const products = {
     "6mm ARC": [20, 50, 105],
     "30-06": [20, 50],
     "7.62x39": [20, 50, 60, 105],
-    "50 BMG": [10]
+    "50 BMG": [10],
   },
 
   shotgun: {
@@ -156,10 +156,20 @@ const products = {
     "410 Gauge": [25],
     "20 Gauge": [25],
     "12 Gauge 2-3/4": [10, 25],
-    "12 Gauge 3": [10, 25],
+    "12 Gauge 3": [10, 25]
   }
 };
-
+  
+const colors = {
+  "Black": "#000000",
+  "OD Green": "#4b5320",
+  "FDE": "#c2b280",
+  "Gray": "#888888",
+  "White": "#f5f5f5",
+  "Red": "#b22222",
+  "Blue": "#1f4e79"
+};
+  
 const selections = {};
 
 // GENERIC SELECT HANDLER
@@ -235,12 +245,15 @@ function loadColors(id, key) {
 
 // SUMMARY
 function updateSummary() {
+    const notes = document.getElementById("notes").value || "";
+
   document.getElementById("summaryText").innerHTML = `
-    ${selections.category || ""}<br>
-    ${selections.caliber || ""}<br>
-    ${selections.capacity || ""} rounds<br>
-    Box: ${selections.boxColor || ""}<br>
-    Text: ${selections.textColor || ""}
+    Category: ${selections.category || "-"}<br>
+    Caliber: ${selections.caliber || "-"}<br>
+    Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
+    Box: ${selections.boxColor || "-"}<br>
+    Text: ${selections.textColor || "-"}<br>
+    Notes: ${notes || "-"}
   `;
 }
 
@@ -264,6 +277,9 @@ async function submitOrder() {
 selectHandler(document.getElementById("category"), "category");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
+
+  document.getElementById("notes").addEventListener("input", updateSummary);
+  
 </script>
 
 </body>
