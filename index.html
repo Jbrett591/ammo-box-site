@@ -23,7 +23,7 @@ h1, h2 { text-align: center; }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 15px;
+  gap: 15px; 
 }
 
 .card {
@@ -118,17 +118,43 @@ button {
 <script>
 // PRODUCT DATA (expand later easily)
 const products = {
-  pistol: { "9mm": [50, 100], ".45": [50] },
-  rifle: { ".223": [20, 50, 100], ".308": [20, 50] },
-  shotgun: { "12ga": [10, 25] }
-};
+pistol: {
+    "9mm": [50, 66, 100, 102],
+    "45 ACP": [50, 66, 105],
+    "380 ACP": [50, 66, 102],
+    "38 Special": [50, 66, 96],
+    "357 Magnum": [50, 66, 96, 102],
+    "40 S&W": [50, 105],
+    "10mm": [50, 105],
+    "5.7x28": [50, 100],
+    "32 ACP": [50],
+    "25 ACP": [50]
+  },
 
-// COLORS
-const colors = {
-  "Black": "#000",
-  "OD Green": "#4b5320",
-  "FDE": "#c2b280",
-  "Gray": "#888"
+  rifle: {
+    ".223 / 5.56": [20, 50, 60],
+    ".308 Win": [50, 105],
+    "300 Blackout": [20, 50, 60, 100],
+    "6.5 Creedmoor": [20, 50, 105],
+    "6mm ARC": [20, 50, 105],
+    "22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
+    "22 Mag": [50, 100, 250],
+    "17 HMR": [50, 100],
+    "204 Ruger": [20, 50, 100],
+    "243 Win": [20, 25, 50],
+    "270 Win": [20, 50, 105],
+    "30-06": [20, 50],
+    "7.62x39": [20, 50, 60, 105],
+    "50 BMG": [10]
+  },
+
+  shotgun: {
+    "12 Gauge 2-3/4": [10, 25],
+    "12 Gauge 3": [10, 25],
+    "20 Gauge": [25],
+    "410 Gauge": [25],
+    "10 Gauge": [25]
+  }
 };
 
 const selections = {};
