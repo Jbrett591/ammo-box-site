@@ -1,3 +1,8 @@
+Absolutely — replace your current `index.html` with this.
+
+**Only thing you need to change:** replace `https://formspree.io/f/YOUR_FORM_ID` with your real Formspree endpoint.
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +10,7 @@
 <title>Custom Ammo Boxes</title>
 
 <style>
-  .header {
+.header {
   text-align: center;
   margin-bottom: 30px;
 }
@@ -22,6 +27,7 @@
   letter-spacing: 1px;
   margin-top: -5px;
 }
+
 body {
   font-family: Arial, sans-serif;
   background: #111;
@@ -31,7 +37,9 @@ body {
   padding: 20px;
 }
 
-h1, h2 { text-align: center; }
+h1, h2 { 
+  text-align: center; 
+}
 
 .section {
   margin-top: 30px;
@@ -52,7 +60,9 @@ h1, h2 { text-align: center; }
   transition: 0.2s;
 }
 
-.card:hover { border-color: #666; }
+.card:hover { 
+  border-color: #666; 
+}
 
 .selected {
   border: 2px solid #4caf50;
@@ -64,6 +74,19 @@ h1, h2 { text-align: center; }
   cursor: pointer;
 }
 
+input,
+textarea {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+}
+
+.contact-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
 button {
   margin-top: 20px;
   width: 100%;
@@ -72,6 +95,10 @@ button {
   border: none;
   font-size: 16px;
   cursor: pointer;
+}
+
+button:hover {
+  background: #43a047;
 }
 
 .summary {
@@ -93,9 +120,9 @@ button {
 <div class="section">
   <h2>1. Select Category</h2>
   <div class="grid" id="category">
-    <div class="card" data-value="pistol">Pistol</div>
-    <div class="card" data-value="rifle">Rifle</div>
-    <div class="card" data-value="shotgun">Shotgun</div>
+    <div class="card" data-value="Pistol">Pistol</div>
+    <div class="card" data-value="Rifle">Rifle</div>
+    <div class="card" data-value="Shotgun">Shotgun</div>
   </div>
 </div>
 
@@ -123,7 +150,15 @@ button {
 <!-- NOTES -->
 <div class="section">
   <h2>5. Custom Notes</h2>
-  <textarea id="notes" style="width:100%; height:80px;"></textarea>
+  <textarea id="notes" name="Custom Notes" style="width:100%; height:80px;"></textarea>
+</div>
+
+<!-- CONTACT INFO -->
+<div class="section">
+  <h2>6. Contact Info</h2>
+  <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
+  <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
+  <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
 </div>
 
 <!-- SUMMARY -->
@@ -132,13 +167,12 @@ button {
   <div id="summaryText">Nothing selected</div>
 </div>
 
-<button onclick="submitOrder()">Submit Order</button>
+<button type="button" onclick="submitOrder()">Submit Order</button>
 
 <script>
-// PRODUCT DATA (expand later easily)
+// PRODUCT DATA
 const products = {
-
-    pistol: {
+  Pistol: {
     ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
     "9mm": [50, 66, 100, 102],
     "10mm": [50, 105],
@@ -149,11 +183,10 @@ const products = {
     ".357 Magnum": [50, 66, 96, 102],
     ".40 S&W": [50, 105],
     ".45 ACP": [50, 66, 105],
-    "5.7x28": [50, 100],
-
+    "5.7x28": [50, 100]
   },
 
-  rifle: {
+  Rifle: {
     ".17 HMR": [50, 100],
     ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
     ".22 Mag": [50, 100, 250],
@@ -167,10 +200,10 @@ const products = {
     "6mm ARC": [20, 50, 105],
     "30-06": [20, 50],
     "7.62x39": [20, 50, 60, 105],
-    "50 BMG": [10],
+    "50 BMG": [10]
   },
 
-  shotgun: {
+  Shotgun: {
     ".410 2-1/2 inch": [25],
     ".410 3 inch": [25],
     "20 Gauge 2-3/4 inch": [25],
@@ -181,7 +214,7 @@ const products = {
     "10 Gauge 3-1/2 inch": [25]
   }
 };
-  
+
 const colors = {
   "Black": "#000000",
   "OD Green": "#4b5320",
@@ -191,7 +224,7 @@ const colors = {
   "Red": "#b22222",
   "Blue": "#1f4e79"
 };
-  
+
 const selections = {};
 
 // GENERIC SELECT HANDLER
@@ -200,11 +233,22 @@ function selectHandler(container, key) {
     card.onclick = () => {
       container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
       card.classList.add("selected");
-      selections[key] = card.dataset.value;
-      updateSummary();
 
-      if (key === "category") loadCalibers();
-      if (key === "caliber") loadCapacity();
+      selections[key] = card.dataset.value;
+
+      if (key === "category") {
+        selections.caliber = "";
+        selections.capacity = "";
+        document.getElementById("capacity").innerHTML = "";
+        loadCalibers();
+      }
+
+      if (key === "caliber") {
+        selections.capacity = "";
+        loadCapacity();
+      }
+
+      updateSummary();
     };
   });
 }
@@ -215,6 +259,7 @@ function loadCalibers() {
   container.innerHTML = "";
 
   const calibers = Object.keys(products[selections.category] || {});
+
   calibers.forEach(c => {
     const div = document.createElement("div");
     div.className = "card";
@@ -232,6 +277,7 @@ function loadCapacity() {
   container.innerHTML = "";
 
   const caps = products[selections.category][selections.caliber] || [];
+
   caps.forEach(c => {
     const div = document.createElement("div");
     div.className = "card";
@@ -252,10 +298,12 @@ function loadColors(id, key) {
     div.className = "color-swatch";
     div.style.background = val;
     div.dataset.value = name;
+    div.title = name;
 
     div.onclick = () => {
       container.querySelectorAll(".color-swatch")
         .forEach(c => c.classList.remove("selected"));
+
       div.classList.add("selected");
       selections[key] = name;
       updateSummary();
@@ -267,32 +315,70 @@ function loadColors(id, key) {
 
 // SUMMARY
 function updateSummary() {
-    const notes = document.getElementById("notes").value || "";
+  const notes = document.getElementById("notes").value || "";
 
   document.getElementById("summaryText").innerHTML = `
     Category: ${selections.category || "-"}<br>
     Caliber: ${selections.caliber || "-"}<br>
     Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
-    Box: ${selections.boxColor || "-"}<br>
-    Text: ${selections.textColor || "-"}<br>
+    Box Color: ${selections.boxColor || "-"}<br>
+    Text Color: ${selections.textColor || "-"}<br>
     Notes: ${notes || "-"}
   `;
 }
 
 // SUBMIT
 async function submitOrder() {
-  const order = {
-    ...selections,
-    notes: document.getElementById("notes").value
-  };
+  const name = document.getElementById("customerName").value.trim();
+  const email = document.getElementById("customerEmail").value.trim();
+  const phone = document.getElementById("customerPhone").value.trim();
+  const notes = document.getElementById("notes").value.trim();
 
-  await fetch("/api/order", {
+  if (!selections.category || !selections.caliber || !selections.capacity) {
+    alert("Please select a category, caliber, and capacity.");
+    return;
+  }
+
+  if (!selections.boxColor || !selections.textColor) {
+    alert("Please select a box color and text color.");
+    return;
+  }
+
+  if (!name || !email) {
+    alert("Please enter your name and email before submitting.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("Customer Name", name);
+  formData.append("Customer Email", email);
+  formData.append("Phone", phone);
+  formData.append("Category", selections.category || "");
+  formData.append("Caliber", selections.caliber || "");
+  formData.append("Capacity", selections.capacity ? selections.capacity + " rounds" : "");
+  formData.append("Box Color", selections.boxColor || "");
+  formData.append("Text Color", selections.textColor || "");
+  formData.append("Custom Notes", notes);
+
+  const response = await fetch("https://formspree.io/f/xjgjjjkq", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(order)
+    body: formData,
+    headers: {
+      "Accept": "application/json"
+    }
   });
 
-  alert("Order submitted. We’ll confirm details shortly.");
+  if (response.ok) {
+    alert("Order submitted. We’ll confirm details shortly.");
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerEmail").value = "";
+    document.getElementById("customerPhone").value = "";
+    document.getElementById("notes").value = "";
+
+  } else {
+    alert("Something went wrong. Please try again.");
+  }
 }
 
 // INIT
@@ -300,9 +386,10 @@ selectHandler(document.getElementById("category"), "category");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
-  document.getElementById("notes").addEventListener("input", updateSummary);
-  
+document.getElementById("notes").addEventListener("input", updateSummary);
 </script>
 
 </body>
 </html>
+```
+
