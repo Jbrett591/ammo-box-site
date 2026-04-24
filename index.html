@@ -513,6 +513,7 @@ async function submitOrder() {
   formData.append("Box Color", selections.boxColor || "");
   formData.append("Text Color", selections.textColor || "");
   formData.append("Custom Notes", notes);
+  formData.append("_subject", "New ForgeBox Order - " + new Date().toLocaleString());
 
   const response = await fetch("https://formspree.io/f/xjgjjjkq", {
     method: "POST",
