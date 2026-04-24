@@ -83,6 +83,10 @@ h1, h2 {
   align-items: center;
   justify-content: center;
 }
+  
+  .color-swatch.light::after {
+  color: black;
+}
 
   .color-swatch::after {
   content: "✔";
@@ -172,19 +176,19 @@ button:hover {
   <h2>4. Box Color</h2>
   <div class="grid color-grid" id="boxColor"></div>
 
-  <h2>Text Color</h2>
+  <h2>5. Text Color</h2>
   <div class="grid color-grid" id="textColor"></div>
 </div>
 
 <!-- NOTES -->
 <div class="section">
-  <h2>5. Custom Notes</h2>
+  <h2>6. Custom Notes</h2>
   <textarea id="notes" name="Custom Notes" style="width:100%; height:80px;"></textarea>
 </div>
 
 <!-- CONTACT INFO -->
 <div class="section">
-  <h2>6. Contact Info</h2>
+  <h2>7. Contact Info</h2>
   <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
   <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
   <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
@@ -322,24 +326,35 @@ function loadCapacity() {
 function loadColors(id, key) {
   const container = document.getElementById(id);
 
-  Object.entries(colors).forEach(([name, val]) => {
-    const div = document.createElement("div");
-    div.className = "color-swatch";
-    div.style.background = val;
-    div.dataset.value = name;
-    div.title = name;
+ Object.entries(colors).forEach(([name, val]) => {
+  const div = document.createElement("div");
+  div.className = "color-swatch";
+  div.style.background = val;
+  div.dataset.value = name;
+  div.title = name;
 
-    div.onclick = () => {
-      container.querySelectorAll(".color-swatch")
-        .forEach(c => c.classList.remove("selected"));
+  // detect light vs dark color
+  const r = parseInt(val.substr(1,2),16);
+  const g = parseInt(val.substr(3,2),16);
+  const b = parseInt(val.substr(5,2),16);
 
-      div.classList.add("selected");
-      selections[key] = name;
-      updateSummary();
-    };
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
-    container.appendChild(div);
-  });
+  if (brightness > 150) {
+    div.classList.add("light"); // light background → black checkmark
+  }
+
+  div.onclick = () => {
+    container.querySelectorAll(".color-swatch")
+      .forEach(c => c.classList.remove("selected"));
+
+    div.classList.add("selected");
+    selections[key] = name;
+    updateSummary();
+  };
+
+  container.appendChild(div);
+});
 }
 
 // SUMMARY
@@ -398,7 +413,7 @@ async function submitOrder() {
   });
 
   if (response.ok) {
-    alert("Order submitted. We’ll confirm details shortly.");
+    alert("Order submitted! We’ll confirm details with you once we have a chance to review your order.");
 
     document.getElementById("customerName").value = "";
     document.getElementById("customerEmail").value = "";
