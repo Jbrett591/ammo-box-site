@@ -46,6 +46,12 @@ h1, h2 {
   gap: 15px; 
 }
 
+  .color-grid {
+  grid-template-columns: repeat(auto-fill, 50px);
+  gap: 6px;
+  justify-content: center;
+}
+
 .card {
   border: 1px solid #333;
   padding: 10px;
@@ -164,10 +170,10 @@ button:hover {
 <!-- COLORS -->
 <div class="section">
   <h2>4. Box Color</h2>
-  <div class="grid" id="boxColor"></div>
+  <div class="grid color-grid" id="boxColor"></div>
 
   <h2>Text Color</h2>
-  <div class="grid" id="textColor"></div>
+  <div class="grid color-grid" id="textColor"></div>
 </div>
 
 <!-- NOTES -->
