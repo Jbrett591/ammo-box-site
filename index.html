@@ -78,12 +78,24 @@ h1, h2 {
   font-size: 16px;
   border-radius: 6px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .dropdown-input:focus {
   outline: none;
   border-color: #4caf50;
   box-shadow: 0 0 10px #4caf50;
+}
+
+.quantity-input {
+  width: 100%;
+  padding: 14px;
+  background: #1a1a1a;
+  color: #eee;
+  border: 1px solid #333;
+  font-size: 16px;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
 
 .color-swatch {
@@ -175,11 +187,42 @@ button:hover {
   background: #43a047;
 }
 
+.secondary-button {
+  background: #2d2d2d;
+  color: #eee;
+  border: 1px solid #444;
+}
+
+.secondary-button:hover {
+  background: #3a3a3a;
+}
+
+.remove-button {
+  background: #7a1f1f;
+  color: white;
+  margin-top: 8px;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.remove-button:hover {
+  background: #9b2929;
+}
+
 .summary {
   background: #1a1a1a;
   padding: 15px;
   margin-top: 20px;
   border: 1px solid #333;
+}
+
+.order-item {
+  border-bottom: 1px solid #333;
+  padding: 12px 0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
 }
 
 @media (max-width: 600px) {
@@ -223,7 +266,8 @@ button:hover {
   }
 
   .contact-input,
-  .dropdown-input {
+  .dropdown-input,
+  .quantity-input {
     font-size: 16px;
   }
 
@@ -280,24 +324,38 @@ button:hover {
   <div class="grid color-grid" id="textColor"></div>
 </div>
 
+<!-- QUANTITY -->
+<div class="section">
+  <h2>6. Quantity</h2>
+  <input id="quantity" class="quantity-input" type="number" min="1" value="1">
+</div>
+
+<!-- CURRENT BOX SUMMARY -->
+<div class="summary">
+  <strong>Current Box Configuration:</strong>
+  <div id="summaryText">Nothing selected</div>
+</div>
+
+<button type="button" onclick="addBoxToOrder()">Add Box to Order</button>
+
+<!-- ORDER CART -->
+<div class="summary">
+  <strong>Boxes in This Order:</strong>
+  <div id="orderList">No boxes added yet</div>
+</div>
+
 <!-- NOTES -->
 <div class="section">
-  <h2>6. Custom Notes</h2>
+  <h2>7. Custom Notes</h2>
   <textarea id="notes" name="Custom Notes" style="width:100%; height:80px;"></textarea>
 </div>
 
 <!-- CONTACT INFO -->
 <div class="section">
-  <h2>7. Contact Info</h2>
+  <h2>8. Contact Info</h2>
   <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
   <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
   <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
-</div>
-
-<!-- SUMMARY -->
-<div class="summary" id="summary">
-  <strong>Order Summary:</strong>
-  <div id="summaryText">Nothing selected</div>
 </div>
 
 <button type="button" onclick="submitOrder()">Submit Order</button>
@@ -416,6 +474,7 @@ const colors = {
 };
 
 const selections = {};
+const orderItems = [];
 
 // CATEGORY CARD HANDLER
 function selectHandler(container, key) {
@@ -550,9 +609,9 @@ function loadColors(id, key) {
   });
 }
 
-// SUMMARY
+// CURRENT BOX SUMMARY
 function updateSummary() {
-  const notes = document.getElementById("notes").value || "";
+  const quantity = document.getElementById("quantity").value || 1;
   const caliberLabel = selections.category === "Shotgun" ? "Gauge" : "Caliber";
 
   document.getElementById("summaryText").innerHTML = `
@@ -561,8 +620,107 @@ function updateSummary() {
     Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
     Box Color: ${selections.boxColor || "-"}<br>
     Text Color: ${selections.textColor || "-"}<br>
-    Notes: ${notes || "-"}
+    Quantity: ${quantity}
   `;
+}
+
+// ADD BOX TO ORDER
+function addBoxToOrder() {
+  const quantity = parseInt(document.getElementById("quantity").value, 10);
+
+  if (!selections.category || !selections.caliber || !selections.capacity) {
+    alert("Please select category, caliber/gauge, and capacity first.");
+    return;
+  }
+
+  if (!selections.boxColor || !selections.textColor) {
+    alert("Please select box color and text color first.");
+    return;
+  }
+
+  if (!quantity || quantity < 1) {
+    alert("Please enter a valid quantity.");
+    return;
+  }
+
+  orderItems.push({
+    quantity: quantity,
+    category: selections.category,
+    caliber: selections.caliber,
+    capacity: selections.capacity,
+    boxColor: selections.boxColor,
+    textColor: selections.textColor
+  });
+
+  updateOrderList();
+  resetCurrentBox();
+
+  document.getElementById("orderList").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+// UPDATE ORDER LIST
+function updateOrderList() {
+  const orderList = document.getElementById("orderList");
+
+  if (orderItems.length === 0) {
+    orderList.innerHTML = "No boxes added yet";
+    return;
+  }
+
+  orderList.innerHTML = orderItems.map((item, index) => `
+    <div class="order-item">
+      <strong>Box ${index + 1}</strong><br>
+      Quantity: ${item.quantity}<br>
+      Category: ${item.category}<br>
+      ${item.category === "Shotgun" ? "Gauge" : "Caliber"}: ${item.caliber}<br>
+      Capacity: ${item.capacity} rounds<br>
+      Box Color: ${item.boxColor}<br>
+      Text Color: ${item.textColor}<br>
+      <button type="button" class="remove-button" onclick="removeBox(${index})">Remove This Box</button>
+    </div>
+  `).join("");
+}
+
+// REMOVE BOX
+function removeBox(index) {
+  orderItems.splice(index, 1);
+  updateOrderList();
+}
+
+// RESET CURRENT BOX AFTER ADDING
+function resetCurrentBox() {
+  selections.category = "";
+  selections.caliber = "";
+  selections.capacity = "";
+  selections.boxColor = "";
+  selections.textColor = "";
+
+  document.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+  document.querySelectorAll(".color-swatch").forEach(c => c.classList.remove("selected"));
+
+  document.getElementById("caliberTitle").innerText = "2. Select Caliber";
+  document.getElementById("caliberSelect").innerHTML = `<option value="">Select a category first</option>`;
+  document.getElementById("capacitySelect").innerHTML = `<option value="">Select a caliber first</option>`;
+  document.getElementById("quantity").value = 1;
+
+  updateSummary();
+}
+
+// CREATE ORDER ID
+function createOrderId() {
+  const now = new Date();
+  const datePart = now.getFullYear().toString()
+    + String(now.getMonth() + 1).padStart(2, "0")
+    + String(now.getDate()).padStart(2, "0");
+
+  const timePart = String(now.getHours()).padStart(2, "0")
+    + String(now.getMinutes()).padStart(2, "0")
+    + String(now.getSeconds()).padStart(2, "0");
+
+  return "FB-" + datePart + "-" + timePart;
 }
 
 // SUBMIT
@@ -572,13 +730,8 @@ async function submitOrder() {
   const phone = document.getElementById("customerPhone").value.trim();
   const notes = document.getElementById("notes").value.trim();
 
-  if (!selections.category || !selections.caliber || !selections.capacity) {
-    alert("Please select a category, caliber/gauge, and capacity.");
-    return;
-  }
-
-  if (!selections.boxColor || !selections.textColor) {
-    alert("Please select a box color and text color.");
+  if (orderItems.length === 0) {
+    alert("Please add at least one box to the order before submitting.");
     return;
   }
 
@@ -587,17 +740,27 @@ async function submitOrder() {
     return;
   }
 
+  const orderId = createOrderId();
+
   const formData = new FormData();
+  formData.append("Order ID", orderId);
   formData.append("Customer Name", name);
   formData.append("Customer Email", email);
   formData.append("Phone", phone);
-  formData.append("Category", selections.category || "");
-  formData.append("Caliber", selections.caliber || "");
-  formData.append("Capacity", selections.capacity ? selections.capacity + " rounds" : "");
-  formData.append("Box Color", selections.boxColor || "");
-  formData.append("Text Color", selections.textColor || "");
   formData.append("Custom Notes", notes);
-  formData.append("_subject", "New ForgeBox Order - " + new Date().toLocaleString());
+  formData.append("Total Box Lines", orderItems.length);
+  formData.append("_subject", "New ForgeBox Order");
+
+  orderItems.forEach((item, index) => {
+    const boxNumber = index + 1;
+
+    formData.append(`Box ${boxNumber} Quantity`, item.quantity);
+    formData.append(`Box ${boxNumber} Category`, item.category);
+    formData.append(`Box ${boxNumber} Caliber/Gauge`, item.caliber);
+    formData.append(`Box ${boxNumber} Capacity`, item.capacity + " rounds");
+    formData.append(`Box ${boxNumber} Box Color`, item.boxColor);
+    formData.append(`Box ${boxNumber} Text Color`, item.textColor);
+  });
 
   const response = await fetch("https://formspree.io/f/xjgjjjkq", {
     method: "POST",
@@ -615,6 +778,10 @@ async function submitOrder() {
     document.getElementById("customerPhone").value = "";
     document.getElementById("notes").value = "";
 
+    orderItems.length = 0;
+    updateOrderList();
+    resetCurrentBox();
+
   } else {
     alert("Something went wrong. Please try again.");
   }
@@ -625,10 +792,8 @@ selectHandler(document.getElementById("category"), "category");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
-document.getElementById("notes").addEventListener("input", updateSummary);
+document.getElementById("quantity").addEventListener("input", updateSummary);
 </script>
 
 </body>
 </html>
-
-
