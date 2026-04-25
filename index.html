@@ -11,7 +11,7 @@
   margin-bottom: 30px;
 }
 
-  html {
+html {
   scroll-behavior: smooth;
 }
   
@@ -19,13 +19,6 @@
   max-width: 1000px;
   height: auto;
   margin-bottom: 10px;
-}
-
-.tagline {
-  color: #aaa;
-  font-size: 14px;
-  letter-spacing: 1px;
-  margin-top: -5px;
 }
 
 body {
@@ -51,7 +44,7 @@ h1, h2 {
   gap: 15px; 
 }
 
-  .color-grid {
+.color-grid {
   grid-template-columns: repeat(auto-fill, 50px);
   gap: 6px;
   justify-content: center;
@@ -76,8 +69,25 @@ h1, h2 {
   transform: scale(1.03);
 }
 
+.dropdown-input {
+  width: 100%;
+  padding: 14px;
+  background: #1a1a1a;
+  color: #eee;
+  border: 1px solid #333;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.dropdown-input:focus {
+  outline: none;
+  border-color: #4caf50;
+  box-shadow: 0 0 10px #4caf50;
+}
+
 .color-swatch {
-   width: 50px;
+  width: 50px;
   height: 50px;
   border: 1px solid #333;
   cursor: pointer;
@@ -87,10 +97,9 @@ h1, h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-
 }
 
-  .color-swatch::before {
+.color-swatch::before {
   content: attr(data-value);
   position: absolute;
   bottom: 58px;
@@ -112,15 +121,15 @@ h1, h2 {
   opacity: 1;
 }
   
-  .color-swatch:hover {
+.color-swatch:hover {
   transform: scale(1.08);
 }
   
-  .color-swatch.light::after {
+.color-swatch.light::after {
   color: black;
 }
 
-  .color-swatch::after {
+.color-swatch::after {
   content: "✔";
   color: white;
   font-size: 20px;
@@ -134,10 +143,9 @@ h1, h2 {
   transform: scale(1);
 }
 
-  .color-swatch.selected {
+.color-swatch.selected {
   border: 2px solid #4caf50 !important;
   box-shadow: 0 0 10px #4caf50;
-
 }
 
 input,
@@ -174,15 +182,14 @@ button:hover {
   border: 1px solid #333;
 }
 
-  @media (max-width: 600px) {
-  
+@media (max-width: 600px) {
   .section {
     margin-top: 20px;
   }
 
-    .summary {
+  .summary {
     font-size: 14px;
-    }
+  }
     
   body {
     padding: 10px;
@@ -196,7 +203,6 @@ button:hover {
     font-size: 18px;
   }
 
-  /* Cards (Pistol, Rifle, etc.) */
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -206,7 +212,6 @@ button:hover {
     font-size: 16px;
   }
 
-  /* Color swatches */
   .color-grid {
     grid-template-columns: repeat(auto-fill, 44px);
     gap: 6px;
@@ -217,8 +222,8 @@ button:hover {
     height: 44px;
   }
 
-  /* Inputs */
-  .contact-input {
+  .contact-input,
+  .dropdown-input {
     font-size: 16px;
   }
 
@@ -226,12 +231,10 @@ button:hover {
     font-size: 16px;
   }
 
-  /* Button */
   button {
     font-size: 18px;
     padding: 16px;
   }
-
 }
 </style>
 </head>
@@ -252,16 +255,20 @@ button:hover {
   </div>
 </div>
 
-<!-- CALIBER -->
+<!-- CALIBER / GAUGE -->
 <div class="section">
-  <h2>2. Select Caliber</h2>
-  <div class="grid" id="caliber"></div>
+  <h2 id="caliberTitle">2. Select Caliber</h2>
+  <select id="caliberSelect" class="dropdown-input">
+    <option value="">Select a category first</option>
+  </select>
 </div>
 
 <!-- CAPACITY -->
 <div class="section">
   <h2>3. Capacity</h2>
-  <div class="grid" id="capacity"></div>
+  <select id="capacitySelect" class="dropdown-input">
+    <option value="">Select a caliber first</option>
+  </select>
 </div>
 
 <!-- COLORS -->
@@ -410,7 +417,7 @@ const colors = {
 
 const selections = {};
 
-// GENERIC SELECT HANDLER
+// CATEGORY CARD HANDLER
 function selectHandler(container, key) {
   container.querySelectorAll(".card").forEach(card => {
     card.onclick = () => {
@@ -419,118 +426,138 @@ function selectHandler(container, key) {
 
       selections[key] = card.dataset.value;
 
-  if (key === "category") {
-  selections.caliber = "";
-  selections.capacity = "";
-  document.getElementById("capacity").innerHTML = "";
-  loadCalibers();
+      if (key === "category") {
+        selections.caliber = "";
+        selections.capacity = "";
 
-  document.getElementById("caliber").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
+        loadCalibers();
 
-if (key === "caliber") {
-  selections.capacity = "";
-  loadCapacity();
-
-  document.getElementById("capacity").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
-
-if (key === "capacity") {
-  document.getElementById("boxColor").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
+        document.getElementById("caliberSelect").scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }
 
       updateSummary();
     };
   });
 }
 
-// LOAD CALIBERS
+// LOAD CALIBERS INTO DROPDOWN
 function loadCalibers() {
-  const container = document.getElementById("caliber");
-  container.innerHTML = "";
+  const caliberSelect = document.getElementById("caliberSelect");
+  const capacitySelect = document.getElementById("capacitySelect");
+  const caliberTitle = document.getElementById("caliberTitle");
+
+  caliberSelect.innerHTML = "";
+  capacitySelect.innerHTML = "";
+
+  if (selections.category === "Shotgun") {
+    caliberTitle.innerText = "2. Select Gauge";
+    caliberSelect.innerHTML = `<option value="">Select gauge</option>`;
+  } else {
+    caliberTitle.innerText = "2. Select Caliber";
+    caliberSelect.innerHTML = `<option value="">Select caliber</option>`;
+  }
+
+  capacitySelect.innerHTML = `<option value="">Select caliber first</option>`;
 
   const calibers = Object.keys(products[selections.category] || {});
 
   calibers.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.dataset.value = c;
-    div.innerText = c;
-    container.appendChild(div);
+    const option = document.createElement("option");
+    option.value = c;
+    option.textContent = c;
+    caliberSelect.appendChild(option);
   });
-
-  selectHandler(container, "caliber");
 }
 
-// LOAD CAPACITY
+// LOAD CAPACITIES INTO DROPDOWN
 function loadCapacity() {
-  const container = document.getElementById("capacity");
-  container.innerHTML = "";
+  const capacitySelect = document.getElementById("capacitySelect");
+  capacitySelect.innerHTML = `<option value="">Select capacity</option>`;
+
+  if (!selections.category || !selections.caliber) return;
 
   const caps = products[selections.category][selections.caliber] || [];
 
   caps.forEach(c => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.dataset.value = c;
-    div.innerText = c + " rounds";
-    container.appendChild(div);
+    const option = document.createElement("option");
+    option.value = c;
+    option.textContent = c + " rounds";
+    capacitySelect.appendChild(option);
+  });
+}
+
+// CALIBER DROPDOWN CHANGE
+document.getElementById("caliberSelect").addEventListener("change", function() {
+  selections.caliber = this.value;
+  selections.capacity = "";
+
+  loadCapacity();
+
+  document.getElementById("capacitySelect").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
   });
 
-  selectHandler(container, "capacity");
-}
+  updateSummary();
+});
+
+// CAPACITY DROPDOWN CHANGE
+document.getElementById("capacitySelect").addEventListener("change", function() {
+  selections.capacity = this.value;
+
+  document.getElementById("boxColor").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+  updateSummary();
+});
 
 // LOAD COLORS
 function loadColors(id, key) {
   const container = document.getElementById(id);
 
- Object.entries(colors).forEach(([name, val]) => {
-  const div = document.createElement("div");
-  div.className = "color-swatch";
-  div.style.background = val;
-  div.dataset.value = name;
-  div.title = name;
+  Object.entries(colors).forEach(([name, val]) => {
+    const div = document.createElement("div");
+    div.className = "color-swatch";
+    div.style.background = val;
+    div.dataset.value = name;
+    div.title = name;
 
-  // detect light vs dark color
-  const r = parseInt(val.substr(1,2),16);
-  const g = parseInt(val.substr(3,2),16);
-  const b = parseInt(val.substr(5,2),16);
+    const r = parseInt(val.substr(1,2),16);
+    const g = parseInt(val.substr(3,2),16);
+    const b = parseInt(val.substr(5,2),16);
 
-  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
-  if (brightness > 150) {
-    div.classList.add("light"); // light background → black checkmark
-  }
+    if (brightness > 150) {
+      div.classList.add("light");
+    }
 
-  div.onclick = () => {
-    container.querySelectorAll(".color-swatch")
-      .forEach(c => c.classList.remove("selected"));
+    div.onclick = () => {
+      container.querySelectorAll(".color-swatch")
+        .forEach(c => c.classList.remove("selected"));
 
-    div.classList.add("selected");
-    selections[key] = name;
-    updateSummary();
-  };
+      div.classList.add("selected");
+      selections[key] = name;
+      updateSummary();
+    };
 
-  container.appendChild(div);
-});
+    container.appendChild(div);
+  });
 }
 
 // SUMMARY
 function updateSummary() {
   const notes = document.getElementById("notes").value || "";
+  const caliberLabel = selections.category === "Shotgun" ? "Gauge" : "Caliber";
 
   document.getElementById("summaryText").innerHTML = `
     Category: ${selections.category || "-"}<br>
-    Caliber: ${selections.caliber || "-"}<br>
+    ${caliberLabel}: ${selections.caliber || "-"}<br>
     Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
     Box Color: ${selections.boxColor || "-"}<br>
     Text Color: ${selections.textColor || "-"}<br>
@@ -546,7 +573,7 @@ async function submitOrder() {
   const notes = document.getElementById("notes").value.trim();
 
   if (!selections.category || !selections.caliber || !selections.capacity) {
-    alert("Please select a category, caliber, and capacity.");
+    alert("Please select a category, caliber/gauge, and capacity.");
     return;
   }
 
@@ -603,4 +630,5 @@ document.getElementById("notes").addEventListener("input", updateSummary);
 
 </body>
 </html>
+
 
