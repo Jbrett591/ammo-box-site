@@ -14,7 +14,7 @@
 html {
   scroll-behavior: smooth;
 }
-  
+
 .logo {
   max-width: 1000px;
   height: auto;
@@ -30,81 +30,63 @@ body {
   padding: 20px;
 }
 
-h1, h2 { 
-  text-align: center; 
+h1, h2 {
+  text-align: center;
 }
 
 .section {
   margin-top: 30px;
 }
 
-.grid {
+/* CATEGORY BUTTON GRID ONLY */
+.category-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
 }
 
-.grid button {
+.card {
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border: 1px solid #2a2a2a;
   color: #ddd;
-  padding: 14px 8px;
+  padding: 14px 6px;
+  text-align: center;
+  cursor: pointer;
   font-size: 14px;
   font-weight: 600;
   border-radius: 10px;
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
-  
-  /* subtle depth */
-  box-shadow: 
+  box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.05),
     0 3px 6px rgba(0,0,0,0.4);
 }
 
-/* 👆 Tap feedback */
-.grid button:active {
-  transform: scale(0.96);
-  box-shadow: 
-    inset 0 2px 4px rgba(0,0,0,0.6);
+.card:hover {
+  border-color: #444;
+  transform: translateY(-1px);
 }
 
-/* 🎯 Selected state (this is where it feels premium) */
-.grid button.selected {
+.card:active {
+  transform: scale(0.96);
+}
+
+.card.selected {
   background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
-  border: 1px solid #4CAF50;
+  border: 1px solid #4caf50 !important;
   color: #fff;
-  
   box-shadow:
-    0 0 0 1px #4CAF50,
-    0 0 10px rgba(76, 175, 80, 0.4),
+    0 0 0 1px #4caf50,
+    0 0 10px rgba(76,175,80,0.4),
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-/* ✨ Optional: subtle hover for desktop */
-@media (hover: hover) {
-  .grid button:hover {
-    border-color: #444;
-    transform: translateY(-1px);
-  }
-}
-
-.card {
-  border: 1px solid #333;
-  padding: 10px;
-  text-align: center;
-  cursor: pointer;
-  background: #1a1a1a;
-  transition: 0.2s;
-}
-
-.card:hover { 
-  border-color: #666; 
-}
-
-.selected {
-  border: 2px solid #4caf50 !important;
-  box-shadow: 0 0 10px #4caf50;
-  transform: scale(1.03);
+/* COLOR SWATCH GRID ONLY */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 50px);
+  justify-content: center;
+  gap: 12px;
 }
 
 .dropdown-input {
@@ -143,7 +125,7 @@ h1, h2 {
   cursor: pointer;
   transition: 0.2s;
   border-radius: 10px;
-  position: relative;   
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,11 +152,11 @@ h1, h2 {
 .color-swatch:hover::before {
   opacity: 1;
 }
-  
+
 .color-swatch:hover {
   transform: scale(1.08);
 }
-  
+
 .color-swatch.light::after {
   color: black;
 }
@@ -271,7 +253,7 @@ button:hover {
   .summary {
     font-size: 14px;
   }
-    
+
   body {
     padding: 10px;
   }
@@ -284,18 +266,19 @@ button:hover {
     font-size: 18px;
   }
 
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .category-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .card {
-    padding: 14px;
-    font-size: 16px;
+    padding: 14px 4px;
+    font-size: 14px;
   }
 
   .color-grid {
-    grid-template-columns: repeat(auto-fill, 44px);
-    gap: 6px;
+    grid-template-columns: repeat(auto-fit, 44px);
+    gap: 8px;
   }
 
   .color-swatch {
@@ -330,7 +313,7 @@ button:hover {
 <!-- CATEGORY -->
 <div class="section">
   <h2>1. Select Category</h2>
-  <div class="grid" id="category">
+  <div class="category-grid" id="category">
     <div class="card" data-value="Pistol">Pistol</div>
     <div class="card" data-value="Rifle">Rifle</div>
     <div class="card" data-value="Shotgun">Shotgun</div>
@@ -356,10 +339,10 @@ button:hover {
 <!-- COLORS -->
 <div class="section">
   <h2>4. Box Color</h2>
-  <div class="grid color-grid" id="boxColor"></div>
+  <div class="color-grid" id="boxColor"></div>
 
   <h2>5. Text Color</h2>
-  <div class="grid color-grid" id="textColor"></div>
+  <div class="color-grid" id="textColor"></div>
 </div>
 
 <!-- QUANTITY -->
@@ -368,498 +351,3 @@ button:hover {
   <input id="quantity" class="quantity-input" type="number" min="1" value="1">
 </div>
 
-<!-- CURRENT BOX SUMMARY -->
-<div class="summary">
-  <strong>Current Box Configuration:</strong>
-  <div id="summaryText">Nothing selected</div>
-</div>
-
-<button type="button" onclick="addBoxToOrder()">Add Box to Order</button>
-
-<!-- ORDER CART -->
-<div class="summary">
-  <strong>Boxes in This Order:</strong>
-  <div id="orderList">No boxes added yet</div>
-</div>
-
-<!-- NOTES -->
-<div class="section">
-  <h2>7. Custom Notes</h2>
-  <textarea id="notes" name="Custom Notes" style="width:100%; height:80px;"></textarea>
-</div>
-
-<!-- CONTACT INFO -->
-<div class="section">
-  <h2>8. Contact Info</h2>
-  <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
-  <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
-  <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
-</div>
-
-<button type="button" onclick="submitOrder()">Submit Order</button>
-
-<script>
-// PRODUCT DATA
-const products = {
-  Pistol: {
-    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
-    ".22 MAG": [50, 100, 250],
-    ".22 WMR": [50, 100, 250],
-    "9mm": [50, 66, 100, 102],
-    "10mm": [50, 105],
-    ".25 ACP": [50],
-    ".30 LUGER": [50],
-    ".32 ACP": [50],
-    ".32 S&W LONG": [50],
-    ".327 FEDERAL MAG": [50],
-    ".357 MAGNUM": [50, 66, 96, 102],
-    ".357 SIG": [50], 
-    ".380": [50, 66, 102],
-    ".38 SPECIAL": [50, 66, 96],
-    ".38 SPECIAL WADCUTTER": [50],
-    ".38 SUPER": [50],
-    ".38 TPC": [50],
-    ".40 S&W": [50, 105],
-    ".41 MAGNUM": [50],
-    ".44 MAGNUM": [50, 105],
-    ".45 ACP": [50, 66, 105],
-    ".45 LONG COLT": [50],
-    ".450 SMC": [50],
-    ".454 CASULL": [50],
-    "5.7x28": [50, 100],
-    ".50 AE": [50],
-    "7.62X25MM TOKAREV": [50]
-
-  },
-
-  Rifle: {
-    ".17 HMR": [50, 100],
-    ".17 HORNET": [50],
-    ".17 MACH 2": [100],
-    ".17 WSM": [50],
-    ".21 SHARP": [50, 100, 250],
-    ".218 BEE": [50],
-    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
-    ".22 MAG": [50, 100, 250],
-    ".22 ARC": [20, 50, 105],
-    ".22 CREEDMOOR": [20, 50],
-    ".22 HORNET": [50],
-    ".22 WMR": [50, 100, 250],
-    ".22 SHORT": [66, 100],
-    ".22-250 REM": [20, 50],
-    ".204 Ruger": [20, 50, 100],
-    ".220 SWIFT": [20],
-    ".222 REM": [20, 50],
-    ".222 REM MAG": [20, 50],
-    ".223 / 5.56": [20, 50, 60],
-    ".224 VALKYRIE": [20, 50],
-    ".243 WIN": [20, 25, 50],
-    "25-06": [20],
-    ".257 WEATHERBY": [20, 50],
-    ".270 WEATHERBY MAG": [20, 50],
-    ".270 WIN": [20, 50, 105],
-    ".270 WSM": [20, 50],
-    ".28 NOSLER": [20],
-    ".280 AI": [20],
-    ".280 REMINGTON": [20],
-    ".284 WIN": [20],
-    ".30 CARBINE": [50, 100],
-    "30-30 WIN": [20, 50],
-    "30-06": [20, 50],
-    ".300 Blackout": [20, 50, 60, 100],
-    ".300 PRC": [20, 50],
-    ".300 RUM": [20, 50],
-    ".300 WIN MAG": [20, 50],
-    ".300 WSM": [20, 50],
-    ".303 BRITISH": [20, 50],
-    ".308 WIN": [50, 105],
-    "32-20 WIN": [50, 102],
-    ".338 EDGE": [20, 50],
-    ".338 LAPUA": [20, 50],
-    ".338 NORMA": [20, 50],
-    ".338 RUM": [20],
-    ".338 WIN MAG": [20, 50],
-    ".340 WBY MAG": [20],
-    ".35 REM": [20],
-    ".35 WHELEN": [20, 50],
-    ".350 LEGEND": [20, 50],
-    ".357 H&H MAG": [20],
-    ".360 BUCKHAMMER": [20],
-    ".400 LEGEND": [20, 50],
-    ".444 MARLIN": [20],
-    ".45-120 SHARPS": [50],
-    "45-70 GOVT": [50],
-    ".45-90 SHARPS": [50],
-    ".450 BUSHMASTER": [20],
-    ".458 SOCOM": [20],
-    ".458 WIN MAG": [20, 50],
-    ".50 BEOWULF": [20],
-    "50 BMG": [10],
-    "5.45X39MM": [20, 50],
-    "5.7x28": [50, 100],
-    "6MM ARC": [20, 50, 105],
-    "6MM CREEDMOOR": [20, 50],
-    "6MM GT": [20, 50],
-    "6.5 GRENDEL": [20, 50, 105],
-    "6.5 CREEDMOOR": [20, 50, 105],
-    "6.5 PRC": [20, 50],
-    "6.5-300 WBY MAG": [20],
-    "6.5 CARCANO": [20],
-    "6.5X55 SWEDISH MAUSER": [20, 50],
-    "6.8 WESTERN": [20],
-    "6.8MM REM SPC": [20, 50],
-    "7.5X55MM SWISS": [50],
-    "7.62x39": [20, 50, 60, 105],
-    "7.62X51 NATO": [50],
-    "7.62X54R": [20]
-    
-    
-  },
-
-  Shotgun: {
-    ".410 2-1/2 inch": [25],
-    ".410 3 inch": [25],
-    "28 Gauge 3 inch": [25],
-    "20 Gauge 2-3/4 inch": [25],
-    "20 Gauge 3 inch": [25],
-    "16 Gauge 2-3/4 inch": [25],
-    "12 Gauge 2-3/4 inch": [10, 25],
-    "12 Gauge 3 inch": [10, 25],
-    "10 Gauge 3-1/2 inch": [25]
-  }
-};
-
-const colors = {
-  "Black": "#000000",
-  "OD Green": "#4b5320",
-  "FDE": "#c2b280",
-  "Gray": "#888888",
-  "White": "#f5f5f5",
-  "Red": "#b22222",
-  "Blue": "#1f4e79"
-};
-
-const selections = {};
-const orderItems = [];
-
-// CATEGORY CARD HANDLER
-function selectHandler(container, key) {
-  container.querySelectorAll(".card").forEach(card => {
-    card.onclick = () => {
-      container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
-      card.classList.add("selected");
-
-      selections[key] = card.dataset.value;
-
-      if (key === "category") {
-        selections.caliber = "";
-        selections.capacity = "";
-
-        loadCalibers();
-
-        document.getElementById("caliberSelect").scrollIntoView({
-          behavior: "smooth",
-          block: "center"
-        });
-      }
-
-      updateSummary();
-    };
-  });
-}
-
-// LOAD CALIBERS INTO DROPDOWN
-function loadCalibers() {
-  const caliberSelect = document.getElementById("caliberSelect");
-  const capacitySelect = document.getElementById("capacitySelect");
-  const caliberTitle = document.getElementById("caliberTitle");
-
-  caliberSelect.innerHTML = "";
-  capacitySelect.innerHTML = "";
-
-  if (selections.category === "Shotgun") {
-    caliberTitle.innerText = "2. Select Gauge";
-    caliberSelect.innerHTML = `<option value="">Select gauge</option>`;
-  } else {
-    caliberTitle.innerText = "2. Select Caliber";
-    caliberSelect.innerHTML = `<option value="">Select caliber</option>`;
-  }
-
-  capacitySelect.innerHTML = `<option value="">Select caliber first</option>`;
-
-  const calibers = Object.keys(products[selections.category] || {});
-
-  calibers.forEach(c => {
-    const option = document.createElement("option");
-    option.value = c;
-    option.textContent = c;
-    caliberSelect.appendChild(option);
-  });
-}
-
-// LOAD CAPACITIES INTO DROPDOWN
-function loadCapacity() {
-  const capacitySelect = document.getElementById("capacitySelect");
-  capacitySelect.innerHTML = `<option value="">Select capacity</option>`;
-
-  if (!selections.category || !selections.caliber) return;
-
-  const caps = products[selections.category][selections.caliber] || [];
-
-  caps.forEach(c => {
-    const option = document.createElement("option");
-    option.value = c;
-    option.textContent = c + " rounds";
-    capacitySelect.appendChild(option);
-  });
-}
-
-// CALIBER DROPDOWN CHANGE
-document.getElementById("caliberSelect").addEventListener("change", function() {
-  selections.caliber = this.value;
-  selections.capacity = "";
-
-  loadCapacity();
-
-  document.getElementById("capacitySelect").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-
-  updateSummary();
-});
-
-// CAPACITY DROPDOWN CHANGE
-document.getElementById("capacitySelect").addEventListener("change", function() {
-  selections.capacity = this.value;
-
-  document.getElementById("boxColor").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-
-  updateSummary();
-});
-
-// LOAD COLORS
-function loadColors(id, key) {
-  const container = document.getElementById(id);
-
-  Object.entries(colors).forEach(([name, val]) => {
-    const div = document.createElement("div");
-    div.className = "color-swatch";
-    div.style.background = val;
-    div.dataset.value = name;
-    div.title = name;
-
-    const r = parseInt(val.substr(1,2),16);
-    const g = parseInt(val.substr(3,2),16);
-    const b = parseInt(val.substr(5,2),16);
-
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
-    if (brightness > 150) {
-      div.classList.add("light");
-    }
-
-    div.onclick = () => {
-      container.querySelectorAll(".color-swatch")
-        .forEach(c => c.classList.remove("selected"));
-
-      div.classList.add("selected");
-      selections[key] = name;
-      updateSummary();
-    };
-
-    container.appendChild(div);
-  });
-}
-
-// CURRENT BOX SUMMARY
-function updateSummary() {
-  const quantity = document.getElementById("quantity").value || 1;
-  const caliberLabel = selections.category === "Shotgun" ? "Gauge" : "Caliber";
-
-  document.getElementById("summaryText").innerHTML = `
-    Category: ${selections.category || "-"}<br>
-    ${caliberLabel}: ${selections.caliber || "-"}<br>
-    Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
-    Box Color: ${selections.boxColor || "-"}<br>
-    Text Color: ${selections.textColor || "-"}<br>
-    Quantity: ${quantity}
-  `;
-}
-
-// ADD BOX TO ORDER
-function addBoxToOrder() {
-  const quantity = parseInt(document.getElementById("quantity").value, 10);
-
-  if (!selections.category || !selections.caliber || !selections.capacity) {
-    alert("Please select category, caliber/gauge, and capacity first.");
-    return;
-  }
-
-  if (!selections.boxColor || !selections.textColor) {
-    alert("Please select box color and text color first.");
-    return;
-  }
-
-  if (!quantity || quantity < 1) {
-    alert("Please enter a valid quantity.");
-    return;
-  }
-
-  orderItems.push({
-    quantity: quantity,
-    category: selections.category,
-    caliber: selections.caliber,
-    capacity: selections.capacity,
-    boxColor: selections.boxColor,
-    textColor: selections.textColor
-  });
-
-  updateOrderList();
-  resetCurrentBox();
-
-  document.getElementById("orderList").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
-
-// UPDATE ORDER LIST
-function updateOrderList() {
-  const orderList = document.getElementById("orderList");
-
-  if (orderItems.length === 0) {
-    orderList.innerHTML = "No boxes added yet";
-    return;
-  }
-
-  orderList.innerHTML = orderItems.map((item, index) => `
-    <div class="order-item">
-      <strong>Box ${index + 1}</strong><br>
-      Quantity: ${item.quantity}<br>
-      Category: ${item.category}<br>
-      ${item.category === "Shotgun" ? "Gauge" : "Caliber"}: ${item.caliber}<br>
-      Capacity: ${item.capacity} rounds<br>
-      Box Color: ${item.boxColor}<br>
-      Text Color: ${item.textColor}<br>
-      <button type="button" class="remove-button" onclick="removeBox(${index})">Remove This Box</button>
-    </div>
-  `).join("");
-}
-
-// REMOVE BOX
-function removeBox(index) {
-  orderItems.splice(index, 1);
-  updateOrderList();
-}
-
-// RESET CURRENT BOX AFTER ADDING
-function resetCurrentBox() {
-  selections.category = "";
-  selections.caliber = "";
-  selections.capacity = "";
-  selections.boxColor = "";
-  selections.textColor = "";
-
-  document.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
-  document.querySelectorAll(".color-swatch").forEach(c => c.classList.remove("selected"));
-
-  document.getElementById("caliberTitle").innerText = "2. Select Caliber";
-  document.getElementById("caliberSelect").innerHTML = `<option value="">Select a category first</option>`;
-  document.getElementById("capacitySelect").innerHTML = `<option value="">Select a caliber first</option>`;
-  document.getElementById("quantity").value = 1;
-
-  updateSummary();
-}
-
-// CREATE ORDER ID
-function createOrderId() {
-  const now = new Date();
-  const datePart = now.getFullYear().toString()
-    + String(now.getMonth() + 1).padStart(2, "0")
-    + String(now.getDate()).padStart(2, "0");
-
-  const timePart = String(now.getHours()).padStart(2, "0")
-    + String(now.getMinutes()).padStart(2, "0")
-    + String(now.getSeconds()).padStart(2, "0");
-
-  return "FB-" + datePart + "-" + timePart;
-}
-
-// SUBMIT
-async function submitOrder() {
-  const name = document.getElementById("customerName").value.trim();
-  const email = document.getElementById("customerEmail").value.trim();
-  const phone = document.getElementById("customerPhone").value.trim();
-  const notes = document.getElementById("notes").value.trim();
-
-  if (orderItems.length === 0) {
-    alert("Please add at least one box to the order before submitting.");
-    return;
-  }
-
-  if (!name || !email) {
-    alert("Please enter your name and email before submitting.");
-    return;
-  }
-
-  const orderId = createOrderId();
-
-  const formData = new FormData();
-  formData.append("Order ID", orderId);
-  formData.append("Customer Name", name);
-  formData.append("Customer Email", email);
-  formData.append("Phone", phone);
-  formData.append("Custom Notes", notes);
-  formData.append("Total Box Lines", orderItems.length);
-  formData.append("_subject", "New ForgeBox Order");
-
-  orderItems.forEach((item, index) => {
-    const boxNumber = index + 1;
-
-    formData.append(`Box ${boxNumber} Quantity`, item.quantity);
-    formData.append(`Box ${boxNumber} Category`, item.category);
-    formData.append(`Box ${boxNumber} Caliber/Gauge`, item.caliber);
-    formData.append(`Box ${boxNumber} Capacity`, item.capacity + " rounds");
-    formData.append(`Box ${boxNumber} Box Color`, item.boxColor);
-    formData.append(`Box ${boxNumber} Text Color`, item.textColor);
-  });
-
-  const response = await fetch("https://formspree.io/f/xjgjjjkq", {
-    method: "POST",
-    body: formData,
-    headers: {
-      "Accept": "application/json"
-    }
-  });
-
-  if (response.ok) {
-    alert("Order submitted! We’ll confirm details with you once we have a chance to review your order.");
-
-    document.getElementById("customerName").value = "";
-    document.getElementById("customerEmail").value = "";
-    document.getElementById("customerPhone").value = "";
-    document.getElementById("notes").value = "";
-
-    orderItems.length = 0;
-    updateOrderList();
-    resetCurrentBox();
-
-  } else {
-    alert("Something went wrong. Please try again.");
-  }
-}
-
-// INIT
-selectHandler(document.getElementById("category"), "category");
-loadColors("boxColor", "boxColor");
-loadColors("textColor", "textColor");
-
-document.getElementById("quantity").addEventListener("input", updateSummary);
-</script>
-
-</body>
-</html>
