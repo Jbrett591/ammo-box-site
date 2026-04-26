@@ -40,8 +40,21 @@ h1, h2 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 15px; 
+  gap: 15px;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .color-grid {
