@@ -339,7 +339,7 @@ button:active {
 @media (max-width: 600px) {
   body {
     padding: 10px;
-    padding-bottom: 95px;
+    padding-bottom: 155px;
   }
 
   .section {
@@ -362,20 +362,30 @@ button:active {
     position: fixed;
     left: 10px;
     right: 10px;
-    bottom: 8px;
+    bottom: 12px;
     top: auto;
     margin: 0;
-    padding: 10px;
+    padding: 8px 10px;
   }
 
   .price-amount {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1;
   }
 
-.price-detail {
-  font-size: 11px;
-  opacity: 0.8;
-}
+  .price-label {
+    font-size: 11px;
+  }
+
+  .price-breakdown {
+    font-size: 11px;
+    line-height: 1.2;
+    margin-top: 5px;
+  }
+
+  .price-detail {
+    display: none;
+  }
 
   .category-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -418,7 +428,7 @@ button:active {
 <div class="price-box" id="priceBox">
   <div class="price-label">Estimated Price</div>
   <div class="price-amount" id="priceAmount">$0</div>
-  <div class="price-detail">Includes dual-color print + dual color metallic bullet accent</div>
+  <div class="price-detail">Includes dual-color print + metallic caliber bullet accent</div>
   <div class="price-breakdown" id="priceBreakdown">Select a capacity to calculate price</div>
 </div>
 
@@ -487,7 +497,7 @@ button:active {
 <script>
 const products = {
   Pistol: {
-    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
+    ".22 LR": [50, 100, 250],
     ".22 MAG": [50, 100, 250],
     ".22 WMR": [50, 100, 250],
     "9MM": [50, 66, 100, 102],
@@ -498,7 +508,7 @@ const products = {
     ".32 ACP": [50],
     ".32 S&W LONG": [50],
     ".327 FEDERAL MAG": [50],
-    ".357 MAGNUM": [50, 66, 96, 102],
+    ".357 MAGNUM": [50, 102],
     ".357 SIG": [50],
     ".380": [50, 66, 102],
     ".38 SPECIAL": [50, 66, 96],
@@ -524,7 +534,7 @@ const products = {
     ".17 WSM": [50],
     ".21 SHARP": [50, 100, 250],
     ".218 BEE": [50],
-    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
+    ".22 LR": [50, 100, 250],
     ".22 MAG": [50, 100, 250],
     ".22 ARC": [20, 50, 105],
     ".22 CREEDMOOR": [20, 50],
@@ -536,7 +546,7 @@ const products = {
     ".220 SWIFT": [20],
     ".222 REM": [20, 50],
     ".222 REM MAG": [20, 50],
-    ".223 / 5.56": [20, 50, 60],
+    ".223 / 5.56": [20, 50, 100],
     ".224 VALKYRIE": [20, 50],
     ".243 WIN": [20, 25, 50],
     "25-06": [20],
@@ -551,7 +561,7 @@ const products = {
     ".30 CARBINE": [50, 100],
     "30-30 WIN": [20, 50],
     "30-06": [20, 50],
-    ".300 Blackout": [20, 50, 60, 100],
+    ".300 Blackout": [20, 50, 100],
     ".300 PRC": [20, 50],
     ".300 RUM": [20, 50],
     ".300 WIN MAG": [20, 50],
