@@ -62,6 +62,65 @@ h1, h2 {
   gap: 10px;
 }
 
+.toggle-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #0b0b0b;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,0.85),
+    0 4px 10px rgba(0,0,0,0.35);
+}
+
+.toggle-option {
+  background: linear-gradient(145deg, #1a1a1a, #101010);
+  border: 1px solid transparent;
+  color: #aaa;
+  padding: 13px 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 900;
+  border-radius: 10px;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.toggle-option:hover {
+  color: #fff;
+  border-color: #444;
+}
+
+.toggle-option.selected {
+  background:
+    linear-gradient(90deg, rgba(255,140,0,0.16), transparent 24%, transparent 76%, rgba(255,140,0,0.16)),
+    linear-gradient(145deg, #2b2b2b, #171717);
+  border-color: #4caf50;
+  color: #fff;
+  box-shadow:
+    0 0 0 1px #4caf50,
+    0 0 12px rgba(76,175,80,0.38),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.custom-text-panel {
+  display: none;
+  margin-top: 15px;
+}
+
+.helper-text {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: -3px;
+  text-align: center;
+}
+
 .card {
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border: 1px solid #2a2a2a;
@@ -468,6 +527,25 @@ button:active {
   <input id="quantity" class="quantity-input" type="number" min="1" value="1">
 </div>
 
+<div class="section">
+  <h2>7. Custom Text on Cover (+$5)</h2>
+  <div class="toggle-wrap" id="customTextChoice">
+    <div class="toggle-option selected" data-value="No">No</div>
+    <div class="toggle-option" data-value="Yes">Yes</div>
+  </div>
+
+  <div id="customTextInputContainer" class="custom-text-panel">
+    <input
+      id="customTextInput"
+      class="contact-input"
+      type="text"
+      placeholder="Enter cover text, e.g. DAD'S .380"
+      maxlength="25"
+    >
+    <div class="helper-text">Maximum 25 characters. Final layout will be confirmed before printing.</div>
+  </div>
+</div>
+
 <div class="summary">
   <strong>Current Box Configuration:</strong>
   <div id="summaryText">Nothing selected</div>
@@ -481,12 +559,12 @@ button:active {
 </div>
 
 <div class="section">
-  <h2>7. Custom Notes</h2>
-  <textarea id="notes" name="Custom Notes" style="width:100%; height:80px;"></textarea>
+  <h2>8. Order Notes</h2>
+  <textarea id="orderNotes" name="Order Notes" style="width:100%; height:80px;" placeholder="Optional: add any special instructions or questions for this order..."></textarea>
 </div>
 
 <div class="section">
-  <h2>8. Contact Info</h2>
+  <h2>9. Contact Info</h2>
   <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
   <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
   <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
@@ -497,7 +575,7 @@ button:active {
 <script>
 const products = {
   Pistol: {
-    ".22 LR": [50, 100, 250],
+    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
     ".22 MAG": [50, 100, 250],
     ".22 WMR": [50, 100, 250],
     "9MM": [50, 66, 100, 102],
@@ -508,7 +586,7 @@ const products = {
     ".32 ACP": [50],
     ".32 S&W LONG": [50],
     ".327 FEDERAL MAG": [50],
-    ".357 MAGNUM": [50, 102],
+    ".357 MAGNUM": [50, 66, 96, 102],
     ".357 SIG": [50],
     ".380": [50, 66, 102],
     ".38 SPECIAL": [50, 66, 96],
@@ -534,7 +612,7 @@ const products = {
     ".17 WSM": [50],
     ".21 SHARP": [50, 100, 250],
     ".218 BEE": [50],
-    ".22 LR": [50, 100, 250],
+    ".22 LR": [28, 50, 66, 100, 105, 120, 150, 250],
     ".22 MAG": [50, 100, 250],
     ".22 ARC": [20, 50, 105],
     ".22 CREEDMOOR": [20, 50],
@@ -546,7 +624,7 @@ const products = {
     ".220 SWIFT": [20],
     ".222 REM": [20, 50],
     ".222 REM MAG": [20, 50],
-    ".223 / 5.56": [20, 50, 100],
+    ".223 / 5.56": [20, 50, 60],
     ".224 VALKYRIE": [20, 50],
     ".243 WIN": [20, 25, 50],
     "25-06": [20],
@@ -561,7 +639,7 @@ const products = {
     ".30 CARBINE": [50, 100],
     "30-30 WIN": [20, 50],
     "30-06": [20, 50],
-    ".300 Blackout": [20, 50, 100],
+    ".300 Blackout": [20, 50, 60, 100],
     ".300 PRC": [20, 50],
     ".300 RUM": [20, 50],
     ".300 WIN MAG": [20, 50],
@@ -670,9 +748,9 @@ const selections = {};
 const orderItems = [];
 
 function selectHandler(container, key) {
-  container.querySelectorAll(".card").forEach(card => {
+  container.querySelectorAll(".card, .toggle-option").forEach(card => {
     card.onclick = () => {
-      container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+      container.querySelectorAll(".card, .toggle-option").forEach(c => c.classList.remove("selected"));
       card.classList.add("selected");
 
       selections[key] = card.dataset.value;
@@ -686,6 +764,10 @@ function selectHandler(container, key) {
           behavior: "smooth",
           block: "center"
         });
+      }
+
+      if (key === "customTextChoice") {
+        handleCustomTextUI();
       }
 
       updateSummary();
@@ -811,8 +893,24 @@ function getBasePrice(capacity) {
 }
 
 function hasCustomTextRequest() {
-  const notes = document.getElementById("notes").value.trim();
-  return notes.length > 0;
+  return selections.customTextChoice === "Yes";
+}
+
+function getCustomTextValue() {
+  return document.getElementById("customTextInput").value.trim();
+}
+
+function handleCustomTextUI() {
+  const container = document.getElementById("customTextInputContainer");
+
+  if (selections.customTextChoice === "Yes") {
+    container.style.display = "block";
+  } else {
+    container.style.display = "none";
+    document.getElementById("customTextInput").value = "";
+  }
+
+  updatePriceBox();
 }
 
 function getCurrentBoxPrice() {
@@ -866,7 +964,8 @@ function updateSummary() {
     Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
     Box Color: ${selections.boxColor || "-"}<br>
     Text Color: ${selections.textColor || "-"}<br>
-    Quantity: ${quantity}
+    Quantity: ${quantity}<br>
+    Custom Text on Cover: ${hasCustomTextRequest() ? "Yes (+$5)" : "No"}${getCustomTextValue() ? "<br>Cover Text: " + getCustomTextValue() : ""}
   `;
 
   updatePriceBox();
@@ -890,6 +989,11 @@ function addBoxToOrder() {
     return;
   }
 
+  if (hasCustomTextRequest() && !getCustomTextValue()) {
+    alert("Please enter the custom text for the cover, or select No for custom text.");
+    return;
+  }
+
   const price = getCurrentBoxPrice();
 
   orderItems.push({
@@ -900,6 +1004,7 @@ function addBoxToOrder() {
     boxColor: selections.boxColor,
     textColor: selections.textColor,
     customTextOnCover: hasCustomTextRequest() ? "Yes" : "No",
+    customTextValue: getCustomTextValue() || "None",
     unitPrice: price.singleBoxPrice,
     lineTotal: price.total
   });
@@ -935,6 +1040,7 @@ function updateOrderList() {
       Box Color: ${item.boxColor}<br>
       Text Color: ${item.textColor}<br>
       Custom Text on Cover: ${item.customTextOnCover}<br>
+      Cover Text: ${item.customTextValue}<br>
       Unit Price: $${item.unitPrice}<br>
       Line Total: $${item.lineTotal}<br>
       <button type="button" class="remove-button" onclick="removeBox(${index})">Remove This Box</button>
@@ -957,14 +1063,19 @@ function resetCurrentBox() {
   selections.capacity = "";
   selections.boxColor = "";
   selections.textColor = "";
+  selections.customTextChoice = "No";
 
   document.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+  document.querySelectorAll(".toggle-option").forEach(c => c.classList.remove("selected"));
+  document.querySelector('#customTextChoice .toggle-option[data-value="No"]').classList.add("selected");
   document.querySelectorAll(".color-swatch").forEach(c => c.classList.remove("selected"));
 
   document.getElementById("caliberTitle").innerText = "2. Select Caliber";
   document.getElementById("caliberSelect").innerHTML = `<option value="">Select a category first</option>`;
   document.getElementById("capacitySelect").innerHTML = `<option value="">Select a caliber first</option>`;
   document.getElementById("quantity").value = 1;
+  document.getElementById("customTextInput").value = "";
+  handleCustomTextUI();
 
   updateSummary();
 }
@@ -986,7 +1097,7 @@ async function submitOrder() {
   const name = document.getElementById("customerName").value.trim();
   const email = document.getElementById("customerEmail").value.trim();
   const phone = document.getElementById("customerPhone").value.trim();
-  const notes = document.getElementById("notes").value.trim();
+  const orderNotes = document.getElementById("orderNotes").value.trim();
 
   if (orderItems.length === 0) {
     alert("Please add at least one box to the order before submitting.");
@@ -1005,7 +1116,7 @@ async function submitOrder() {
   formData.append("Customer Name", name);
   formData.append("Customer Email", email);
   formData.append("Phone", phone);
-  formData.append("Custom Notes", notes);
+  formData.append("Order Notes", orderNotes);
   formData.append("Estimated Order Total", "$" + getOrderTotal());
   formData.append("Total Box Lines", orderItems.length);
   formData.append("_subject", "New ForgeBox Order");
@@ -1020,6 +1131,7 @@ async function submitOrder() {
     formData.append(`Box ${boxNumber} Box Color`, item.boxColor);
     formData.append(`Box ${boxNumber} Text Color`, item.textColor);
     formData.append(`Box ${boxNumber} Custom Text on Cover`, item.customTextOnCover);
+    formData.append(`Box ${boxNumber} Cover Text`, item.customTextValue);
     formData.append(`Box ${boxNumber} Unit Price`, "$" + item.unitPrice);
     formData.append(`Box ${boxNumber} Line Total`, "$" + item.lineTotal);
   });
@@ -1038,7 +1150,7 @@ async function submitOrder() {
     document.getElementById("customerName").value = "";
     document.getElementById("customerEmail").value = "";
     document.getElementById("customerPhone").value = "";
-    document.getElementById("notes").value = "";
+    document.getElementById("orderNotes").value = "";
 
     orderItems.length = 0;
     updateOrderList();
@@ -1048,13 +1160,16 @@ async function submitOrder() {
   }
 }
 
+selections.customTextChoice = "No";
+
 selectHandler(document.getElementById("category"), "category");
+selectHandler(document.getElementById("customTextChoice"), "customTextChoice");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
 updatePriceBox();
 document.getElementById("quantity").addEventListener("input", updateSummary);
-document.getElementById("notes").addEventListener("input", updatePriceBox);
+document.getElementById("customTextInput").addEventListener("input", updateSummary);
 </script>
 
 </body>
