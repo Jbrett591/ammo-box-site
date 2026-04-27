@@ -98,6 +98,51 @@ h1, h2 {
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+.price-box {
+  position: sticky;
+  top: 12px;
+  z-index: 50;
+  background:
+    linear-gradient(90deg, rgba(255,140,0,0.16), transparent 22%, transparent 78%, rgba(255,140,0,0.16)),
+    linear-gradient(145deg, #242424, #0d0d0d);
+  border: 1px solid #5a4630;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 18px 0 24px;
+  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    0 8px 20px rgba(0,0,0,0.7),
+    0 0 14px rgba(255,120,20,0.12);
+}
+
+.price-label {
+  font-size: 12px;
+  color: #c9b28a;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.price-amount {
+  font-size: 34px;
+  color: #4caf50;
+  font-weight: 900;
+  margin-top: 4px;
+}
+
+.price-detail {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 5px;
+}
+
+.price-breakdown {
+  font-size: 13px;
+  color: #ddd;
+  margin-top: 8px;
+}
+
 .color-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, 56px);
@@ -294,6 +339,7 @@ button:active {
 @media (max-width: 600px) {
   body {
     padding: 10px;
+    padding-bottom: 95px;
   }
 
   .section {
@@ -310,6 +356,24 @@ button:active {
 
   h2 {
     font-size: 18px;
+  }
+
+  .price-box {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: 8px;
+    top: auto;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .price-amount {
+    font-size: 28px;
+  }
+
+  .price-detail {
+    display: none;
   }
 
   .category-grid {
@@ -348,6 +412,13 @@ button:active {
   <div class="order-header">
     <img src="images/order-form-header.png" alt="Custom Ammo Box Order Form">
   </div>
+</div>
+
+<div class="price-box" id="priceBox">
+  <div class="price-label">Estimated Price</div>
+  <div class="price-amount" id="priceAmount">$0</div>
+  <div class="price-detail">Includes dual-color print + metallic caliber bullet accent</div>
+  <div class="price-breakdown" id="priceBreakdown">Select a capacity to calculate price</div>
 </div>
 
 <div class="section">
@@ -719,6 +790,61 @@ function loadColors(id, key) {
   });
 }
 
+function getBasePrice(capacity) {
+  const rounds = parseInt(capacity, 10);
+
+  if (!rounds) return 0;
+  if (rounds <= 30) return 20;
+  if (rounds <= 66) return 25;
+  return 30;
+}
+
+function hasCustomTextRequest() {
+  const notes = document.getElementById("notes").value.trim();
+  return notes.length > 0;
+}
+
+function getCurrentBoxPrice() {
+  const quantity = parseInt(document.getElementById("quantity").value, 10) || 1;
+  const basePrice = getBasePrice(selections.capacity);
+  const customTextPrice = hasCustomTextRequest() ? 5 : 0;
+  const singleBoxPrice = basePrice + customTextPrice;
+
+  return {
+    basePrice,
+    customTextPrice,
+    quantity,
+    singleBoxPrice,
+    total: singleBoxPrice * quantity
+  };
+}
+
+function updatePriceBox() {
+  const priceAmount = document.getElementById("priceAmount");
+  const priceBreakdown = document.getElementById("priceBreakdown");
+
+  if (!selections.capacity) {
+    priceAmount.textContent = "$0";
+    priceBreakdown.textContent = "Select a capacity to calculate price";
+    return;
+  }
+
+  const price = getCurrentBoxPrice();
+  priceAmount.textContent = "$" + price.total;
+
+  let breakdown = `Base box: $${price.basePrice}`;
+
+  if (price.customTextPrice > 0) {
+    breakdown += ` + Custom Text on Cover: $${price.customTextPrice}`;
+  }
+
+  if (price.quantity > 1) {
+    breakdown += ` × ${price.quantity}`;
+  }
+
+  priceBreakdown.textContent = breakdown;
+}
+
 function updateSummary() {
   const quantity = document.getElementById("quantity").value || 1;
   const caliberLabel = selections.category === "Shotgun" ? "Gauge" : "Caliber";
@@ -731,6 +857,8 @@ function updateSummary() {
     Text Color: ${selections.textColor || "-"}<br>
     Quantity: ${quantity}
   `;
+
+  updatePriceBox();
 }
 
 function addBoxToOrder() {
@@ -751,13 +879,18 @@ function addBoxToOrder() {
     return;
   }
 
+  const price = getCurrentBoxPrice();
+
   orderItems.push({
     quantity: quantity,
     category: selections.category,
     caliber: selections.caliber,
     capacity: selections.capacity,
     boxColor: selections.boxColor,
-    textColor: selections.textColor
+    textColor: selections.textColor,
+    customTextOnCover: hasCustomTextRequest() ? "Yes" : "No",
+    unitPrice: price.singleBoxPrice,
+    lineTotal: price.total
   });
 
   updateOrderList();
@@ -767,6 +900,10 @@ function addBoxToOrder() {
     behavior: "smooth",
     block: "center"
   });
+}
+
+function getOrderTotal() {
+  return orderItems.reduce((total, item) => total + item.lineTotal, 0);
 }
 
 function updateOrderList() {
@@ -786,9 +923,16 @@ function updateOrderList() {
       Capacity: ${item.capacity} rounds<br>
       Box Color: ${item.boxColor}<br>
       Text Color: ${item.textColor}<br>
+      Custom Text on Cover: ${item.customTextOnCover}<br>
+      Unit Price: $${item.unitPrice}<br>
+      Line Total: $${item.lineTotal}<br>
       <button type="button" class="remove-button" onclick="removeBox(${index})">Remove This Box</button>
     </div>
-  `).join("");
+  `).join("") + `
+    <div class="order-item">
+      <strong>Estimated Order Total: $${getOrderTotal()}</strong>
+    </div>
+  `;
 }
 
 function removeBox(index) {
@@ -851,6 +995,7 @@ async function submitOrder() {
   formData.append("Customer Email", email);
   formData.append("Phone", phone);
   formData.append("Custom Notes", notes);
+  formData.append("Estimated Order Total", "$" + getOrderTotal());
   formData.append("Total Box Lines", orderItems.length);
   formData.append("_subject", "New ForgeBox Order");
 
@@ -863,6 +1008,9 @@ async function submitOrder() {
     formData.append(`Box ${boxNumber} Capacity`, item.capacity + " rounds");
     formData.append(`Box ${boxNumber} Box Color`, item.boxColor);
     formData.append(`Box ${boxNumber} Text Color`, item.textColor);
+    formData.append(`Box ${boxNumber} Custom Text on Cover`, item.customTextOnCover);
+    formData.append(`Box ${boxNumber} Unit Price`, "$" + item.unitPrice);
+    formData.append(`Box ${boxNumber} Line Total`, "$" + item.lineTotal);
   });
 
   const response = await fetch("https://formspree.io/f/xjgjjjkq", {
@@ -893,7 +1041,9 @@ selectHandler(document.getElementById("category"), "category");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
+updatePriceBox();
 document.getElementById("quantity").addEventListener("input", updateSummary);
+document.getElementById("notes").addEventListener("input", updatePriceBox);
 </script>
 
 </body>
