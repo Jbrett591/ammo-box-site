@@ -133,14 +133,17 @@ h1, h2 {
 
 #previewText {
   position: absolute;
-  top: 12%;
+  top: 10%;                /* move into the panel */
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  width: 80%;              /* keeps text centered nicely */
+  
   font-weight: 900;
   color: #ddd;
   font-size: 18px;
   letter-spacing: 1px;
   text-align: center;
+  
   pointer-events: none;
 }
 
