@@ -1417,6 +1417,12 @@ function updateOrderList() {
 }
 
 function removeBox(index) {
+  const confirmRemove = confirm("Are you sure you want to remove this box from the order?");
+
+  if (!confirmRemove) {
+    return;
+  }
+
   orderItems.splice(index, 1);
   updateOrderList();
 }
