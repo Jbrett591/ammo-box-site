@@ -354,7 +354,29 @@ h1, h2 {
   display: block;
   margin: 0 auto;
   border-radius: 14px;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    filter 0.22s ease;
 }
+
+.box-color-preview img.is-changing {
+  opacity: 0;
+  transform: scale(0.985);
+  filter: blur(2px);
+}
+
+#boxColorPreviewLabel {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+#boxColorPreviewLabel.is-changing {
+  opacity: 0;
+  transform: translateY(4px);
+}  
+
 
 .preview-title {
   color: #bbb;
@@ -1012,7 +1034,7 @@ div.onclick = () => {
   });
 }
 
-  function updateBoxColorPreview(colorName) {
+function updateBoxColorPreview(colorName) {
   const color = colors.find(c => c.name === colorName);
   if (!color) return;
 
@@ -1021,9 +1043,19 @@ div.onclick = () => {
 
   if (!previewImg || !previewLabel) return;
 
-  previewImg.src = color.image;
-  previewImg.alt = `${color.name} box color preview`;
-  previewLabel.textContent = color.name;
+  previewImg.classList.add("is-changing");
+  previewLabel.classList.add("is-changing");
+
+  setTimeout(() => {
+    previewImg.src = color.image;
+    previewImg.alt = `${color.name} box color preview`;
+    previewLabel.textContent = color.name;
+
+    previewImg.onload = () => {
+      previewImg.classList.remove("is-changing");
+      previewLabel.classList.remove("is-changing");
+    };
+  }, 140);
 }
 
 function getBasePrice(capacity) {
