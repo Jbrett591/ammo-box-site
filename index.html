@@ -336,6 +336,45 @@ h1, h2 {
     0 0 14px rgba(76,175,80,0.65);
 }
 
+.box-color-preview {
+  margin: 24px auto 0;
+  max-width: 520px;
+  text-align: center;
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  border: 1px solid #333;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+}
+
+.box-color-preview img {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+.preview-title {
+  color: #bbb;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+
+#boxColorPreviewLabel {
+  color: #fff;
+  font-weight: bold;
+  margin: 12px 0 0;
+  font-size: 18px;
+}
+
+  #boxColorOptions {
+  margin-bottom: 10px;
+}
+  
 .dropdown-input,
 .quantity-input {
   width: 100%;
@@ -588,6 +627,12 @@ button:active {
   <h2>4. Box Color</h2>
   <div class="color-grid" id="boxColor"></div>
 
+  <div id="boxColorPreviewWrap" class="box-color-preview">
+  <p class="preview-title">Selected Box Color Preview</p>
+  <img id="boxColorPreview" src="images/box-blue.png" alt="Selected box color preview">
+  <p id="boxColorPreviewLabel">Blue</p>
+</div>
+
   <h2>5. Text Color</h2>
   <div class="color-grid" id="textColor"></div>
 </div>
@@ -793,34 +838,34 @@ const products = {
 };
 
 const colors = [
-  { name: "White", hex: "#FFFFFF" },
-  { name: "Silver", hex: "#A6A9AA" },
-  { name: "Gray", hex: "#8E9089" },
-  { name: "Ash Gray", hex: "#9B9EA0" },
-  { name: "Black", hex: "#000000" },
+  { name: "White", hex: "#FFFFFF", image: "images/box-white.png" },
+  { name: "Silver", hex: "#A6A9AA", image: "images/box-silver.png" },
+  { name: "Gray", hex: "#8E9089", image: "images/box-gray.png" },
+  { name: "Ash Gray", hex: "#9B9EA0", image: "images/box-ash-gray.png" },
+  { name: "Black", hex: "#000000", image: "images/box-black.png" },
 
-  { name: "Hot Pink", hex: "#F5547C" },
-  { name: "Lilac Purple", hex: "#AE96D4" },
+  { name: "Hot Pink", hex: "#F5547C", image: "images/box-hot-pink.png" },
+  { name: "Lilac Purple", hex: "#AE96D4", image: "images/box-lilac-purple.png" },
 
-  { name: "Pumpkin Orange", hex: "#FF9016" },
-  { name: "Mandarin Orange", hex: "#F99963" },
-  { name: "Sunflower Yellow", hex: "#FEC600" },
+  { name: "Pumpkin Orange", hex: "#FF9016", image: "images/box-pumpkin-orange.png" },
+  { name: "Mandarin Orange", hex: "#F99963", image: "images/box-mandarin-orange.png" },
+  { name: "Sunflower Yellow", hex: "#FEC600", image: "images/box-sunflower-yellow.png" },
 
-  { name: "Scarlet Red", hex: "#DE4343" },
+  { name: "Scarlet Red", hex: "#DE4343", image: "images/box-scarlet-red.png" },
 
-  { name: "Green", hex: "#00AE42" },
-  { name: "Dark Green", hex: "#68724D" },
+  { name: "Green", hex: "#00AE42", image: "images/box-green.png" },
+  { name: "Dark Green", hex: "#68724D", image: "images/box-dark-green.png" },
 
-  { name: "Turquoise", hex: "#00B1B7" },
-  { name: "Cyan", hex: "#0086D6" },
-  { name: "Blue", hex: "#0A2989" },
-  { name: "Cobalt Blue", hex: "#0056B8" },
-  { name: "Ice Blue", hex: "#A3D8E1" },
-  { name: "Dark Blue", hex: "#042F56" },
+  { name: "Turquoise", hex: "#00B1B7", image: "images/box-turquoise.png" },
+  { name: "Cyan", hex: "#0086D6", image: "images/box-cyan.png" },
+  { name: "Blue", hex: "#0A2989", image: "images/box-blue.png" },
+  { name: "Cobalt Blue", hex: "#0056B8", image: "images/box-cobalt-blue.png" },
+  { name: "Ice Blue", hex: "#A3D8E1", image: "images/box-ice-blue.png" },
+  { name: "Dark Blue", hex: "#042F56", image: "images/box-dark-blue.png" },
 
-  { name: "Bronze", hex: "#847D48" },
-  { name: "Latte Brown", hex: "#D3B7A7" },
-  { name: "Dark Brown", hex: "#7D6556" }
+  { name: "Bronze", hex: "#847D48", image: "images/box-bronze.png" },
+  { name: "Latte Brown", hex: "#D3B7A7", image: "images/box-latte-brown.png" },
+  { name: "Dark Brown", hex: "#7D6556", image: "images/box-dark-brown.png" }
 ];
 
 const selections = {};
@@ -948,15 +993,20 @@ function loadColors(id, key) {
       div.classList.add("light");
     }
 
-    div.onclick = () => {
-      container.querySelectorAll(".color-swatch").forEach(c => {
-        c.classList.remove("selected");
-      });
+div.onclick = () => {
+  container.querySelectorAll(".color-swatch").forEach(c => {
+    c.classList.remove("selected");
+  });
 
-      div.classList.add("selected");
-      selections[key] = color.name;
-      updateSummary();
-    };
+  div.classList.add("selected");
+  selections[key] = color.name;
+
+  if (key === "boxColor") {
+    updateBoxColorPreview(color.name);
+  }
+
+  updateSummary();
+};
 
     container.appendChild(div);
   });
