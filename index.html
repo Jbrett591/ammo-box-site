@@ -621,6 +621,28 @@ button:active {
   white-space: normal;
 }
 
+  .color-swatch.show-tooltip::before {
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 150px;
+  max-width: 150px;
+  white-space: normal;
+}
+
+/* Left-edge swatches */
+.color-grid .color-swatch:nth-child(6n + 1).show-tooltip::before {
+  left: 0;
+  transform: translateX(0);
+}
+
+/* Right-edge swatches */
+.color-grid .color-swatch:nth-child(6n).show-tooltip::before {
+  left: auto;
+  right: 0;
+  transform: translateX(0);
+}
+
   button {
     font-size: 18px;
     padding: 16px;
