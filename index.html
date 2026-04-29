@@ -529,6 +529,19 @@ button:active {
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
+  .cart-summary {
+  text-align: center;
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 10px;
+}
+
+#cartCount {
+  color: #4caf50;
+  font-weight: 900;
+  margin-left: 4px;
+}
+
   .cart-count.bump {
   animation: cartBump 0.35s ease;
 }
@@ -798,8 +811,12 @@ button.success {
   <div id="summaryText">Nothing selected</div>
 </div>
 
+<div id="cartSummary" class="cart-summary">
+  Boxes in Order: <span id="cartCount">0</span>
+</div>
+  
 <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
-  Add Box to Order <span id="cartCount" class="cart-count">0</span>
+  Add Box to Order
 </button>
 
 <div class="summary">
