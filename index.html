@@ -1059,7 +1059,7 @@ function loadColors(id, key) {
         });
 
         div.dataset.originalValue = div.getAttribute("data-value");
-        div.setAttribute("data-value", "Low contrast — choose a different color");
+        div.setAttribute("data-value", "Box Color and Text color cannot be the same. ");
         div.classList.add("blocked", "show-tooltip");
 
         return;
