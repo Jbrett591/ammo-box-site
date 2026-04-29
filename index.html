@@ -679,6 +679,7 @@ button:active {
   button {
     font-size: 18px;
     padding: 16px;
+  }
 
 .cart-count {
   display: inline-flex;
@@ -1354,15 +1355,14 @@ const btn = document.getElementById("addBoxBtn");
 
 if (btn) {
   btn.classList.remove("success");
-  void btn.offsetWidth; // re-trigger animation
+  void btn.offsetWidth;
 
   btn.classList.add("success");
-
-  btn.innerHTML = `Added ✓ <span id="cartCount" class="cart-count">${orderItems.length}</span>`;
+  btn.textContent = "Added ✓";
 
   setTimeout(() => {
     btn.classList.remove("success");
-    btn.innerHTML = `Add Box to Order <span id="cartCount" class="cart-count">${orderItems.length}</span>`;
+    btn.textContent = "Add Box to Order";
   }, 1200);
 }
 }
@@ -1373,9 +1373,15 @@ function getOrderTotal() {
 
 function updateOrderList() {
   const orderList = document.getElementById("orderList");
+  const cartCount = document.getElementById("cartCount");
 
-if (cartCount) {
-  cartCount.textContent = orderItems.length;
+  if (cartCount) {
+    cartCount.textContent = orderItems.length;
+
+    cartCount.classList.remove("bump");
+    void cartCount.offsetWidth;
+    cartCount.classList.add("bump");
+  }
 
     // trigger bounce
   cartCount.classList.remove("bump");
