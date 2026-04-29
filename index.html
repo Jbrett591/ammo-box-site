@@ -1012,6 +1012,20 @@ div.onclick = () => {
   });
 }
 
+  function updateBoxColorPreview(colorName) {
+  const color = colors.find(c => c.name === colorName);
+  if (!color) return;
+
+  const previewImg = document.getElementById("boxColorPreview");
+  const previewLabel = document.getElementById("boxColorPreviewLabel");
+
+  if (!previewImg || !previewLabel) return;
+
+  previewImg.src = color.image;
+  previewImg.alt = `${color.name} box color preview`;
+  previewLabel.textContent = color.name;
+}
+
 function getBasePrice(capacity) {
   const rounds = parseInt(capacity, 10);
 
