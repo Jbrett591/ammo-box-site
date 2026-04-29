@@ -1031,19 +1031,30 @@ function loadColors(id, key) {
 
 div.onclick = () => {
 
-  // 🚫 Prevent same color selection
-  if (
-    (key === "textColor" && selections.boxColor === color.name) ||
-    (key === "boxColor" && selections.textColor === color.name)
-  ) {
-    div.classList.add("blocked");
+if (
+  (key === "textColor" && selections.boxColor === color.name) ||
+  (key === "boxColor" && selections.textColor === color.name)
+) {
+  // 🎯 Visual feedback (keep this)
+  div.classList.add("blocked");
 
-    setTimeout(() => {
-      div.classList.remove("blocked");
-    }, 400);
+  setTimeout(() => {
+    div.classList.remove("blocked");
+  }, 400);
 
-    return;
-  }
+  // 💬 Tooltip message (add this)
+  const original = div.getAttribute("data-value");
+
+  div.setAttribute("data-value", "Box Color and Text Color can not be the same.");
+  div.classList.add("show-tooltip");
+
+  setTimeout(() => {
+    div.setAttribute("data-value", original);
+    div.classList.remove("show-tooltip");
+  }, 900);
+
+  return;
+}
 
   container.querySelectorAll(".color-swatch").forEach(c => {
     c.classList.remove("selected");
