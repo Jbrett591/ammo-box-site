@@ -308,6 +308,10 @@ h1, h2 {
   opacity: 1;
 }
 
+  .color-swatch.show-tooltip::before {
+  opacity: 1;
+}
+
 .color-swatch:hover {
   transform: scale(1.08);
 }
@@ -1039,54 +1043,54 @@ function loadColors(id, key) {
       div.classList.add("light");
     }
 
-div.onclick = () => {
+    div.onclick = () => {
 
-  if (
-    (key === "textColor" && selections.boxColor === color.name) ||
-    (key === "boxColor" && selections.textColor === color.name)
-  ) {
-    container.querySelectorAll(".color-swatch").forEach(swatch => {
-      if (swatch.dataset.originalValue) {
-        swatch.setAttribute("data-value", swatch.dataset.originalValue);
-        delete swatch.dataset.originalValue;
+      if (
+        (key === "textColor" && selections.boxColor === color.name) ||
+        (key === "boxColor" && selections.textColor === color.name)
+      ) {
+        container.querySelectorAll(".color-swatch").forEach(swatch => {
+          if (swatch.dataset.originalValue) {
+            swatch.setAttribute("data-value", swatch.dataset.originalValue);
+            delete swatch.dataset.originalValue;
+          }
+
+          swatch.classList.remove("show-tooltip", "blocked");
+        });
+
+        div.dataset.originalValue = div.getAttribute("data-value");
+        div.setAttribute("data-value", "Low contrast — choose a different color");
+        div.classList.add("blocked", "show-tooltip");
+
+        return;
       }
 
-      swatch.classList.remove("show-tooltip", "blocked");
-    });
+      container.querySelectorAll(".color-swatch").forEach(swatch => {
+        if (swatch.dataset.originalValue) {
+          swatch.setAttribute("data-value", swatch.dataset.originalValue);
+          delete swatch.dataset.originalValue;
+        }
 
-    div.dataset.originalValue = div.getAttribute("data-value");
-    div.setAttribute("data-value", "Low contrast — choose a different color");
-    div.classList.add("blocked", "show-tooltip");
+        swatch.classList.remove("show-tooltip", "blocked");
+      });
 
-    return;
-  }
+      container.querySelectorAll(".color-swatch").forEach(c => {
+        c.classList.remove("selected");
+      });
 
-  // Clear warning tooltip when a valid color is selected
-  container.querySelectorAll(".color-swatch").forEach(swatch => {
-    if (swatch.dataset.originalValue) {
-      swatch.setAttribute("data-value", swatch.dataset.originalValue);
-      delete swatch.dataset.originalValue;
-    }
+      div.classList.add("selected");
+      selections[key] = color.name;
 
-    swatch.classList.remove("show-tooltip", "blocked");
+      if (key === "boxColor") {
+        updateBoxColorPreview(color.name);
+      }
+
+      updateSummary();
+    };
+
+    container.appendChild(div);
   });
-
-  container.querySelectorAll(".color-swatch").forEach(c => {
-    c.classList.remove("selected");
-  });
-
-  div.classList.add("selected");
-  selections[key] = color.name;
-
-  if (key === "boxColor") {
-    updateBoxColorPreview(color.name);
-  }
-
-  updateSummary();
-};
-
-container.appendChild(div);
-
+}
 function updateBoxColorPreview(colorName) {
   const color = colors.find(c => c.name === colorName);
   if (!color) return;
