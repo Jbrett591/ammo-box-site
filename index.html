@@ -336,6 +336,20 @@ h1, h2 {
     0 0 14px rgba(76,175,80,0.65);
 }
 
+  .color-swatch.blocked {
+  animation: shake 0.3s;
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
 .box-color-preview {
   margin: 24px auto 0;
   max-width: 520px;
@@ -1016,6 +1030,21 @@ function loadColors(id, key) {
     }
 
 div.onclick = () => {
+
+  // 🚫 Prevent same color selection
+  if (
+    (key === "textColor" && selections.boxColor === color.name) ||
+    (key === "boxColor" && selections.textColor === color.name)
+  ) {
+    div.classList.add("blocked");
+
+    setTimeout(() => {
+      div.classList.remove("blocked");
+    }, 400);
+
+    return;
+  }
+
   container.querySelectorAll(".color-swatch").forEach(c => {
     c.classList.remove("selected");
   });
