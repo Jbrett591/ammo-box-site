@@ -519,6 +519,16 @@ button:active {
   border-color: #b13a3a;
 }
 
+  button.success {
+  background: linear-gradient(145deg, #1f3d1f, #0b1f0b);
+  border-color: #4caf50;
+  color: #d4ffd4;
+  box-shadow:
+    0 0 0 1px #4caf50,
+    0 0 12px rgba(76,175,80,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
 .summary {
   background: #1a1a1a;
   padding: 15px;
@@ -646,6 +656,38 @@ button:active {
   button {
     font-size: 18px;
     padding: 16px;
+
+    .cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  margin-left: 8px;
+  padding: 0 6px;
+  background: #4caf50;
+  color: #071507;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+button.success {
+  animation: addPulse 0.45s ease;
+  background: linear-gradient(145deg, #1f3d1f, #0b1f0b);
+  border-color: #4caf50;
+  color: #d4ffd4;
+  box-shadow:
+    0 0 0 1px #4caf50,
+    0 0 16px rgba(76,175,80,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+@keyframes addPulse {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.025); }
+  100% { transform: scale(1); }
+}
   }
 }
 </style>
@@ -743,7 +785,9 @@ button:active {
   <div id="summaryText">Nothing selected</div>
 </div>
 
-<button type="button" onclick="addBoxToOrder()">Add Box to Order</button>
+<button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
+  Add Box to Order <span id="cartCount" class="cart-count">0</span>
+</button>
 
 <div class="summary">
   <strong>Boxes in This Order:</strong>
@@ -1275,10 +1319,22 @@ function addBoxToOrder() {
   updateOrderList();
   resetCurrentBox();
 
-  document.getElementById("orderList").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
+// 🎉 Success feedback
+const btn = document.getElementById("addBoxBtn");
+
+if (btn) {
+  btn.classList.remove("success");
+  void btn.offsetWidth; // re-trigger animation
+
+  btn.classList.add("success");
+
+  btn.innerHTML = `Added ✓ <span id="cartCount" class="cart-count">${orderItems.length}</span>`;
+
+  setTimeout(() => {
+    btn.classList.remove("success");
+    btn.innerHTML = `Add Box to Order <span id="cartCount" class="cart-count">${orderItems.length}</span>`;
+  }, 1200);
+}
 }
 
 function getOrderTotal() {
@@ -1287,6 +1343,10 @@ function getOrderTotal() {
 
 function updateOrderList() {
   const orderList = document.getElementById("orderList");
+
+if (cartCount) {
+  cartCount.textContent = orderItems.length;
+}
 
   if (orderItems.length === 0) {
     orderList.innerHTML = "No boxes added yet";
