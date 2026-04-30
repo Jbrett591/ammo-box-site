@@ -839,6 +839,8 @@ button.success {
 
 <button type="button" onclick="submitOrder()">Submit Order</button>
 
+  <script src="forgebox-sku-pricing-full.js"></script>
+
 <script>
 const products = {
   Pistol: {
@@ -1213,13 +1215,14 @@ function updateBoxColorPreview(colorName) {
   }, 140);
 }
 
-function getBasePrice(capacity) {
-  const rounds = parseInt(capacity, 10);
+function getBasePrice() {
+  if (!selections.category || !selections.caliber || !selections.capacity) return 0;
 
-  if (!rounds) return 0;
-  if (rounds <= 30) return 20;
-  if (rounds <= 66) return 25;
-  return 30;
+  return getSkuPrice(
+    selections.category,
+    selections.caliber,
+    selections.capacity
+  );
 }
 
 function hasCustomTextRequest() {
@@ -1245,7 +1248,7 @@ function handleCustomTextUI() {
 
 function getCurrentBoxPrice() {
   const quantity = parseInt(document.getElementById("quantity").value, 10) || 1;
-  const basePrice = getBasePrice(selections.capacity);
+  const basePrice = getBasePrice();
   const customTextPrice = hasCustomTextRequest() ? 5 : 0;
   const singleBoxPrice = basePrice + customTextPrice;
 
