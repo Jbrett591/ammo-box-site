@@ -726,12 +726,18 @@ button.success {
   <img src="images/forgebox logo.webp" class="logo" alt="ForgeBox Co. logo" decoding="async">
 
   <div class="order-header">
-    <img src="images/order-form-header.png" alt="Custom Ammo Box Order Form">
+    <img src="images/order-form-header.webp" alt="Custom Ammo Box Order Form"  
+  loading="eager"
+  fetchpriority="high"
+  decoding="async">
   </div>
 </div>
 
   <div class="hero-shot">
-  <img src="images/hero-ammo-box.png" alt="Custom .357 Magnum ammo box with loose rounds">
+  <img src="images/hero-ammo-box.webp" alt="Custom .357 Magnum ammo box with loose rounds">
+     loading="eager"
+  fetchpriority="high"
+  decoding="async">
 </div>
 
 <div class="price-box" id="priceBox">
@@ -770,8 +776,10 @@ button.success {
 
   <div id="boxColorPreviewWrap" class="box-color-preview">
   <p class="preview-title">Selected Box Color Preview</p>
-  <img id="boxColorPreview" src="images/box-blue.png" alt="Selected box color preview">
-  <p id="boxColorPreviewLabel">Blue</p>
+  <img id="boxColorPreview" src="images/box-ash-gray.webp" alt="Selected box color preview">
+     loading="lazy"
+  decoding="async">
+  <p id="boxColorPreviewLabel">Ash Gray</p>
 </div>
 
   <h2>5. Text Color</h2>
@@ -803,7 +811,9 @@ button.success {
 </div>
 
   <div class="preview-container">
-  <img src="images/custom-text-preview.png" class="preview-image">
+  <img src="images/custom-text-preview.webp" class="preview-image">
+     loading="lazy"
+  decoding="async">
   <div id="previewText">YOUR TEXT</div>
 </div>
   
@@ -988,34 +998,34 @@ const products = {
 };
 
 const colors = [
-  { name: "White", hex: "#FFFFFF", image: "images/box-white.png" },
-  { name: "Silver", hex: "#A6A9AA", image: "images/box-silver.png" },
-  { name: "Gray", hex: "#8E9089", image: "images/box-gray.png" },
-  { name: "Ash Gray", hex: "#9B9EA0", image: "images/box-ash-gray.png" },
-  { name: "Black", hex: "#000000", image: "images/box-black.png" },
+  { name: "White", hex: "#FFFFFF", image: "images/box-white.webp" },
+  { name: "Silver", hex: "#A6A9AA", image: "images/box-silver.webp" },
+  { name: "Gray", hex: "#8E9089", image: "images/box-gray.webp" },
+  { name: "Ash Gray", hex: "#9B9EA0", image: "images/box-ash-gray.webp" },
+  { name: "Black", hex: "#000000", image: "images/box-black.webp" },
 
-  { name: "Hot Pink", hex: "#F5547C", image: "images/box-hot-pink.png" },
-  { name: "Lilac Purple", hex: "#AE96D4", image: "images/box-lilac-purple.png" },
+  { name: "Hot Pink", hex: "#F5547C", image: "images/box-hot-pink.webp" },
+  { name: "Lilac Purple", hex: "#AE96D4", image: "images/box-lilac-purple.webp" },
 
-  { name: "Pumpkin Orange", hex: "#FF9016", image: "images/box-pumpkin-orange.png" },
-  { name: "Mandarin Orange", hex: "#F99963", image: "images/box-mandarin-orange.png" },
-  { name: "Sunflower Yellow", hex: "#FEC600", image: "images/box-sunflower-yellow.png" },
+  { name: "Pumpkin Orange", hex: "#FF9016", image: "images/box-pumpkin-orange.webp" },
+  { name: "Mandarin Orange", hex: "#F99963", image: "images/box-mandarin-orange.webp" },
+  { name: "Sunflower Yellow", hex: "#FEC600", image: "images/box-sunflower-yellow.webp" },
 
-  { name: "Scarlet Red", hex: "#DE4343", image: "images/box-scarlet-red.png" },
+  { name: "Scarlet Red", hex: "#DE4343", image: "images/box-scarlet-red.webp" },
 
-  { name: "Green", hex: "#00AE42", image: "images/box-green.png" },
-  { name: "Dark Green", hex: "#68724D", image: "images/box-dark-green.png" },
+  { name: "Green", hex: "#00AE42", image: "images/box-green.webp" },
+  { name: "Dark Green", hex: "#68724D", image: "images/box-dark-green.webp" },
 
-  { name: "Turquoise", hex: "#00B1B7", image: "images/box-turquoise.png" },
-  { name: "Cyan", hex: "#0086D6", image: "images/box-cyan.png" },
-  { name: "Blue", hex: "#0A2989", image: "images/box-blue.png" },
-  { name: "Cobalt Blue", hex: "#0056B8", image: "images/box-cobalt-blue.png" },
-  { name: "Ice Blue", hex: "#A3D8E1", image: "images/box-ice-blue.png" },
-  { name: "Dark Blue", hex: "#042F56", image: "images/box-dark-blue.png" },
+  { name: "Turquoise", hex: "#00B1B7", image: "images/box-turquoise.webp" },
+  { name: "Cyan", hex: "#0086D6", image: "images/box-cyan.webp" },
+  { name: "Blue", hex: "#0A2989", image: "images/box-blue.webp" },
+  { name: "Cobalt Blue", hex: "#0056B8", image: "images/box-cobalt-blue.webp" },
+  { name: "Ice Blue", hex: "#A3D8E1", image: "images/box-ice-blue.webp" },
+  { name: "Dark Blue", hex: "#042F56", image: "images/box-dark-blue.webp" },
 
-  { name: "Bronze", hex: "#847D48", image: "images/box-bronze.png" },
-  { name: "Latte Brown", hex: "#D3B7A7", image: "images/box-latte-brown.png" },
-  { name: "Dark Brown", hex: "#7D6556", image: "images/box-dark-brown.png" }
+  { name: "Bronze", hex: "#847D48", image: "images/box-bronze.webp" },
+  { name: "Latte Brown", hex: "#D3B7A7", image: "images/box-latte-brown.webp" },
+  { name: "Dark Brown", hex: "#7D6556", image: "images/box-dark-brown.webp" }
 ];
 
 const selections = {};
