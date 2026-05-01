@@ -153,45 +153,66 @@ h1, h2 {
 }
 
 @media (max-width: 600px) {
-  .value-strip,
-  .how-it-works {
-    margin: 18px auto 24px;
-    padding: 22px 18px;
-  }
 
   .value-strip {
+    padding: 12px 14px;
+    margin: 12px auto 16px;
     grid-template-columns: 1fr;
-    gap: 18px;
+    gap: 6px;
   }
 
-  .value-item:not(:last-child) {
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255,255,255,0.10);
+  .value-item {
+    padding: 0 !important;
+    border-bottom: none !important;
   }
 
-  .value-title,
-  .how-step span {
-    font-size: 17px;
+  .value-title {
+    font-size: 13px;
+    letter-spacing: 1px;
   }
 
-  .value-sub,
-  .how-step p {
-    font-size: 14px;
+  .value-sub {
+    display: none;
+  }
+
+  .how-it-works {
+    padding: 14px 16px;
+    margin: 14px auto 18px;
   }
 
   .how-title {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    letter-spacing: 1.5px;
   }
 
   .how-steps {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    display: block;
+  }
+
+  .how-step {
+    display: inline;
+    min-width: 0;
+  }
+
+  .how-step span {
+    display: inline;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+  }
+
+  .how-step p {
+    display: none;
+  }
+
+  .how-step:not(:last-child)::after {
+    content: "  →  ";
+    color: #555;
   }
 
   .how-step:not(:last-child) {
-    padding-bottom: 18px;
-    border-bottom: 1px solid rgba(255,255,255,0.10);
+    padding-bottom: 0;
+    border-bottom: none;
   }
 }
 
