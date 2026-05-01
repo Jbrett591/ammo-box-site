@@ -325,44 +325,49 @@ h1, h2 {
   position: sticky;
   top: 12px;
   z-index: 50;
-  background:
-    linear-gradient(90deg, rgba(255,140,0,0.16), transparent 22%, transparent 78%, rgba(255,140,0,0.16)),
-    linear-gradient(145deg, #242424, #0d0d0d);
-  border: 1px solid #5a4630;
-  border-radius: 14px;
-  padding: 14px;
-  margin: 18px 0 24px;
+  margin: 18px 0 26px;
+  padding: 16px 18px;
   text-align: center;
+  border-radius: 18px;
+
+  background:
+    radial-gradient(circle at top center, rgba(212,175,55,0.13), transparent 42%),
+    linear-gradient(145deg, #1b1b1b, #070707);
+
+  border: 1px solid rgba(212,175,55,0.32);
+
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.08),
-    0 8px 20px rgba(0,0,0,0.7),
-    0 0 14px rgba(255,120,20,0.12);
+    inset 0 -20px 35px rgba(0,0,0,0.35),
+    0 14px 32px rgba(0,0,0,0.75);
 }
 
 .price-label {
   font-size: 12px;
-  color: #c9b28a;
-  letter-spacing: 1.6px;
+  color: #d4af37;
+  letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 900;
 }
 
 .price-amount {
-  font-size: 34px;
+  font-size: 40px;
+  line-height: 1;
   color: #4caf50;
   font-weight: 900;
-  margin-top: 4px;
+  margin-top: 8px;
+  text-shadow: 0 0 16px rgba(76,175,80,0.25);
 }
 
 .price-detail {
   font-size: 12px;
   color: #aaa;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .price-breakdown {
   font-size: 13px;
-  color: #ddd;
+  color: #eee;
   margin-top: 8px;
 }
 
@@ -937,22 +942,38 @@ button.success {
     letter-spacing: 1.5px;
   }
 
-  .price-box {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    padding: 10px 12px;
-    border-radius: 18px;
-  }
+.price-box {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  top: auto;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 18px;
+}
 
-  .price-detail {
-    font-size: 13px;
-    line-height: 1.25;
-  }
+.price-label {
+  font-size: 11px;
+  letter-spacing: 1.8px;
+}
 
-  .price-breakdown {
-    font-size: 15px;
-  }
+.price-amount {
+  font-size: 34px;
+  margin-top: 5px;
+}
+
+.price-detail {
+  font-size: 11px;
+  line-height: 1.25;
+  margin-top: 6px;
+}
+
+.price-breakdown {
+  font-size: 13px;
+  line-height: 1.25;
+  margin-top: 5px;
+}
 }  
   
 </style>
@@ -1034,9 +1055,9 @@ button.success {
 </div>
 
 <div class="price-box" id="priceBox">
-  <div class="price-label">Estimated Price</div>
+  <div class="price-label">Current Price</div>
   <div class="price-amount" id="priceAmount">$0</div>
-  <div class="price-detail">Includes dual-color print + dual color caliber specific bullet accent</div>
+  <div class="price-detail">Includes dual-color print + caliber-specific bullet accent</div>
   <div class="price-breakdown" id="priceBreakdown">Select a capacity to calculate price</div>
 </div>
 
