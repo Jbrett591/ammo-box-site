@@ -275,8 +275,9 @@ h1 {
     <p>
       Interested in carrying ForgeBox Co. products in your shop? We offer wholesale and bulk-order opportunities for retailers looking for premium, made-to-order ammo storage.
     </p>
-    <a class="btn" href="mailto:sales@forgeboxco.com?subject=Wholesale Inquiry - ForgeBox Co.">Contact Us</a>
-  </section>
+    <a class="btn" href="#wholesaleForm">
+  Contact Us
+</a>
 
   <section class="section">
     <h2 class="section-title">Built for Retail</h2>
@@ -304,10 +305,70 @@ h1 {
     <p>
       For wholesale pricing, local dealer opportunities, display options, or bulk custom orders, contact ForgeBox Co. directly.
     </p>
-    <a class="btn" href="mailto:sales@forgeboxco.com?subject=Wholesale Inquiry - ForgeBox Co.">Email Wholesale Inquiry</a>
+    <a class="btn" href="#wholesaleForm">
+  Contact Us
+</a>
   </section>
 
 </div>
+
+  <section class="section" id="wholesaleForm">
+
+  <h2 class="section-title">Wholesale Inquiry Form</h2>
+
+  <form
+    action="https://formspree.io/f/xjgjjjkq"
+    method="POST">
+
+    <input
+      class="contact-input"
+      type="text"
+      name="Business Name"
+      placeholder="Business Name"
+      required>
+
+    <input
+      class="contact-input"
+      type="text"
+      name="Contact Name"
+      placeholder="Contact Name"
+      required>
+
+    <input
+      class="contact-input"
+      type="email"
+      name="Email"
+      placeholder="Email Address"
+      required>
+
+    <input
+      class="contact-input"
+      type="tel"
+      name="Phone"
+      placeholder="Phone Number">
+
+    <input
+      class="contact-input"
+      type="web"
+      name="Company Website"
+      placeholder="Company Website">
+
+    <textarea
+      class="contact-input"
+      name="Inquiry"
+      placeholder="Tell us about your shop, what products you're interested in, estimated quantities, or any questions you may have."
+      style="height: 140px;"
+      required></textarea>
+
+    <input type="hidden" name="_subject" value="New Wholesale Inquiry">
+
+    <button type="submit">
+      Submit Wholesale Inquiry
+    </button>
+
+  </form>
+
+</section>
 
 <footer class="site-footer">
   <div class="footer-inner">
