@@ -2,53 +2,22 @@
 <html lang="en">
 <head>
   
-  <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q3FHEVZLB4"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-Q3FHEVZLB4');
 </script>
 
-  
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Custom Ammo Boxes</title>
 
 <style>
-.header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 30px;
-  overflow: hidden;
-}
-
 html {
   scroll-behavior: smooth;
-}
-
-.logo {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 10px;
-}
-
-.order-header {
-  text-align: center;
-  margin: -4px auto 28px;
-}
-
-.order-header img {
-  width: 100%;
-  max-width: 720px;
-  height: auto;
-  display: block;
-  margin: auto;
-  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.8));
 }
 
 body {
@@ -64,108 +33,20 @@ h1, h2 {
   text-align: center;
 }
 
-.section {
-  margin-top: 30px;
+.order-header {
+  text-align: center;
+  margin: 6px auto 18px;
 }
 
-.hero-shot {
+.order-header img {
   width: 100%;
-  max-width: 900px;
-  box-sizing: border-box;
-  margin: 10px auto 40px;
-  padding: 12px;
-  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
-  border-radius: 20px;
-  box-shadow: 
-    0 20px 50px rgba(0,0,0,0.7),
-    inset 0 0 0 1px rgba(255,255,255,0.04);
-}
-
-.hero-shot img {
-  width: 100%;
+  max-width: 720px;
   height: auto;
   display: block;
-  border-radius: 14px;
+  margin: auto;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.8));
 }
 
-  .value-strip,
-.how-it-works {
-  max-width: 900px;
-  margin: 24px auto 34px;
-  padding: 28px 30px;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #151515, #080808);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.05),
-    0 16px 38px rgba(0,0,0,0.65);
-}
-
-.value-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  text-align: center;
-}
-
-.value-title,
-.how-step span {
-  display: block;
-  color: #d4af37;
-  font-size: 16px;
-  font-weight: 900;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-}
-
-.value-sub,
-.how-step p {
-  color: #aaa;
-  font-size: 13px;
-  margin: 7px 0 0;
-}
-
-.value-divider {
-  display: none;
-}
-
-.how-it-works {
-  text-align: center;
-}
-
-.how-title {
-  color: #fff;
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 24px;
-}
-
-.how-steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-
-.how-arrow {
-  display: none;
-}
-
-@media (max-width: 600px) {
-  
-  .value-strip,
-  .how-it-works {
-    display: none;
-  }
-
-  .hero-shot {
-    margin-bottom: 18px;
-  }
-}
-  
-
-  
 .step-title {
   color: #fff;
   letter-spacing: 1px;
@@ -186,7 +67,7 @@ h1, h2 {
   background: rgba(255,255,255,0.15);
 }
 
-  .section {
+.section {
   margin-top: 30px;
   padding: 18px;
   background: rgba(255,255,255,0.02);
@@ -258,6 +139,7 @@ h1, h2 {
   margin-top: -3px;
   text-align: center;
 }
+
 .preview-container {
   position: relative;
   max-width: 330px;
@@ -271,17 +153,15 @@ h1, h2 {
 
 #previewText {
   position: absolute;
-  top: 11%;                /* move into the panel */
+  top: 11%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 80%;              /* keeps text centered nicely */
-  
+  width: 80%;
   font-weight: 900;
   color: #ddd;
   font-size: 18px;
   letter-spacing: 1px;
   text-align: center;
-  
   pointer-events: none;
 }
 
@@ -329,13 +209,10 @@ h1, h2 {
   padding: 16px 18px;
   text-align: center;
   border-radius: 18px;
-
   background:
     radial-gradient(circle at top center, rgba(212,175,55,0.13), transparent 42%),
     linear-gradient(145deg, #1b1b1b, #070707);
-
   border: 1px solid rgba(212,175,55,0.32);
-
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.08),
     inset 0 -20px 35px rgba(0,0,0,0.35),
@@ -416,11 +293,8 @@ h1, h2 {
   z-index: 999;
 }
 
-.color-swatch:hover::before {
-  opacity: 1;
-}
-
-  .color-swatch.show-tooltip::before {
+.color-swatch:hover::before,
+.color-swatch.show-tooltip::before {
   opacity: 1;
 }
 
@@ -456,7 +330,7 @@ h1, h2 {
     0 0 14px rgba(76,175,80,0.65);
 }
 
-  .color-swatch.blocked {
+.color-swatch.blocked {
   animation: shake 0.3s;
   border-color: #ff4d4d !important;
   box-shadow: 0 0 10px rgba(255, 77, 77, 0.6);
@@ -502,16 +376,6 @@ h1, h2 {
   filter: blur(2px);
 }
 
-#boxColorPreviewLabel {
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-#boxColorPreviewLabel.is-changing {
-  opacity: 0;
-  transform: translateY(4px);
-}  
-
-
 .preview-title {
   color: #bbb;
   font-size: 13px;
@@ -525,12 +389,14 @@ h1, h2 {
   font-weight: bold;
   margin: 12px 0 0;
   font-size: 18px;
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
-  #boxColorOptions {
-  margin-bottom: 10px;
+#boxColorPreviewLabel.is-changing {
+  opacity: 0;
+  transform: translateY(4px);
 }
-  
+
 .dropdown-input,
 .quantity-input {
   width: 100%;
@@ -631,7 +497,7 @@ button:active {
   border-color: #b13a3a;
 }
 
-  button.success {
+button.success {
   background: linear-gradient(145deg, #1f3d1f, #0b1f0b);
   border-color: #4caf50;
   color: #d4ffd4;
@@ -641,7 +507,7 @@ button:active {
     inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-  .cart-summary {
+.cart-summary {
   text-align: center;
   font-size: 14px;
   color: #aaa;
@@ -654,7 +520,7 @@ button:active {
   margin-left: 4px;
 }
 
-  .cart-count.bump {
+.cart-count.bump {
   animation: cartBump 0.35s ease;
 }
 
@@ -680,7 +546,7 @@ button:active {
   border-bottom: none;
 }
 
-  .site-footer {
+.site-footer {
   margin-top: 70px;
   padding: 34px 22px 20px;
   border-top: 1px solid rgba(212, 175, 55, 0.45);
@@ -754,77 +620,64 @@ button:active {
 }
 
 @media (max-width: 600px) {
-  .footer-inner {
-    flex-direction: column;
-    text-align: center;
-    padding: 12px 0;
-  }
-
-  .footer-links {
-    justify-content: center;
-    gap: 12px;
-  }
-}
-
-@media (max-width: 600px) {
   body {
     padding: 10px;
     padding-bottom: 190px;
-  }
-
-  .section {
-    margin-top: 20px;
-  }
-
-  .summary {
-    font-size: 14px;
   }
 
   .order-header {
     margin: 4px auto 20px;
   }
 
+  .section {
+    padding: 18px 14px;
+    margin-top: 22px;
+  }
+
   h2 {
     font-size: 18px;
   }
 
+  .step-title {
+    font-size: 22px;
+    letter-spacing: 1.5px;
+  }
+
   .price-box {
     position: fixed;
-    left: 10px;
-    right: 10px;
+    left: 12px;
+    right: 12px;
     bottom: 12px;
     top: auto;
     margin: 0;
-    padding: 8px 10px;
-  }
-
-  .price-amount {
-    font-size: 26px;
-    line-height: 1;
+    padding: 12px 14px;
+    border-radius: 18px;
   }
 
   .price-label {
     font-size: 11px;
+    letter-spacing: 1.8px;
   }
 
-  .price-breakdown {
-    font-size: 11px;
-    line-height: 1.2;
+  .price-amount {
+    font-size: 34px;
     margin-top: 5px;
   }
 
   .price-detail {
-  font-size: 11px;
-  opacity: 0.8;
-  display: block;
-}
+    font-size: 11px;
+    line-height: 1.25;
+    margin-top: 6px;
+    opacity: 0.8;
+    display: block;
+  }
 
-.price-breakdown {
-  font-size: 12px;
-  line-height: 1.25;
-  margin-top: 5px;
-  white-space: normal;
-}
+  .price-breakdown {
+    font-size: 13px;
+    line-height: 1.25;
+    margin-top: 5px;
+    white-space: normal;
+  }
 
   .category-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -847,211 +700,98 @@ button:active {
   }
 
   .color-swatch::before {
-  max-width: 150px;
-  font-size: 11px;
-  white-space: normal;
-}
+    max-width: 150px;
+    font-size: 11px;
+    white-space: normal;
+  }
 
   .color-swatch.show-tooltip::before {
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-  width: 150px;
-  max-width: 150px;
-  white-space: normal;
-}
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 150px;
+    max-width: 150px;
+    white-space: normal;
+  }
 
-/* Left-edge swatches */
-.color-grid .color-swatch:nth-child(6n + 1).show-tooltip::before {
-  left: 0;
-  transform: translateX(0);
-}
+  .color-grid .color-swatch:nth-child(6n + 1).show-tooltip::before {
+    left: 0;
+    transform: translateX(0);
+  }
 
-/* Right-edge swatches */
-.color-grid .color-swatch:nth-child(6n).show-tooltip::before {
-  left: auto;
-  right: 0;
-  transform: translateX(0);
-}
+  .color-grid .color-swatch:nth-child(6n).show-tooltip::before {
+    left: auto;
+    right: 0;
+    transform: translateX(0);
+  }
 
   button {
     font-size: 18px;
     padding: 16px;
   }
 
-.cart-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 20px;
-  height: 20px;
-  margin-left: 10px;
-  padding: 0 6px;
-  background: #4caf50;
-  color: #071507;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 900;
-  line-height: 1;
-  transform: scale(1);
-  transition: transform 0.2s ease;
-}
-
-button.success {
-  animation: addPulse 0.45s ease;
-  background: linear-gradient(145deg, #1f3d1f, #0b1f0b);
-  border-color: #4caf50;
-  color: #d4ffd4;
-  box-shadow:
-    0 0 0 1px #4caf50,
-    0 0 16px rgba(76,175,80,0.65),
-    inset 0 1px 0 rgba(255,255,255,0.08);
-}
-
-@keyframes addPulse {
-  0% { transform: scale(1); }
-  45% { transform: scale(1.025); }
-  100% { transform: scale(1); }
-}
-  }
-}
-
-@media (max-width: 600px) {
-
-  
-
-  .hero-shot {
-    margin: 8px auto 26px;
-    padding: 8px;
-    border-radius: 16px;
+  .summary {
+    font-size: 14px;
   }
 
-  .hero-shot img {
-    border-radius: 12px;
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    padding: 12px 0;
   }
 
-
-
-  .section {
-    padding: 18px 14px;
-    margin-top: 22px;
+  .footer-links {
+    justify-content: center;
+    gap: 12px;
   }
 
-  .step-title {
-    font-size: 22px;
-    letter-spacing: 1.5px;
+  .cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    padding: 0 6px;
+    background: #4caf50;
+    color: #071507;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1;
+    transform: scale(1);
+    transition: transform 0.2s ease;
   }
 
-.price-box {
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  top: auto;
-  margin: 0;
-  padding: 12px 14px;
-  border-radius: 18px;
-}
+  button.success {
+    animation: addPulse 0.45s ease;
+    background: linear-gradient(145deg, #1f3d1f, #0b1f0b);
+    border-color: #4caf50;
+    color: #d4ffd4;
+    box-shadow:
+      0 0 0 1px #4caf50,
+      0 0 16px rgba(76,175,80,0.65),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+  }
 
-.price-label {
-  font-size: 11px;
-  letter-spacing: 1.8px;
+  @keyframes addPulse {
+    0% { transform: scale(1); }
+    45% { transform: scale(1.025); }
+    100% { transform: scale(1); }
+  }
 }
-
-.price-amount {
-  font-size: 34px;
-  margin-top: 5px;
-}
-
-.price-detail {
-  font-size: 11px;
-  line-height: 1.25;
-  margin-top: 6px;
-}
-
-.price-breakdown {
-  font-size: 13px;
-  line-height: 1.25;
-  margin-top: 5px;
-}
-}  
-  
 </style>
 </head>
 
 <body>
 
-<div class="header">
-  <img src="images/forgebox logo.webp" class="logo" alt="ForgeBox Co. logo" decoding="async">
-
-  <div class="order-header">
-    <img src="images/order-form-header.webp" alt="Custom Ammo Box Order Form"  
-  loading="eager"
-  fetchpriority="high"
-  decoding="async">
-  </div>
-</div>
-
-  <div class="value-strip">
-  <div class="value-item">
-    <span class="value-title">Made to Order</span>
-    <span class="value-sub">Built custom for you!</span>
-  </div>
-
-  <div class="value-divider"></div>
-
-  <div class="value-item">
-    <span class="value-title">Precision Printed</span>
-    <span class="value-sub">Tight tolerances. Clean finish.</span>
-  </div>
-
-  <div class="value-divider"></div>
-
-  <div class="value-item">
-    <span class="value-title">Caliber Specific</span>
-    <span class="value-sub">Engineered for precision fit.</span>
-  </div>
-</div>
-
- <div class="hero-shot">
+<div class="order-header">
   <img 
-    src="images/hero-ammo-box.webp" 
-    alt="Custom .357 Magnum ammo box with loose rounds"
+    src="images/order-form-header.webp"
+    alt="Custom Ammo Box Order Form"
     loading="eager"
     fetchpriority="high"
     decoding="async">
-</div>
-
-<div class="how-it-works">
-  <div class="how-title">How It Works</div>
-
-  <div class="how-steps">
-    <div class="how-step">
-      <span>Build</span>
-      <p>Create your custom box</p>
-    </div>
-
-    <div class="how-arrow">→</div>
-
-    <div class="how-step">
-      <span>Submit</span>
-      <p>Place your order</p>
-    </div>
-
-    <div class="how-arrow">→</div>
-
-    <div class="how-step">
-      <span>Confirm</span>
-      <p>We review & finalize order details</p>
-    </div>
-
-    <div class="how-arrow">→</div>
-
-    <div class="how-step">
-      <span>Receive</span>
-      <p>You receive your premium, made-to-order ammo box.</p>
-    </div>
-  </div>
 </div>
 
 <div class="price-box" id="priceBox">
@@ -1088,16 +828,16 @@ button.success {
   <h2>4. Box Color</h2>
   <div class="color-grid" id="boxColor"></div>
 
-<div id="boxColorPreviewWrap" class="box-color-preview">
-  <p class="preview-title">Selected Box Color Preview</p>
-  <img 
-    id="boxColorPreview" 
-    src="images/box-ash-gray.webp" 
-    alt="Selected box color preview"
-    loading="lazy"
-    decoding="async">
-  <p id="boxColorPreviewLabel">Ash Gray</p>
-</div>
+  <div id="boxColorPreviewWrap" class="box-color-preview">
+    <p class="preview-title">Selected Box Color Preview</p>
+    <img 
+      id="boxColorPreview" 
+      src="images/box-ash-gray.webp" 
+      alt="Selected box color preview"
+      loading="lazy"
+      decoding="async">
+    <p id="boxColorPreviewLabel">Ash Gray</p>
+  </div>
 
   <h2>5. Text Color</h2>
   <div class="color-grid" id="textColor"></div>
@@ -1121,38 +861,38 @@ button.success {
       class="contact-input"
       type="text"
       placeholder="Enter cover text, e.g. DAD'S .380"
-      maxlength="25"
-    >
+      maxlength="25">
     <div class="helper-text">Maximum 25 characters. Final layout will be confirmed before printing.</div>
   </div>
   
-<div class="preview-container">
-  <img 
-    src="images/custom-text-preview.webp" 
-    class="preview-image"
-    alt="Custom text preview"
-    loading="lazy"
-    decoding="async">
+  <div class="preview-container">
+    <img 
+      src="images/custom-text-preview.webp" 
+      class="preview-image"
+      alt="Custom text preview"
+      loading="lazy"
+      decoding="async">
+    
+    <div id="previewText">YOUR TEXT</div>
+  </div>
   
-  <div id="previewText">YOUR TEXT</div>
-</div>
-  
-<div class="summary">
-  <strong>Current Box Configuration:</strong>
-  <div id="summaryText">Nothing selected</div>
-</div>
+  <div class="summary">
+    <strong>Current Box Configuration:</strong>
+    <div id="summaryText">Nothing selected</div>
+  </div>
 
-<div id="cartSummary" class="cart-summary">
-  Boxes in Order: <span id="cartCount">0</span>
-</div>
-  
-<button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
-  Add Box to Order
-</button>
+  <div id="cartSummary" class="cart-summary">
+    Boxes in Order: <span id="cartCount">0</span>
+  </div>
+    
+  <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
+    Add Box to Order
+  </button>
 
-<div class="summary">
-  <strong>Boxes in This Order:</strong>
-  <div id="orderList">No boxes added yet</div>
+  <div class="summary">
+    <strong>Boxes in This Order:</strong>
+    <div id="orderList">No boxes added yet</div>
+  </div>
 </div>
 
 <div class="section">
@@ -1169,7 +909,7 @@ button.success {
 
 <button type="button" onclick="submitOrder()">Submit Order</button>
 
-  <script src="forgebox-sku-pricing-full.js"></script>
+<script src="forgebox-sku-pricing-full.js"></script>
 
 <script>
 const products = {
@@ -1218,7 +958,7 @@ const products = {
     ".22 CREEDMOOR": [20, 50],
     ".22 HORNET": [20, 50],
     ".22 WMR": [50, 100, 250],
-     ".22 SAVAGE": [50],
+    ".22 SAVAGE": [50],
     ".22 SHORT": [66, 100],
     ".22-250 REM": [20, 50],
     ".204 Ruger": [20, 50, 100],
@@ -1259,7 +999,7 @@ const products = {
     ".35 WHELEN": [20, 50],
     ".350 LEGEND": [20, 50],
     ".360 BUCKHAMMER": [20],
-     ".375 H&H MAG": [20],
+    ".375 H&H MAG": [20],
     ".400 LEGEND": [20, 50],
     ".444 MARLIN": [20],
     ".45-120 SHARPS": [50],
@@ -1273,7 +1013,7 @@ const products = {
     "5.45x39MM": [20, 50],
     "5.7x28": [50, 100],
     "6MM ARC": [20, 50, 105],
-     "6MM BR": [20],
+    "6MM BR": [20],
     "6MM CREEDMOOR": [20, 50, 105],
     "6MM GT": [20, 50],
     "6.5 GRENDEL": [20, 50, 105],
@@ -1323,26 +1063,20 @@ const colors = [
   { name: "Gray", hex: "#8E9089", image: "images/box-gray.webp" },
   { name: "Ash Gray", hex: "#9B9EA0", image: "images/box-ash-gray.webp" },
   { name: "Black", hex: "#000000", image: "images/box-black.webp" },
-
   { name: "Hot Pink", hex: "#F5547C", image: "images/box-hot-pink.webp" },
   { name: "Lilac Purple", hex: "#AE96D4", image: "images/box-lilac-purple.webp" },
-
   { name: "Pumpkin Orange", hex: "#FF9016", image: "images/box-pumpkin-orange.webp" },
   { name: "Mandarin Orange", hex: "#F99963", image: "images/box-mandarin-orange.webp" },
   { name: "Sunflower Yellow", hex: "#FEC600", image: "images/box-sunflower-yellow.webp" },
-
   { name: "Scarlet Red", hex: "#DE4343", image: "images/box-scarlet-red.webp" },
-
   { name: "Green", hex: "#00AE42", image: "images/box-green.webp" },
   { name: "Dark Green", hex: "#68724D", image: "images/box-dark-green.webp" },
-
   { name: "Turquoise", hex: "#00B1B7", image: "images/box-teal.webp" },
   { name: "Cyan", hex: "#0086D6", image: "images/box-cyan.webp" },
   { name: "Blue", hex: "#0A2989", image: "images/box-blue.webp" },
   { name: "Cobalt Blue", hex: "#0056B8", image: "images/box-cobalt-blue.webp" },
   { name: "Ice Blue", hex: "#A3D8E1", image: "images/box-ice-blue.webp" },
   { name: "Dark Blue", hex: "#042F56", image: "images/box-dark-blue.webp" },
-
   { name: "Bronze", hex: "#847D48", image: "images/box-bronze.webp" },
   { name: "Tan", hex: "#D3B7A7", image: "images/box-latte.webp" },
   { name: "Dark Brown", hex: "#7D6556", image: "images/box-dark-brown.webp" }
@@ -1474,7 +1208,6 @@ function loadColors(id, key) {
     }
 
     div.onclick = () => {
-
       if (
         (key === "textColor" && selections.boxColor === color.name) ||
         (key === "boxColor" && selections.textColor === color.name)
@@ -1521,6 +1254,7 @@ function loadColors(id, key) {
     container.appendChild(div);
   });
 }
+
 function updateBoxColorPreview(colorName) {
   const color = colors.find(c => c.name === colorName);
   if (!color) return;
@@ -1599,7 +1333,6 @@ if (customInput) {
   });
 }
 
-  
 function updatePriceBox() {
   const priceAmount = document.getElementById("priceAmount");
   const priceBreakdown = document.getElementById("priceBreakdown");
@@ -1684,21 +1417,20 @@ function addBoxToOrder() {
   updateOrderList();
   resetCurrentBox();
 
-// 🎉 Success feedback
-const btn = document.getElementById("addBoxBtn");
+  const btn = document.getElementById("addBoxBtn");
 
-if (btn) {
-  btn.classList.remove("success");
-  void btn.offsetWidth;
-
-  btn.classList.add("success");
-  btn.textContent = "Added ✓";
-
-  setTimeout(() => {
+  if (btn) {
     btn.classList.remove("success");
-    btn.textContent = "Add Box to Order";
-  }, 1200);
-}
+    void btn.offsetWidth;
+
+    btn.classList.add("success");
+    btn.textContent = "Added ✓";
+
+    setTimeout(() => {
+      btn.classList.remove("success");
+      btn.textContent = "Add Box to Order";
+    }, 1200);
+  }
 }
 
 function getOrderTotal() {
@@ -1888,7 +1620,6 @@ document.getElementById("customTextInput").addEventListener("input", updateSumma
     © 2026 ForgeBox Co. All Rights Reserved.
   </div>
 </footer>
-  
 
 </body>
 </html>
