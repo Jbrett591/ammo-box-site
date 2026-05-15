@@ -291,6 +291,59 @@ h1 {
   font-size: 14px;
 }
 
+.wholesale-section {
+  margin-top: 42px;
+}
+
+.wholesale-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.wholesale-text {
+  flex: 1;
+  min-width: 260px;
+}
+
+.wholesale-text h2 {
+  text-align: left;
+  font-size: 34px;
+  line-height: 1.1;
+  margin: 10px 0 14px;
+  color: #fff;
+}
+
+.wholesale-text p {
+  color: #bcbcbc;
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.wholesale-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 760px) {
+  .wholesale-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .wholesale-text h2 {
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .wholesale-action {
+    width: 100%;
+  }
+}
+  
 .footer-inner {
   max-width: 1000px;
   margin: 0 auto;
@@ -487,6 +540,27 @@ h1 {
 
     <a class="btn btn-primary" href="order.html">Start Custom Order</a>
   </section>
+
+      <div class="wholesale-text">
+      <div class="eyebrow">Dealer & Bulk Ordering</div>
+
+      <h2>Interested in carrying ForgeBox products?</h2>
+
+      <p>
+        We offer wholesale opportunities for gun stores, ranges,
+        and retailers looking for premium ammo storage solutions.
+      </p>
+    </div>
+
+    <div class="wholesale-action">
+      <a class="btn btn-primary" href="wholesale.html">
+        Wholesale Inquiries
+      </a>
+    </div>
+
+  </div>
+
+</section>
 
 </div>
 
