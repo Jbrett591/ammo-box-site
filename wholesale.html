@@ -170,7 +170,19 @@ h1 {
   margin: 0 auto 22px;
 }
 
-  .wholesale-form {
+  .wholesale-form-section {
+  max-width: 900px;
+  margin: 34px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #151515, #080808);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 16px 38px rgba(0,0,0,0.65);
+}
+
+.wholesale-form {
   max-width: 720px;
   margin: 0 auto;
 }
@@ -183,18 +195,18 @@ h1 {
 
 .contact-input {
   width: 100%;
-  padding: 14px;
+  padding: 15px 14px;
   background: #1a1a1a;
   color: #eee;
   border: 1px solid #333;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 15px;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
 .contact-input::placeholder {
-  color: #777;
+  color: #8a8a8a;
 }
 
 .contact-input:focus {
@@ -238,6 +250,16 @@ h1 {
 .form-button:hover {
   border-color: #b87333;
   transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+  .wholesale-form-section {
+    padding: 22px 16px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 700px) {
@@ -388,62 +410,32 @@ h1 {
 
 </div>
 
-  <section class="section" id="wholesaleForm">
-
+<section class="section wholesale-form-section" id="wholesaleForm">
   <h2 class="section-title">Wholesale Inquiry Form</h2>
 
-  <form
-    action="https://formspree.io/f/xjgjjjkq"
-    method="POST">
-
-    <input
-      class="contact-input"
-      type="text"
-      name="Business Name"
-      placeholder="Business Name"
-      required>
-
-    <input
-      class="contact-input"
-      type="text"
-      name="Contact Name"
-      placeholder="Contact Name"
-      required>
-
-    <input
-      class="contact-input"
-      type="email"
-      name="Email"
-      placeholder="Email Address"
-      required>
-
-    <input
-      class="contact-input"
-      type="tel"
-      name="Phone"
-      placeholder="Phone Number">
-
-    <input
-      class="contact-input"
-      type="web"
-      name="Company Website"
-      placeholder="Company Website">
+  <form class="wholesale-form" action="https://formspree.io/f/xjgjjjkq" method="POST">
+    
+    <div class="form-grid">
+      <input class="contact-input" type="text" name="Business Name" placeholder="Business Name" required>
+      <input class="contact-input" type="text" name="Contact Name" placeholder="Contact Name" required>
+      <input class="contact-input" type="email" name="Email" placeholder="Email Address" required>
+      <input class="contact-input" type="tel" name="Phone" placeholder="Phone Number">
+      <input class="contact-input full-width" type="text" name="Company Website" placeholder="Company Website">
+    </div>
 
     <textarea
-      class="contact-input"
+      class="contact-input inquiry-box"
       name="Inquiry"
       placeholder="Tell us about your shop, what products you're interested in, estimated quantities, or any questions you may have."
-      style="height: 140px;"
       required></textarea>
 
     <input type="hidden" name="_subject" value="New Wholesale Inquiry">
 
-    <button type="submit">
+    <button class="form-button" type="submit">
       Submit Wholesale Inquiry
     </button>
 
   </form>
-
 </section>
 
 <footer class="site-footer">
