@@ -45,13 +45,20 @@ body {
   border-bottom: 1px solid rgba(212,175,55,0.28);
 }
 
-.nav-brand {
-  color: #d4af37;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 1.4px;
-  text-decoration: none;
-  font-size: 18px;
+.nav-brand img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+  .nav-brand {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+  opacity: 0.88;
 }
 
 .nav-links {
@@ -458,13 +465,14 @@ h1 {
 <div class="page-wrap">
 
   <header class="top-nav">
-    <a class="nav-brand" href="../index.html">ForgeBox Co.</a>
+    <a class="nav-brand" href="../index.html">
+  <img src="../images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
+</a>
 
     <nav class="nav-links">
       <a href="../index.html">Home</a>
       <a href="../gallery.html">Gallery</a>
       <a href="../order.html">Build Yours</a>
-      <a href="../wholesale.html">Wholesale</a>
     </nav>
   </header>
 
