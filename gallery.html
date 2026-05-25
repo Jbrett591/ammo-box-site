@@ -19,6 +19,16 @@
 html {
   scroll-behavior: smooth;
 }
+
+  * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
   
 body {
   font-family: Arial, sans-serif;
@@ -418,22 +428,51 @@ h1 {
 
 @media (max-width: 760px) {
   .page-wrap {
+    width: 100%;
+    max-width: 100%;
     padding: 12px;
+    overflow-x: hidden;
+  }
+
+  .nav-container {
+    width: 100%;
+    padding: 0 12px;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .nav-brand img {
+    max-width: 260px;
+    height: auto;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: clamp(38px, 12vw, 52px);
+    letter-spacing: -1px;
   }
 
   .cta-row,
-  .gallery-grid {
+  .gallery-grid,
+  .spec-grid {
     grid-template-columns: 1fr;
-  }
-
-  .cta-row {
-    max-width: 420px;
   }
 
   .btn {
     width: 100%;
     white-space: normal;
   }
+}
 
   .section {
     padding: 22px 16px;
