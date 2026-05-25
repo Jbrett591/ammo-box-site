@@ -231,13 +231,15 @@ h1 {
     inset 0 0 0 1px rgba(255,255,255,0.04);
 }
 
-.gallery-item img {
+.gallery-image img {
   width: 100%;
-  height: 420px;
-  object-fit: cover;
-  object-position: center;
+  height: 100%;
+  object-fit: contain;
   display: block;
-  transition: transform 0.25s ease;
+}
+
+  .gallery-image {
+  height: 360px;
 }
 
 .gallery-item:hover img {
@@ -349,6 +351,10 @@ h1 {
 @media (max-width: 760px) {
   .page-wrap {
     padding: 12px;
+  }
+  
+  .gallery-image {
+    height: 420px;
   }
 
   .cta-row,
