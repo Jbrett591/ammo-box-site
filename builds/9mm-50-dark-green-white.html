@@ -233,9 +233,10 @@ h1 {
 
 .gallery-item img {
   width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center;
   display: block;
-  height: auto;
-  object-fit: contain;
   transition: transform 0.25s ease;
 }
 
@@ -243,8 +244,12 @@ h1 {
   transform: none;
 }
 
+.gallery-item {
+  overflow: hidden;
+}
+
 .gallery-caption {
-  padding: 16px 18px 18px;
+  padding: 14px 18px;
 }
 
 .gallery-caption strong {
@@ -403,8 +408,8 @@ h1 {
     <div class="tagline">Made to spec. built to last.</div>
 
     <p>
-      A compact 9mm ForgeBox configuration with a Dark Green body,
-      high-contrast white lettering, and a caliber-matched storage layout.
+      A compact 9mm ForgeBox configuration with a Dark Green body, and
+      high-contrast white lettering.
     </p>
 
     <div class="cta-row">
@@ -455,34 +460,26 @@ h1 {
     <div class="gallery-grid">
 
       <div class="gallery-item">
-        <img src="../images/gallery/9mm-50-dark-green-white/front-angled.webp" alt="Angled front view of 9mm Dark Green ForgeBox" loading="lazy" decoding="async">
+        <img src="../images/gallery/9mm-50-dark-green-white/macro-lid.webp" alt="Macro lid detail of Dark Green 9mm ForgeBox" loading="lazy" decoding="async">
         <div class="gallery-caption">
-          <strong>Front Detail</strong>
-          <span>High-contrast front caliber plate with matching white lettering.</span>
+          <strong>Lid Detail</strong>
+          
         </div>
       </div>
 
       <div class="gallery-item">
         <img src="../images/gallery/9mm-50-dark-green-white/top-zoom.webp" alt="Open 9mm ForgeBox showing loaded ammunition tray" loading="lazy" decoding="async">
         <div class="gallery-caption">
-          <strong>Open Box Layout</strong>
-          <span>Caliber-specific storage layout with organized round presentation.</span>
+          <strong>Open Box</strong>
+          
         </div>
       </div>
 
       <div class="gallery-item">
         <img src="../images/gallery/9mm-50-dark-green-white/top-angled.webp" alt="Angled top view of open 9mm ForgeBox" loading="lazy" decoding="async">
         <div class="gallery-caption">
-          <strong>Loaded Configuration</strong>
-          <span>Open-box view showing the sliding lid, tray layout, and stored rounds.</span>
-        </div>
-      </div>
-
-      <div class="gallery-item">
-        <img src="../images/gallery/9mm-50-dark-green-white/macro-lid.webp" alt="Macro lid detail of Dark Green 9mm ForgeBox" loading="lazy" decoding="async">
-        <div class="gallery-caption">
-          <strong>Lid Detail</strong>
-          <span>Close-up view of the raised lettering, panel geometry, and bullet emblem.</span>
+          <strong>Top View</strong>
+          
         </div>
       </div>
 
@@ -490,18 +487,26 @@ h1 {
         <img src="../images/gallery/9mm-50-dark-green-white/side-zoom.webp" alt="Side wall detail of Dark Green ForgeBox showing print texture" loading="lazy" decoding="async">
         <div class="gallery-caption">
           <strong>Material Finish</strong>
-          <span>Macro side-wall detail showing the matte texture and printed layer consistency.</span>
+          
         </div>
       </div>
 
       <div class="gallery-item">
         <img src="../images/gallery/9mm-50-dark-green-white/hero.webp" alt="Hero angle of 9mm Dark Green ForgeBox" loading="lazy" decoding="async">
         <div class="gallery-caption">
-          <strong>Hero Angle</strong>
-          <span>Primary showcase view for this Dark Green and White 9mm build.</span>
+          <strong>Left Side</strong>
+          
         </div>
       </div>
 
+      <div class="gallery-item">
+        <img src="../images/gallery/9mm-50-dark-green-white/front-angled.webp" alt="Angled front view of 9mm Dark Green ForgeBox" loading="lazy" decoding="async">
+        <div class="gallery-caption">
+          <strong>Right Side</strong>
+          
+        </div>
+      </div>
+      
     </div>
   </section>
 
