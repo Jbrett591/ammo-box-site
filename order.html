@@ -642,6 +642,139 @@ button.success {
   font-size: 20px;
   filter: drop-shadow(0 0 6px rgba(255,220,120,0.4));
 }
+
+  .empty-order {
+  color: #888;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.order-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  padding: 16px;
+  margin-top: 14px;
+
+  background:
+    radial-gradient(circle at top left, rgba(212,175,55,0.10), transparent 34%),
+    linear-gradient(145deg, #191919, #0b0b0b);
+
+  border: 1px solid rgba(212,175,55,0.22);
+  border-radius: 16px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 22px rgba(0,0,0,0.45);
+}
+
+.order-thumb {
+  width: 92px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #111;
+}
+
+.order-card-main {
+  flex: 1;
+}
+
+.order-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.order-title {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.order-subtitle {
+  color: #aaa;
+  font-size: 13px;
+  margin-top: 3px;
+}
+
+.order-price {
+  color: #4caf50;
+  font-size: 20px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.order-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.order-details span {
+  color: #cfcfcf;
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.remove-link {
+  width: auto;
+  margin-top: 12px;
+  padding: 0;
+
+  background: none;
+  border: none;
+  box-shadow: none;
+
+  color: #b86b6b;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+.remove-link:hover {
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: #ff8a8a;
+  transform: none;
+}
+
+.order-total-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 16px;
+  padding: 16px;
+
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #ddd;
+}
+
+.order-total-card span {
+  color: #aaa;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 800;
+}
+
+.order-total-card strong {
+  color: #4caf50;
+  font-size: 24px;
+}
   
 .site-footer {
   margin-top: 70px;
@@ -1505,6 +1638,7 @@ function addBoxToOrder() {
   }
 
   const price = getCurrentBoxPrice();
+const selectedBoxColor = colors.find(c => c.name === selections.boxColor);
 
   orderItems.push({
     quantity: quantity,
@@ -1512,6 +1646,7 @@ function addBoxToOrder() {
     caliber: selections.caliber,
     capacity: selections.capacity,
     boxColor: selections.boxColor,
+    boxImage: selectedBoxColor ? selectedBoxColor.image : "images/box-ash-gray.webp",
     textColor: selections.textColor,
     customTextOnCover: hasCustomTextRequest() ? "Yes" : "No",
     customTextValue: getCustomTextValue() || "None",
@@ -1548,35 +1683,45 @@ function updateOrderList() {
 
   if (cartCount) {
     cartCount.textContent = orderItems.length;
-
     cartCount.classList.remove("bump");
     void cartCount.offsetWidth;
     cartCount.classList.add("bump");
   }
 
   if (orderItems.length === 0) {
-    orderList.innerHTML = "No boxes added yet";
+    orderList.innerHTML = `<div class="empty-order">No boxes added yet</div>`;
     return;
   }
 
   orderList.innerHTML = orderItems.map((item, index) => `
-    <div class="order-item">
-      <strong>Box ${index + 1}</strong><br>
-      Quantity: ${item.quantity}<br>
-      Category: ${item.category}<br>
-      ${item.category === "Shotgun" ? "Gauge" : "Caliber"}: ${item.caliber}<br>
-      Capacity: ${item.capacity} rounds<br>
-      Box Color: ${item.boxColor}<br>
-      Text Color: ${item.textColor}<br>
-      Custom Text on Cover: ${item.customTextOnCover}<br>
-      Cover Text: ${item.customTextValue}<br>
-      Unit Price: $${item.unitPrice}<br>
-      Line Total: $${item.lineTotal}<br>
-      <button type="button" class="remove-button" onclick="removeBox(${index})">Remove This Box</button>
+    <div class="order-card">
+      <img class="order-thumb" src="${item.boxImage}" alt="${item.boxColor} ForgeBox preview">
+
+      <div class="order-card-main">
+        <div class="order-card-top">
+          <div>
+            <div class="order-title">${item.caliber} ForgeBox</div>
+            <div class="order-subtitle">${item.capacity} Round Capacity</div>
+          </div>
+
+          <div class="order-price">$${item.lineTotal}</div>
+        </div>
+
+        <div class="order-details">
+          <span>${item.category}</span>
+          <span>${item.boxColor} Box</span>
+          <span>${item.textColor} Text</span>
+          <span>Qty ${item.quantity}</span>
+          ${item.customTextOnCover === "Yes" ? `<span>Cover Text: ${item.customTextValue}</span>` : ""}
+        </div>
+
+        <button type="button" class="remove-link" onclick="removeBox(${index})">Remove</button>
+      </div>
     </div>
   `).join("") + `
-    <div class="order-item">
-      <strong>Estimated Order Total: $${getOrderTotal()}</strong>
+    <div class="order-total-card">
+      <span>Estimated Order Total</span>
+      <strong>$${getOrderTotal()}</strong>
     </div>
   `;
 }
