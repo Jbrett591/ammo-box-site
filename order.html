@@ -1741,10 +1741,15 @@ function updateOrderList() {
     cartCount.classList.add("bump");
   }
 
-  if (orderItems.length === 0) {
-    orderList.innerHTML = `<div class="empty-order">No boxes added yet</div>`;
-    return;
-  }
+if (orderItems.length === 0) {
+  orderList.innerHTML = `<div class="empty-order">No boxes added yet</div>`;
+
+  document.querySelector(".add-another-wrap").style.display = "none";
+
+  return;
+}
+
+document.querySelector(".add-another-wrap").style.display = "block";
 
   orderList.innerHTML = orderItems.map((item, index) => `
     <div class="order-card">
