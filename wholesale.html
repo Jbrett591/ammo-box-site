@@ -11,6 +11,16 @@ html {
   scroll-behavior: smooth;
 }
 
+  * {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #111;
@@ -23,19 +33,6 @@ body {
   max-width: 900px;
   margin: auto;
   padding: 24px;
-}
-
-.header {
-  text-align: center;
-  margin-bottom: 34px;
-}
-
-.logo {
-  width: 100%;
-  max-width: 760px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
 }
 
 .hero {
@@ -362,13 +359,26 @@ h1 {
 </style>
 </head>
 
-<body>
+ <body>
 
 <div class="page-wrap">
 
-  <header class="header">
-    <img src="images/forgebox logo.webp" class="logo" alt="ForgeBox Co. logo">
-  </header>
+<header class="top-nav">
+  <div class="nav-container">
+
+    <a class="nav-brand" href="index.html">
+      <img src="images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="order.html">Shop</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="wholesale.html">Wholesale</a>
+    </nav>
+
+  </div>
+</header>
 
   <section class="hero">
     <div class="eyebrow">Dealer & Bulk Ordering</div>
@@ -377,7 +387,7 @@ h1 {
       Interested in carrying ForgeBox Co. products in your shop? We offer wholesale and bulk-order opportunities for retailers looking for premium, made-to-order ammo storage.
     </p>
   
-</a>
+
 
   <section class="section">
     <h2 class="section-title">Built for Retail</h2>
@@ -406,10 +416,7 @@ h1 {
       For wholesale pricing, local dealer opportunities, display options, or bulk custom orders, contact ForgeBox Co. directly with the form below.
     </p>
     
-</a>
   </section>
-
-</div>
 
 <section class="section wholesale-form-section" id="wholesaleForm">
   <h2 class="section-title">Wholesale Inquiry Form</h2>
@@ -438,6 +445,8 @@ h1 {
 
   </form>
 </section>
+
+   </div>
 
 <footer class="site-footer">
   <div class="footer-inner">
