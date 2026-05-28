@@ -1536,8 +1536,26 @@ async function submitOrder() {
 
     for (let i = 0; i < item.quantity; i++) {
 
-      lineItems.push({
-        variantId: 'gid://shopify/ProductVariant/45664964968550',
+   let variantId = '';
+
+if (item.unitPrice === 20) {
+  variantId = 'gid://shopify/ProductVariant/45665409794150';
+}
+else if (item.unitPrice === 25) {
+  variantId = 'gid://shopify/ProductVariant/45665409826918';
+}
+else if (item.unitPrice === 30) {
+  variantId = 'gid://shopify/ProductVariant/45665409859686';
+}
+else if (item.unitPrice === 35) {
+  variantId = 'gid://shopify/ProductVariant/45665409892454';
+}
+else if (item.unitPrice === 40) {
+  variantId = 'gid://shopify/ProductVariant/45665409925222';
+}
+
+lineItems.push({
+  variantId: variantId,
         quantity: 1,
         customAttributes: [
           { key: 'Category', value: item.category },
