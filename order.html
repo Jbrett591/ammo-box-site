@@ -590,15 +590,42 @@ button.success {
     filter 0.18s ease;
 }
 
-  .checkout-payments {
-  margin-top: 14px;
+.checkout-payments {
+  margin-top: 18px;
 
   display: flex;
   justify-content: center;
-  gap: 14px;
+  align-items: center;
+  gap: 26px;
   flex-wrap: wrap;
 
-  opacity: 0.72;
+  opacity: 0.62;
+}
+
+.checkout-payments img {
+  height: 20px;
+  width: auto;
+
+  filter:
+    brightness(1.15)
+    grayscale(100%);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease,
+    filter 0.18s ease;
+
+  opacity: 0.78;
+}
+
+.checkout-payments img:hover {
+  opacity: 1;
+
+  filter:
+    brightness(1.4)
+    grayscale(0%);
+
+  transform: translateY(-1px);
 }
 
 .checkout-payments span {
@@ -1004,10 +1031,10 @@ button.success {
 </button>
 
 <div class="checkout-payments">
-  <span>Shop Pay</span>
-  <span>PayPal</span>
-  <span>Venmo</span>
-  <span>Google Pay</span>
+  <img src="images/shop-pay-white.png" alt="Shop Pay">
+  <img src="images/paypal-white.png" alt="PayPal">
+  <img src="images/venmo-white.png" alt="Venmo">
+  <img src="images/google-pay-white.png" alt="Google Pay">
 </div>
   
 <script src="forgebox-sku-pricing-full.js"></script>
