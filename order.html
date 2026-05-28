@@ -1530,57 +1530,45 @@ async function submitOrder() {
     return;
   }
 
-  const cartItems = [];
+  const lineItems = [];
 
   orderItems.forEach(item => {
 
     for (let i = 0; i < item.quantity; i++) {
 
-      cartItems.push({
-        id: 45664964968550,
-
+      lineItems.push({
+        variantId: 'gid://shopify/ProductVariant/45664964968550',
         quantity: 1,
-
-        properties: {
-          Category: item.category,
-          "Caliber/Gauge": item.caliber,
-          Capacity: item.capacity + " rounds",
-          "Box Color": item.boxColor,
-          "Text Color": item.textColor,
-          "Custom Text on Cover": item.customTextOnCover,
-          "Cover Text": item.customTextValue,
-          "Configured Price": "$" + item.unitPrice
-        }
+        customAttributes: [
+          { key: 'Category', value: item.category },
+          { key: 'Caliber/Gauge', value: item.caliber },
+          { key: 'Capacity', value: item.capacity + ' rounds' },
+          { key: 'Box Color', value: item.boxColor },
+          { key: 'Text Color', value: item.textColor },
+          { key: 'Custom Text', value: item.customTextOnCover },
+          { key: 'Cover Text', value: item.customTextValue || 'None' },
+          { key: 'Configured Price', value: '$' + item.unitPrice }
+        ]
       });
 
     }
 
   });
 
-const response = await fetch('https://n00jgd-8n.myshopify.com/cart/add.js', {
-  method: 'POST',
-  mode: 'cors',
-  credentials: 'include',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
-  },
-  body: JSON.stringify({
-    items: cartItems
-  })
-});
+  try {
 
-const data = await response.json();
-console.log(data);
+    const checkout = await shopifyClient.checkout.create();
 
-if (response.ok) {
+    await shopifyClient.checkout.addLineItems(checkout.id, lineItems);
 
-  window.location.href = 'https://n00jgd-8n.myshopify.com/cart';
+    window.location.href = checkout.webUrl;
 
-} else {
+  } catch (error) {
 
-  alert("Something went wrong adding items to cart.");
-}
+    console.error(error);
+    alert("Error creating Shopify checkout.");
+
+  }
 
 }
 
@@ -1617,5 +1605,17 @@ document.getElementById("customTextInput").addEventListener("input", updateSumma
   </div>
 </footer>
 
+<script src="https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js"></script>
+
+  <script>
+
+const shopifyClient = ShopifyBuy.buildClient({
+  domain: 'n00jgd-8n.myshopify.com',
+  storefrontAccessToken: '43ba083947c70e766314af39b35a5c48',
+});
+
+</script>
+  
+  
 </body>
 </html>
