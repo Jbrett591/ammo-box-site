@@ -35,6 +35,56 @@ body {
   padding: 24px;
 }
 
+  .top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.20);
+  background:
+    radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
+    linear-gradient(180deg, #121212 0%, #090909 100%);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  width: min(1400px, 92%);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand img {
+  height: 64px;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.nav-links a:hover {
+  color: #d4af37;
+}
+  
 .hero {
   text-align: center;
   padding: 38px 24px;
@@ -260,6 +310,29 @@ h1 {
   .form-grid {
     grid-template-columns: 1fr;
   }
+
+  .nav-container {
+  width: 100%;
+  padding: 0 12px;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.nav-brand img {
+  max-width: 260px;
+  height: auto;
+}
+
+.nav-links {
+  width: 100%;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: 13px;
+}
 }
 
 @media (max-width: 700px) {
@@ -387,7 +460,7 @@ h1 {
       Interested in carrying ForgeBox Co. products in your shop? We offer wholesale and bulk-order opportunities for retailers looking for premium, made-to-order ammo storage.
     </p>
   
-
+</section>
 
   <section class="section">
     <h2 class="section-title">Built for Retail</h2>
