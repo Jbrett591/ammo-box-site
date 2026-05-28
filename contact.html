@@ -25,6 +25,63 @@ body {
   padding: 20px;
 }
 
+  .top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.20);
+  background:
+    radial-gradient(circle at center top,
+    rgba(212,175,55,0.08),
+    transparent 55%),
+    linear-gradient(180deg, #121212 0%, #090909 100%);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  width: min(1400px, 92%);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+  opacity: 0.88;
+}
+
+.nav-brand img {
+  height: 64px;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #d4af37;
+}
+  
 .header {
   text-align: center;
   margin-bottom: 30px;
@@ -243,8 +300,32 @@ button:hover {
 }
 
 @media (max-width: 700px) {
+
   .page-wrap {
     padding: 12px;
+  }
+
+  .nav-container {
+    width: 100%;
+    padding: 0 12px;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .nav-brand img {
+    max-width: 260px;
+    height: auto;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    font-size: 13px;
   }
 
   .contact-card {
@@ -260,6 +341,7 @@ button:hover {
     justify-content: center;
   }
 }
+  
 </style>
 </head>
 
@@ -267,15 +349,22 @@ button:hover {
 
 <div class="page-wrap">
 
-  <header class="header">
-    <img 
-      src="images/forgebox logo.webp" 
-      class="logo" 
-      alt="ForgeBox Co. logo"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async">
-  </header>
+<header class="top-nav">
+  <div class="nav-container">
+
+    <a class="nav-brand" href="index.html">
+      <img src="images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="order.html">Shop</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="wholesale.html">Wholesale</a>
+    </nav>
+
+      </div>
+</header>
 
   <main class="contact-card">
     <div class="eyebrow">Contact ForgeBox Co.</div>
