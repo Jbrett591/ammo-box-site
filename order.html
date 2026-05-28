@@ -546,6 +546,71 @@ button.success {
   border-bottom: none;
 }
 
+  .checkout-btn {
+  width: 100%;
+  margin-top: 28px;
+  padding: 20px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5b3412 0%,
+      #8b541c 25%,
+      #c07a2b 50%,
+      #8b541c 75%,
+      #4b2c10 100%
+    );
+
+  border: 1px solid rgba(255,190,90,0.4);
+  border-radius: 16px;
+
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -8px 18px rgba(0,0,0,0.35),
+    0 12px 28px rgba(0,0,0,0.55),
+    0 0 18px rgba(255,160,40,0.15);
+
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    filter 0.18s ease;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.06);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.18),
+    inset 0 -8px 18px rgba(0,0,0,0.35),
+    0 16px 34px rgba(0,0,0,0.65),
+    0 0 24px rgba(255,170,60,0.28);
+}
+
+.checkout-btn:active {
+  transform: scale(0.985);
+}
+
+.checkout-lock {
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px rgba(255,220,120,0.4));
+}
+  
 .site-footer {
   margin-top: 70px;
   padding: 34px 22px 20px;
@@ -900,14 +965,15 @@ button.success {
   <textarea id="orderNotes" name="Order Notes" style="width:100%; height:80px;" placeholder="Optional: add any special instructions or questions for this order..."></textarea>
 </div>
 
-<div class="section">
-  <h2>9. Contact Info</h2>
-  <input id="customerName" class="contact-input" type="text" placeholder="Name" required>
-  <input id="customerEmail" class="contact-input" type="email" placeholder="Email" required>
-  <input id="customerPhone" class="contact-input" type="tel" placeholder="Phone">
-</div>
+<button 
+  type="button" 
+  class="checkout-btn"
+  onclick="submitOrder()">
 
-<button type="button" onclick="submitOrder()">Submit Order</button>
+  <span class="checkout-lock">🔒</span>
+  Continue to Secure Checkout
+
+</button>
 
 <script src="forgebox-sku-pricing-full.js"></script>
 
