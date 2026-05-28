@@ -1774,6 +1774,34 @@ function createOrderId() {
   return "FB-" + datePart + "-" + timePart;
 }
 
+function getShopifyVariantId(category, price) {
+  const variantMap = {
+    Pistol: {
+      20: "gid://shopify/ProductVariant/45665409794150",
+      25: "gid://shopify/ProductVariant/45665409826918",
+      30: "gid://shopify/ProductVariant/45665409859686",
+      35: "gid://shopify/ProductVariant/45665409892454",
+      40: "gid://shopify/ProductVariant/45665409925222"
+    },
+    Rifle: {
+      20: "gid://shopify/ProductVariant/45666453586022",
+      25: "gid://shopify/ProductVariant/45666453618790",
+      30: "gid://shopify/ProductVariant/45666453651558",
+      35: "gid://shopify/ProductVariant/45666453684326",
+      40: "gid://shopify/ProductVariant/45666453717094"
+    },
+    Shotgun: {
+      20: "gid://shopify/ProductVariant/45666454503526",
+      25: "gid://shopify/ProductVariant/45666454536294",
+      30: "gid://shopify/ProductVariant/45666454569062",
+      35: "gid://shopify/ProductVariant/45666454601830",
+      40: "gid://shopify/ProductVariant/45666454634598"
+    }
+  };
+
+  return variantMap[category]?.[price] || "";
+}  
+
 async function submitOrder() {
 
   if (orderItems.length === 0) {
@@ -1787,24 +1815,13 @@ async function submitOrder() {
 
     for (let i = 0; i < item.quantity; i++) {
 
-   let variantId = '';
+   const variantId = getShopifyVariantId(item.category, item.unitPrice);
 
-if (item.unitPrice === 20) {
-  variantId = 'gid://shopify/ProductVariant/45665409794150';
+if (!variantId) {
+  alert(`No Shopify variant found for ${item.category} at $${item.unitPrice}.`);
+  return;
 }
-else if (item.unitPrice === 25) {
-  variantId = 'gid://shopify/ProductVariant/45665409826918';
-}
-else if (item.unitPrice === 30) {
-  variantId = 'gid://shopify/ProductVariant/45665409859686';
-}
-else if (item.unitPrice === 35) {
-  variantId = 'gid://shopify/ProductVariant/45665409892454';
-}
-else if (item.unitPrice === 40) {
-  variantId = 'gid://shopify/ProductVariant/45665409925222';
-}
-
+      
 lineItems.push({
   variantId: variantId,
         quantity: 1,
