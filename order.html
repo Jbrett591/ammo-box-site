@@ -1964,7 +1964,14 @@ function loadCart() {
 
   if (!saved) return;
 
-  const items = JSON.parse(saved);
+  let items = [];
+
+try {
+  items = JSON.parse(saved);
+} catch (error) {
+  localStorage.removeItem("forgeboxCart");
+  return;
+}
 
   orderItems.length = 0;
 
@@ -2014,6 +2021,7 @@ function addBuildFromUrlParams() {
   });
 
   updateOrderList();
+  saveCart();
 
   const orderList = document.getElementById("orderList");
   if (orderList) {
