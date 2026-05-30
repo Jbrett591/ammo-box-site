@@ -20,7 +20,7 @@ html {
   scroll-behavior: smooth;
 }
 
-  * {
+* {
   box-sizing: border-box;
 }
 
@@ -53,24 +53,17 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-
   padding: 24px 0;
-
   border-bottom: 1px solid rgba(212,175,55,0.20);
-
   background:
-    radial-gradient(circle at center top,
-    rgba(212,175,55,0.08),
-    transparent 55%),
+    radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
     linear-gradient(180deg, #121212 0%, #090909 100%);
-
   backdrop-filter: blur(10px);
 }
 
 .nav-container {
   width: min(1400px, 92%);
   margin: auto;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,7 +79,7 @@ body {
   opacity: 0.88;
 }
 
- .nav-brand img {
+.nav-brand img {
   height: 64px;
   width: auto;
   display: block;
@@ -101,11 +94,9 @@ body {
 .nav-links a {
   color: #ffffff;
   text-decoration: none;
-
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-
   transition: color 0.2s ease;
 }
 
@@ -463,8 +454,7 @@ h1 {
   }
 
   .cta-row,
-  .gallery-grid,
-  .spec-grid {
+  .gallery-grid {
     grid-template-columns: 1fr;
   }
 
@@ -472,7 +462,6 @@ h1 {
     width: 100%;
     white-space: normal;
   }
-}
 
   .section {
     padding: 22px 16px;
@@ -503,7 +492,7 @@ h1 {
 
     <nav class="nav-links">
       <a href="index.html">Home</a>
-      <a href="index.html#order-form">Shop</a>
+      <a href="order.html">Shop</a>
       <a href="gallery.html">Gallery</a>
       <a href="wholesale.html">Wholesale</a>
     </nav>
@@ -558,6 +547,26 @@ h1 {
         </div>
       </a>
 
+      <a class="build-card" href="builds/12ga-25-grey-black.html">
+        <div class="build-image-wrap">
+          <img
+            src="images/gallery/12ga-25-grey-black/hero.webp"
+            alt="12 Gauge 25 round ForgeBox with grey body and black text"
+            loading="lazy"
+            decoding="async">
+        </div>
+
+        <div class="build-content">
+          <div class="build-specs">Gray Body · Black Text</div>
+          <h2>12 Gauge · 25 Round</h2>
+          <p>
+            A full-size 12 Gauge configuration with a clean Gray body,
+            black lettering, and a purpose-built 25 round layout.
+          </p>
+          <div class="view-build">View Build →</div>
+        </div>
+      </a>
+
       <div class="coming-soon-card">
         <div>
           <strong>More builds coming soon</strong>
@@ -605,4 +614,3 @@ h1 {
 
 </body>
 </html>
-
