@@ -1729,6 +1729,7 @@ const selectedBoxColor = colors.find(c => c.name === selections.boxColor);
   });
 
   updateOrderList();
+  saveCart();
   resetCurrentBox();
 
   const btn = document.getElementById("addBoxBtn");
@@ -1814,6 +1815,7 @@ function removeBox(index) {
 
   orderItems.splice(index, 1);
   updateOrderList();
+  saveCart();
 }
 
 function resetCurrentBox() {
@@ -1924,7 +1926,9 @@ lineItems.push({
     const checkout = await shopifyClient.checkout.create();
 
     await shopifyClient.checkout.addLineItems(checkout.id, lineItems);
-
+    
+    localStorage.removeItem("forgeboxCart");
+    
     window.location.href = checkout.webUrl;
 
   } catch (error) {
@@ -1944,8 +1948,33 @@ loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
 updatePriceBox();
+  loadCart();
 document.getElementById("quantity").addEventListener("input", updateSummary);
 document.getElementById("customTextInput").addEventListener("input", updateSummary);
+
+function saveCart() {
+  localStorage.setItem(
+    "forgeboxCart",
+    JSON.stringify(orderItems)
+  );
+}
+
+function loadCart() {
+  const saved = localStorage.getItem("forgeboxCart");
+
+  if (!saved) return;
+
+  const items = JSON.parse(saved);
+
+  orderItems.length = 0;
+
+  items.forEach(item => {
+    orderItems.push(item);
+  });
+
+  updateOrderList();
+}
+  
   
 function addBuildFromUrlParams() {
   const params = new URLSearchParams(window.location.search);
