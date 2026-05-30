@@ -1946,6 +1946,59 @@ loadColors("textColor", "textColor");
 updatePriceBox();
 document.getElementById("quantity").addEventListener("input", updateSummary);
 document.getElementById("customTextInput").addEventListener("input", updateSummary);
+  
+function addBuildFromUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+
+  const category = params.get("category");
+  const caliber = params.get("caliber");
+  const capacity = params.get("capacity");
+  const boxColor = params.get("boxColor");
+  const textColor = params.get("textColor");
+  const quantity = parseInt(params.get("quantity") || "1", 10);
+
+  if (!category || !caliber || !capacity || !boxColor || !textColor) {
+    return;
+  }
+
+  const selectedBoxColor = colors.find(c => c.name === boxColor);
+
+  const unitPrice = getSkuPrice(category, caliber, capacity);
+
+  if (!unitPrice) {
+    alert("This build could not be added automatically. Please select it manually.");
+    return;
+  }
+
+  orderItems.push({
+    quantity: quantity,
+    category: category,
+    caliber: caliber,
+    capacity: capacity,
+    boxColor: boxColor,
+    boxImage: selectedBoxColor ? selectedBoxColor.image : "images/box-ash-gray.webp",
+    textColor: textColor,
+    customTextOnCover: "No",
+    customTextValue: "None",
+    unitPrice: unitPrice,
+    lineTotal: unitPrice * quantity
+  });
+
+  updateOrderList();
+
+  const orderList = document.getElementById("orderList");
+  if (orderList) {
+    orderList.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+  }
+
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+addBuildFromUrlParams();
+  
 </script>
   
 <footer class="site-footer">
