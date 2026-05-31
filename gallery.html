@@ -53,7 +53,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  padding: 24px 0;
+  padding: 18px 0;
   border-bottom: 1px solid rgba(212,175,55,0.20);
   background:
     radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
@@ -80,7 +80,7 @@ body {
 }
 
 .nav-brand img {
-  height: 64px;
+  height: 82px;
   width: auto;
   display: block;
   mix-blend-mode: screen;
@@ -100,8 +100,12 @@ body {
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
-  color: #d4af37;
+.nav-cart {
+  color: #d4af37 !important;
+  padding: 6px 10px;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 999px;
+  background: rgba(212,175,55,0.08);
 }
   
 .logo {
@@ -424,12 +428,12 @@ h1 {
     overflow-x: hidden;
   }
 
-  .nav-container {
-    width: 100%;
-    padding: 0 12px;
-    flex-direction: column;
-    gap: 18px;
-  }
+.nav-container {
+  width: 100%;
+  padding: 0 12px;
+  flex-direction: column;
+  gap: 16px;
+}
 
   .nav-brand img {
     max-width: 260px;
@@ -489,12 +493,17 @@ h1 {
       <img src="images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
     </a>
 
-    <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="order.html">Shop</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="wholesale.html">Wholesale</a>
-    </nav>
+<nav class="nav-links">
+  <a href="index.html">Home</a>
+  <a href="order.html">Build Yours</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+  <a href="wholesale.html">Wholesale</a>
+
+  <a class="nav-cart" href="order.html#cart">
+    🛒 <span id="cartCount">0</span>
+  </a>
+</nav>
 
   </div>
 </header>
