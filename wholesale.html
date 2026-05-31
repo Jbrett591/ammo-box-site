@@ -36,11 +36,10 @@ body {
 }
 
   .top-nav {
-  position: sticky;
+ position: sticky;
   top: 0;
   z-index: 1000;
-  width: 100%;
-  padding: 24px 0;
+  padding: 18px 0;
   border-bottom: 1px solid rgba(212,175,55,0.20);
   background:
     radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
@@ -59,8 +58,12 @@ body {
 .nav-brand {
   display: flex;
   align-items: center;
+  transition: opacity 0.2s ease;
 }
 
+.nav-brand:hover {
+  opacity: 0.88;
+}
 .nav-brand img {
   height: 82px;
   width: auto;
@@ -79,16 +82,16 @@ body {
   font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #d4af37;
 }
 
-  .nav-cart {
-  margin-left: 24px;
+.nav-cart {
   color: #d4af37 !important;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border: 1px solid rgba(212,175,55,0.35);
   border-radius: 999px;
   background: rgba(212,175,55,0.08);
