@@ -381,9 +381,9 @@ button:hover {
   <a href="contact.html">Contact</a>
   <a href="wholesale.html">Wholesale</a>
 
-  <a class="nav-cart" href="order.html#cart">
-    🛒 <span id="cartCount">0</span>
-  </a>
+<a class="nav-cart" href="order.html#currentOrder">
+  🛒 <span id="navCartCount">0</span>
+</a>
 </nav>
 
       </div>
@@ -446,5 +446,20 @@ button:hover {
   </div>
 </footer>
 
+<script>
+(function() {
+  const cartBadge = document.getElementById("navCartCount");
+  if (!cartBadge) return;
+
+  const savedCart = JSON.parse(localStorage.getItem("forgeboxCart") || "[]");
+
+  const totalBoxes = savedCart.reduce((total, item) => {
+    return total + (parseInt(item.quantity, 10) || 0);
+  }, 0);
+
+  cartBadge.textContent = totalBoxes;
+})();
+</script>
+  
 </body>
 </html>
