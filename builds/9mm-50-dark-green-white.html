@@ -34,25 +34,27 @@ body {
   padding: 20px;
 }
 
-/* TOP NAV */
 .top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.20);
+  background:
+    radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
+    linear-gradient(180deg, #121212 0%, #090909 100%);
+  backdrop-filter: blur(10px);
+}
+
+.nav-container {
+  width: min(1400px, 92%);
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 18px;
-  margin: 0 auto 42px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(212,175,55,0.28);
 }
 
-.nav-brand img {
-  height: 64px;
-  width: auto;
-  display: block;
-  mix-blend-mode: screen;
-}
-
-  .nav-brand {
+.nav-brand {
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease;
@@ -62,22 +64,37 @@ body {
   opacity: 0.88;
 }
 
+.nav-brand img {
+  height: 82px;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+}
+
 .nav-links {
   display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  gap: 28px;
 }
 
 .nav-links a {
-  color: #ddd;
+  color: #ffffff;
   text-decoration: none;
-  font-weight: 800;
-  font-size: 14px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
 }
 
 .nav-links a:hover {
   color: #d4af37;
+}
+
+.nav-cart {
+  color: #d4af37 !important;
+  padding: 6px 10px;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 999px;
+  background: rgba(212,175,55,0.08);
 }
 
 /* HERO COPY */
@@ -458,10 +475,28 @@ h1 {
     padding: 12px;
   }
 
-  .top-nav {
-    flex-direction: column;
-    margin-bottom: 30px;
-  }
+.nav-container {
+  width: 100%;
+  padding: 0 12px;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-brand img {
+  max-width: 260px;
+  height: auto;
+}
+
+.nav-links {
+  width: 100%;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  font-size: 13px;
+}
 
   .nav-links {
     justify-content: center;
@@ -508,17 +543,27 @@ h1 {
 
 <div class="page-wrap">
 
-  <header class="top-nav">
+<header class="top-nav">
+  <div class="nav-container">
+
     <a class="nav-brand" href="../index.html">
-  <img src="../images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
-</a>
+      <img src="../images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
+    </a>
 
     <nav class="nav-links">
       <a href="../index.html">Home</a>
+      <a href="../order.html">Build Yours</a>
       <a href="../gallery.html">Gallery</a>
-      <a href="../order.html">Shop</a>
+      <a href="../contact.html">Contact</a>
+      <a href="../wholesale.html">Wholesale</a>
+
+      <a class="nav-cart" href="../order.html#cart">
+        🛒 <span id="cartCount">0</span>
+      </a>
     </nav>
-  </header>
+
+  </div>
+</header>
 
   <section class="build-hero-copy">
     <div class="eyebrow">Finished ForgeBox Build</div>
