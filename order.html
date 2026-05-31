@@ -1838,21 +1838,26 @@ function getOrderTotal() {
   return orderItems.reduce((total, item) => total + item.lineTotal, 0);
 }
 
+  function getCartBoxCount() {
+  return orderItems.reduce((total, item) => total + (parseInt(item.quantity, 10) || 0), 0);
+}
+
 function updateOrderList() {
   const orderList = document.getElementById("orderList");
   const cartCount = document.getElementById("cartCount");
   const navCartCount = document.getElementById("navCartCount");
 
   if (cartCount) {
-    cartCount.textContent = orderItems.length;
+  cartCount.textContent = getCartBoxCount();
     cartCount.classList.remove("bump");
     void cartCount.offsetWidth;
     cartCount.classList.add("bump");
   }
 
-  if (navCartCount) {
-  navCartCount.textContent = orderItems.length;
+ if (navCartCount) {
+  navCartCount.textContent = getCartBoxCount();
 }
+
 
 if (orderItems.length === 0) {
   orderList.innerHTML = `<div class="empty-order">No boxes added yet</div>`;
