@@ -29,6 +29,70 @@ body {
   padding: 20px;
 }
 
+  .top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.20);
+  background:
+    radial-gradient(circle at center top, rgba(212,175,55,0.08), transparent 55%),
+    linear-gradient(180deg, #121212 0%, #090909 100%);
+  backdrop-filter: blur(10px);
+  margin-bottom: 20px;
+}
+
+.nav-container {
+  width: min(1400px, 92%);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.2s ease;
+}
+
+.nav-brand:hover {
+  opacity: 0.88;
+}
+
+.nav-brand img {
+  height: 82px;
+  width: auto;
+  display: block;
+  mix-blend-mode: screen;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #d4af37;
+}
+
+.nav-cart {
+  color: #d4af37 !important;
+  padding: 6px 10px;
+  border: 1px solid rgba(212,175,55,0.35);
+  border-radius: 999px;
+  background: rgba(212,175,55,0.08);
+}
+
 h1, h2 {
   text-align: center;
 }
@@ -1073,6 +1137,28 @@ button.success {
 
 <body>
 
+  <header class="top-nav">
+  <div class="nav-container">
+
+    <a class="nav-brand" href="index.html">
+      <img src="images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
+    </a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="order.html">Build Yours</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+      <a href="wholesale.html">Wholesale</a>
+
+      <a class="nav-cart" href="#orderList">
+        🛒 <span id="navCartCount">0</span>
+      </a>
+    </nav>
+
+  </div>
+</header>
+
 <div class="order-header">
   <img 
     src="images/order-form-header.webp"
@@ -1755,6 +1841,7 @@ function getOrderTotal() {
 function updateOrderList() {
   const orderList = document.getElementById("orderList");
   const cartCount = document.getElementById("cartCount");
+  const navCartCount = document.getElementById("navCartCount");
 
   if (cartCount) {
     cartCount.textContent = orderItems.length;
@@ -1762,6 +1849,10 @@ function updateOrderList() {
     void cartCount.offsetWidth;
     cartCount.classList.add("bump");
   }
+
+  if (navCartCount) {
+  navCartCount.textContent = orderItems.length;
+}
 
 if (orderItems.length === 0) {
   orderList.innerHTML = `<div class="empty-order">No boxes added yet</div>`;
