@@ -1962,6 +1962,7 @@ function getOrderTotal() {
 
 function updateOrderList() {
   const orderList = document.getElementById("orderList");
+  const currentOrderCount = document.getElementById("currentOrderCount");
   const cartCount = document.getElementById("cartCount");
   const navCartCount = document.getElementById("navCartCount");
 
@@ -1974,6 +1975,10 @@ function updateOrderList() {
 
  if (navCartCount) {
   navCartCount.textContent = getCartBoxCount();
+}
+
+  if (currentOrderCount) {
+  currentOrderCount.textContent = getCartBoxCount();
 }
 
 
