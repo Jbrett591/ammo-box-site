@@ -139,6 +139,60 @@ h1, h2 {
   border: 1px solid rgba(255,255,255,0.04);
 }
 
+  .stack-note {
+  position: relative;
+  margin: 22px 0 30px;
+  padding: 22px 24px 22px 28px;
+  background:
+    radial-gradient(circle at top left, rgba(132,125,72,0.13), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
+  border: 1px solid rgba(132,125,72,0.34);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.055),
+    0 10px 24px rgba(0,0,0,0.34);
+}
+
+.stack-note-accent {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 3px;
+  background: #847D48;
+  border-radius: 999px;
+}
+
+.stack-note-content h3 {
+  margin: 0 0 7px;
+  color: #f2f2f2;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stack-note-content p {
+  margin: 0 0 11px;
+  color: rgba(255,255,255,0.76);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.stack-note-content a {
+  color: #b8ad69;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.stack-note-content a:hover {
+  color: #d3c77a;
+  text-decoration: underline;
+}
+
 .category-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1112,6 +1166,19 @@ button.success {
     transform: translateX(0);
   }
 
+  .stack-note {
+  margin: 18px 0 24px;
+  padding: 18px 18px 18px 22px;
+}
+
+.stack-note-content h3 {
+  font-size: 0.95rem;
+}
+
+.stack-note-content p {
+  font-size: 0.9rem;
+}
+
   button {
     font-size: 18px;
     padding: 16px;
@@ -1224,21 +1291,6 @@ button.success {
   <select id="caliberSelect" class="dropdown-input">
     <option value="">Select a category first</option>
   </select>
-</div>
-
- <div class="section stack-info">
-  <h2>Stack Compatibility</h2>
-
-  <p>
-    Some ForgeBox sizes share the same footprint and are designed to stack together.
-    Look for the Stack Code listed beside each box size.
-  </p>
-
-  <p>
-    <a href="stack-codes.html">
-      View Stack Compatibility Guide →
-    </a>
-  </p>
 </div> 
 
 <div class="section">
@@ -1246,6 +1298,18 @@ button.success {
   <select id="capacitySelect" class="dropdown-input">
     <option value="">Select a caliber first</option>
   </select>
+</div>
+
+  <div class="stack-note">
+  <div class="stack-note-accent"></div>
+
+  <div class="stack-note-content">
+    <h3>Stack Compatibility</h3>
+    <p>
+      Boxes with matching Stack Codes are designed to share the same footprint and stack cleanly.
+    </p>
+    <a href="stack-codes.html">View Compatibility Guide →</a>
+  </div>
 </div>
 
 <div class="section">
