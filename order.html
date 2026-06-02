@@ -1656,8 +1656,13 @@ function loadCapacity() {
 
   caps.forEach(c => {
     const option = document.createElement("option");
+    const stackCode = getSkuStackCode(selections.caliber, c);
+
     option.value = c;
-    option.textContent = c + " rounds";
+    option.textContent = stackCode
+      ? `${c} rounds (Stack ${stackCode})`
+      : `${c} rounds`;
+
     capacitySelect.appendChild(option);
   });
 }
