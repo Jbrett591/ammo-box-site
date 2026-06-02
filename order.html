@@ -1368,10 +1368,6 @@ button.success {
     <strong>Current Box Configuration:</strong>
     <div id="summaryText">Nothing selected</div>
   </div>
-
-  <div id="cartSummary" class="cart-summary">
-    Boxes in Order: <span id="cartCount">0</span>
-  </div>
     
   <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
     Add Box to Order
@@ -1919,11 +1915,14 @@ function addBoxToOrder() {
   const price = getCurrentBoxPrice();
 const selectedBoxColor = colors.find(c => c.name === selections.boxColor);
 
+  const stackCode = getSkuStackCode(selections.caliber, selections.capacity);
+
   orderItems.push({
     quantity: quantity,
     category: selections.category,
     caliber: selections.caliber,
     capacity: selections.capacity,
+    stackCode: stackCode,
     boxColor: selections.boxColor,
     boxImage: selectedBoxColor ? selectedBoxColor.image : "images/box-ash-gray.webp",
     textColor: selections.textColor,
@@ -1996,7 +1995,9 @@ document.querySelector(".add-another-wrap").style.display = "block";
         <div class="order-card-top">
           <div>
             <div class="order-title">${item.caliber} ForgeBox</div>
-            <div class="order-subtitle">${item.capacity} Round Capacity</div>
+            <div class="order-subtitle">
+  ${item.capacity} Round Capacity${item.stackCode ? ` · Stack Code ${item.stackCode}` : ""}
+</div>
           </div>
 
           <div class="order-price">$${item.lineTotal}</div>
@@ -2124,6 +2125,7 @@ lineItems.push({
           { key: 'Category', value: item.category },
           { key: 'Caliber/Gauge', value: item.caliber },
           { key: 'Capacity', value: item.capacity + ' rounds' },
+          { key: 'Stack Code', value: item.stackCode || 'None' },
           { key: 'Box Color', value: item.boxColor },
           { key: 'Text Color', value: item.textColor },
           { key: 'Custom Text', value: item.customTextOnCover },
