@@ -1857,7 +1857,6 @@ if (textColor) {
 }
     }
 
-
 function updateCaliberPreview() {
   const previewCaliber = document.getElementById("previewCaliber");
   if (!previewCaliber) return;
@@ -1867,14 +1866,15 @@ function updateCaliberPreview() {
   previewCaliber.textContent = text;
 
   if (text.length > 18) {
-    previewCaliber.style.fontSize = "16px";
+    previewCaliber.style.fontSize = "14px";
   } else if (text.length > 14) {
+    previewCaliber.style.fontSize = "16px";
+  } else if (text.length > 10) {
     previewCaliber.style.fontSize = "18px";
   } else {
-    previewCaliber.style.fontSize = "22px";
+    previewCaliber.style.fontSize = "20px";
   }
 }
-  
 
 function getBasePrice() {
   if (!selections.category || !selections.caliber || !selections.capacity) return 0;
