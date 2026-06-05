@@ -743,17 +743,34 @@ button.success {
 }
 
 .shipping-note {
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 
-  margin-top: 14px;
+  margin: 16px auto 0;
+  padding: 8px 14px;
 
-  color: rgba(255,255,255,0.92);
+  border: 1px solid rgba(184,115,51,0.40);
+  border-radius: 999px;
 
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
+  background: rgba(184,115,51,0.08);
+
+  color: rgba(255,255,255,0.95);
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 0 14px rgba(184,115,51,0.12);
 
   text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.shipping-note-wrap {
+  text-align: center;
 }
 
 .checkout-btn:hover {
@@ -1406,8 +1423,10 @@ button.success {
   <img src="images/google-pay-white.png" alt="Google Pay">
 </div>
 
+<div class="shipping-note-wrap">
   <div class="shipping-note">
-  Made to order • Typically ships in 3–5 business days
+    📦 Made to order • Typically ships in 3–5 business days
+  </div>
 </div>
   
 <script src="forgebox-sku-pricing-full.js"></script>
