@@ -1702,10 +1702,7 @@ document.getElementById("caliberSelect").addEventListener("change", function() {
   selections.caliber = this.value;
   selections.capacity = "";
 
-  const previewCaliber = document.getElementById("previewCaliber");
-  if (previewCaliber) {
-    previewCaliber.textContent = this.value || ".357 MAGNUM";
-  }
+updateCaliberPreview();
 
   loadCapacity();
 
@@ -1859,6 +1856,25 @@ if (textColor) {
   }
 }
     }
+
+
+function updateCaliberPreview() {
+  const previewCaliber = document.getElementById("previewCaliber");
+  if (!previewCaliber) return;
+
+  const text = selections.caliber || ".357 MAGNUM";
+
+  previewCaliber.textContent = text;
+
+  if (text.length > 18) {
+    previewCaliber.style.fontSize = "16px";
+  } else if (text.length > 14) {
+    previewCaliber.style.fontSize = "18px";
+  } else {
+    previewCaliber.style.fontSize = "22px";
+  }
+}
+  
 
 function getBasePrice() {
   if (!selections.category || !selections.caliber || !selections.capacity) return 0;
@@ -2126,9 +2142,10 @@ document.getElementById("previewText").style.color = "#ddd";
 
 const previewCaliber = document.getElementById("previewCaliber");
 if (previewCaliber) {
-  previewCaliber.textContent = ".357 MAGNUM";
   previewCaliber.style.color = "#ddd";
 }
+
+updateCaliberPreview();
 
 const customPreviewImage = document.getElementById("customPreviewImage");
 if (customPreviewImage) {
@@ -2248,6 +2265,7 @@ loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
   updateCustomTextPreview();
+  updateCaliberPreview();
 updatePriceBox();
   loadCart();
 document.getElementById("quantity").addEventListener("input", updateSummary);
