@@ -1382,11 +1382,6 @@ button.success {
     
     <div id="previewText">YOUR TEXT</div>
   </div>
-  
-  <div class="summary" id="currentOrder">
-    <strong>Current Box Configuration:</strong>
-    <div id="summaryText">Nothing selected</div>
-  </div>
     
   <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
     Add Box to Order
@@ -1894,19 +1889,6 @@ function updatePriceBox() {
 }
 
 function updateSummary() {
-  const quantity = document.getElementById("quantity").value || 1;
-  const caliberLabel = selections.category === "Shotgun" ? "Gauge" : "Caliber";
-
-  document.getElementById("summaryText").innerHTML = `
-    Category: ${selections.category || "-"}<br>
-    ${caliberLabel}: ${selections.caliber || "-"}<br>
-    Capacity: ${selections.capacity ? selections.capacity + " rounds" : "-"}<br>
-    Box Color: ${selections.boxColor || "-"}<br>
-    Text Color: ${selections.textColor || "-"}<br>
-    Quantity: ${quantity}<br>
-    Custom Text on Cover: ${hasCustomTextRequest() ? "Yes (+$5)" : "No"}${getCustomTextValue() ? "<br>Cover Text: " + getCustomTextValue() : ""}
-  `;
-
   updatePriceBox();
 }
 
