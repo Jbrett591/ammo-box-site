@@ -283,6 +283,21 @@ h1, h2 {
   pointer-events: none;
 }
 
+  #previewCaliber {
+  position: absolute;
+  bottom: 8.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  font-weight: 900;
+  color: #ddd;
+  font-size: 22px;
+  letter-spacing: 1.2px;
+  text-align: center;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
 .card {
   background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
   border: 1px solid #2a2a2a;
@@ -1382,6 +1397,7 @@ button.success {
   decoding="async">
     
     <div id="previewText">YOUR TEXT</div>
+    <div id="previewCaliber">.357 MAGNUM</div>
   </div>
     
   <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
@@ -1684,6 +1700,11 @@ document.getElementById("caliberSelect").addEventListener("change", function() {
   selections.caliber = this.value;
   selections.capacity = "";
 
+  const previewCaliber = document.getElementById("previewCaliber");
+  if (previewCaliber) {
+    previewCaliber.textContent = this.value || ".357 MAGNUM";
+  }
+
   loadCapacity();
 
   document.getElementById("capacitySelect").scrollIntoView({
@@ -1818,6 +1839,7 @@ function updateBoxColorPreview(colorName) {
 
   const previewImage = document.getElementById("customPreviewImage");
   const previewText = document.getElementById("previewText");
+  const previewCaliber = document.getElementById("previewCaliber");
 
   if (color && previewImage) {
     previewImage.src = color.customPreview;
@@ -1825,8 +1847,13 @@ function updateBoxColorPreview(colorName) {
 
   const textColor = colors.find(c => c.name === selections.textColor);
 
-  if (textColor && previewText) {
+if (textColor) {
+  if (previewText) {
     previewText.style.color = textColor.hex;
+  }
+
+  if (previewCaliber) {
+    previewCaliber.style.color = textColor.hex;
   }
 }
 
@@ -2093,6 +2120,12 @@ document.getElementById("customTextInput").value = "";
 
 document.getElementById("previewText").textContent = "YOUR TEXT";
 document.getElementById("previewText").style.color = "#ddd";
+
+const previewCaliber = document.getElementById("previewCaliber");
+if (previewCaliber) {
+  previewCaliber.textContent = ".357 MAGNUM";
+  previewCaliber.style.color = "#ddd";
+}
 
 const customPreviewImage = document.getElementById("customPreviewImage");
 if (customPreviewImage) {
