@@ -943,6 +943,22 @@ button.success {
   transform: none;
 }
 
+  .free-shipping-status {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.free-shipping-status.pending {
+  color: #d4af37;
+}
+
+.free-shipping-status.qualified {
+  color: #4caf50;
+}
+
 .order-total-card {
   display: flex;
   justify-content: space-between;
@@ -2128,6 +2144,20 @@ document.querySelector(".add-another-wrap").style.display = "block";
       <span>Estimated Order Total</span>
       <strong>$${getOrderTotal()}</strong>
     </div>
+
+    ${
+      getOrderTotal() >= 70
+        ? `
+          <div class="free-shipping-status qualified">
+            ✅ You've Qualified for FREE Shipping
+          </div>
+        `
+        : `
+          <div class="free-shipping-status pending">
+            📦 You're $${70 - getOrderTotal()} Away from FREE Shipping
+          </div>
+        `
+    }
   `;
 }
 
