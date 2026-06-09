@@ -38,6 +38,26 @@ body {
   overflow-x: hidden;
 }
 
+.shipping-banner {
+  background: #0b0b0b;
+  color: #d4af37;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 15px;
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+}
+
+@media (max-width: 760px) {
+  .shipping-banner {
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 9px 10px;
+  }
+}
+  
 .top-nav {
   position: sticky;
   top: 0;
@@ -570,6 +590,10 @@ h1 {
 <body>
 
 <div class="page-wrap">
+
+  <div class="shipping-banner">
+  📦 FREE SHIPPING ON ORDERS OVER $70
+</div>
 
  <header class="top-nav">
   <div class="nav-container">
