@@ -465,6 +465,72 @@ h1 {
     justify-content: center;
   }
 }
+
+  .cart-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%) translateY(20px);
+  z-index: 10000;
+
+  padding: 14px 22px;
+  border-radius: 999px;
+
+  background:
+    radial-gradient(circle at top center, rgba(76,175,80,0.22), transparent 45%),
+    linear-gradient(145deg, #173017, #071507);
+
+  color: #d4ffd4;
+  border: 1px solid rgba(76,175,80,0.65);
+
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 0 0 1px rgba(76,175,80,0.25),
+    0 12px 28px rgba(0,0,0,0.7),
+    0 0 18px rgba(76,175,80,0.28);
+
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.cart-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.btn.added-success {
+  animation: addSuccessPulse 0.45s ease;
+  border-color: #4caf50 !important;
+  color: #d4ffd4 !important;
+  box-shadow:
+    0 0 0 1px #4caf50,
+    0 0 18px rgba(76,175,80,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -3px 6px rgba(0,0,0,0.85) !important;
+}
+
+@keyframes addSuccessPulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.035);
+  }
+  70% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+  
 </style>
 </head>
 
@@ -616,11 +682,11 @@ h1 {
   <h2 class="section-title">Want One Or Both?</h2>
 
   <div class="cta-row">
-    <button type="button" class="btn btn-primary" onclick="addPairBox('Hot Pink', 'Turquoise')">
+    <button type="button" class="btn btn-primary" onclick="addPairBox('Hot Pink', 'Turquoise', this)">
       ADD PINK BOX
     </button>
 
-    <button type="button" class="btn btn-primary" onclick="addPairBox('Turquoise', 'Hot Pink')">
+    <button type="button" class="btn btn-primary" onclick="addPairBox('Turquoise', 'Hot Pink', this)">
       ADD TURQUOISE BOX
     </button>
 
@@ -695,9 +761,13 @@ document.addEventListener("keydown", function(event) {
 })();
 </script>
 
-  <script>
-function addPairBox(boxColor, textColor) {
+<script>
+function addPairBox(boxColor, textColor, buttonEl) {
   const cart = JSON.parse(localStorage.getItem("forgeboxCart") || "[]");
+
+  const boxImage = boxColor === "Turquoise"
+    ? "images/box-teal.webp"
+    : "images/box-" + boxColor.toLowerCase().replaceAll(" ", "-") + ".webp";
 
   cart.push({
     quantity: 1,
@@ -706,9 +776,7 @@ function addPairBox(boxColor, textColor) {
     capacity: "50",
     stackCode: null,
     boxColor: boxColor,
-    boxImage: boxColor === "Turquoise"
-  ? "images/box-teal.webp"
-  : "images/box-" + boxColor.toLowerCase().replaceAll(" ", "-") + ".webp",
+    boxImage: boxImage,
     textColor: textColor,
     customTextOnCover: "No",
     customTextValue: "None",
@@ -720,11 +788,47 @@ function addPairBox(boxColor, textColor) {
 
   const cartBadge = document.getElementById("navCartCount");
   if (cartBadge) {
-    const totalBoxes = cart.reduce((total, item) => total + (parseInt(item.quantity, 10) || 0), 0);
+    const totalBoxes = cart.reduce((total, item) => {
+      return total + (parseInt(item.quantity, 10) || 0);
+    }, 0);
+
     cartBadge.textContent = totalBoxes;
   }
+
+  if (buttonEl) {
+    buttonEl.classList.remove("added-success");
+    void buttonEl.offsetWidth;
+    buttonEl.classList.add("added-success");
+
+    const originalText = buttonEl.textContent;
+    buttonEl.textContent = "ADDED ✓";
+
+    setTimeout(() => {
+      buttonEl.classList.remove("added-success");
+      buttonEl.textContent = originalText;
+    }, 1200);
+  }
+
+  showCartToast();
+}
+
+function showCartToast() {
+  const toast = document.getElementById("cartToast");
+  if (!toast) return;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.forgeboxToastTimer);
+
+  window.forgeboxToastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1800);
 }
 </script>
+
+  <div id="cartToast" class="cart-toast">
+  Added to cart successfully
+</div>
 
 </body>
 </html>
