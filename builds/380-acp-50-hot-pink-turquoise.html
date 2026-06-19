@@ -141,6 +141,20 @@ h1 {
   max-width: 700px;
 }
 
+  .cta-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+@media (max-width: 760px) {
+  .cta-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 .btn {
   display: flex;
   align-items: center;
@@ -598,13 +612,23 @@ h1 {
     </div>
   </section>
 
-  <section class="section feature-callout">
-    <h2 class="section-title">Want This Configuration?</h2>
+<section class="section feature-callout">
+  <h2 class="section-title">Want One Or Both?</h2>
 
-    <a class="btn btn-primary" href="../order.html?category=Pistol&caliber=.380%20ACP&capacity=50&boxColor=Hot%20Pink&textColor=Turquoise&quantity=1">
-      ADD THIS BUILD TO ORDER
+  <div class="cta-row">
+    <button type="button" class="btn btn-primary" onclick="addPairBox('Hot Pink', 'Turquoise')">
+      ADD PINK BOX
+    </button>
+
+    <button type="button" class="btn btn-primary" onclick="addPairBox('Turquoise', 'Hot Pink')">
+      ADD TURQUOISE BOX
+    </button>
+
+    <a class="btn btn-primary" href="../order.html#orderList">
+      VIEW CART / CHECKOUT
     </a>
-  </section>
+  </div>
+</section>
 
 </div>
 
@@ -669,6 +693,37 @@ document.addEventListener("keydown", function(event) {
 
   cartBadge.textContent = totalBoxes;
 })();
+</script>
+
+  <script>
+function addPairBox(boxColor, textColor) {
+  const cart = JSON.parse(localStorage.getItem("forgeboxCart") || "[]");
+
+  cart.push({
+    quantity: 1,
+    category: "Pistol",
+    caliber: ".380 ACP",
+    capacity: "50",
+    stackCode: null,
+    boxColor: boxColor,
+    boxImage: boxColor === "Turquoise"
+  ? "images/box-teal.webp"
+  : "images/box-" + boxColor.toLowerCase().replaceAll(" ", "-") + ".webp",
+    textColor: textColor,
+    customTextOnCover: "No",
+    customTextValue: "None",
+    unitPrice: 25,
+    lineTotal: 25
+  });
+
+  localStorage.setItem("forgeboxCart", JSON.stringify(cart));
+
+  const cartBadge = document.getElementById("navCartCount");
+  if (cartBadge) {
+    const totalBoxes = cart.reduce((total, item) => total + (parseInt(item.quantity, 10) || 0), 0);
+    cartBadge.textContent = totalBoxes;
+  }
+}
 </script>
 
 </body>
