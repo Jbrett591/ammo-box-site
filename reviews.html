@@ -298,9 +298,10 @@ h1 {
 }
 
 .review-badge img {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   display: block;
+  flex-shrink: 0;
 }
 
 .review-text {
@@ -708,12 +709,19 @@ h1 {
 
       <article class="review-card" data-carousel>
         <div class="review-content">
-          <div class="review-meta-row">
-            <div>
-              <div class="stars">★★★★★</div>
-              <div class="review-badge">Verified Google Review</div>
-            </div>
-          </div>
+     <div class="review-meta-row">
+
+  <div class="review-rating">
+    <div class="stars">★★★★★</div>
+
+    <div class="review-badge">
+      <img src="images/branding/google-g.png" alt="Google">
+      <span>Verified Google Review</span>
+    </div>
+
+  </div>
+
+</div>
 
           <div class="review-author"> - Amy V.</div>
 
