@@ -527,6 +527,30 @@ h1, h2 {
     filter 0.22s ease;
 }
 
+.lid-preview-card {
+  margin: 24px auto 0;
+  max-width: 520px;
+  text-align: center;
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  border: 1px solid #333;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+}
+
+.lid-preview-card .preview-container {
+  margin: 0 auto;
+}
+
+.preview-note {
+  max-width: 640px;
+  margin: 14px auto 24px;
+  color: rgba(255,255,255,0.72);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+}
+
 .box-color-preview img.is-changing {
   opacity: 0;
   transform: scale(0.985);
@@ -1405,30 +1429,35 @@ button.success {
     <p id="boxColorPreviewLabel">Ash Gray</p>
   </div>
 
-  <div class="preview-container">
-    <p class="preview-title">Lid & Text Color Preview</p>
-    <img 
-      id="customPreviewImage"
-      src="images/custom-preview/ash-gray.webp" 
-      class="preview-image"
-      alt="Lid and text color preview"
-      loading="lazy"
-      decoding="async">
-
-    <div id="previewText">YOUR TEXT</div>
-    <div id="previewCaliber">.357 MAGNUM</div>
-  </div>
-
-  <h2>5. Text Color</h2>
-  <div class="color-grid" id="textColor"></div>
-</div>
-
-<div class="section">
-  <h2>6. Custom Text on Cover (+$5)</h2>
+  <h2>5. Custom Text on Cover (+$5)</h2>
   <div class="toggle-wrap" id="customTextChoice">
     <div class="toggle-option selected" data-value="No">No</div>
     <div class="toggle-option" data-value="Yes">Yes</div>
   </div>
+
+  <div class="lid-preview-card">
+    <p class="preview-title">Lid & Text Color Preview</p>
+
+    <div class="preview-container">
+      <img 
+        id="customPreviewImage"
+        src="images/custom-preview/ash-gray.webp" 
+        class="preview-image"
+        alt="Lid and text color preview"
+        loading="lazy"
+        decoding="async">
+
+      <div id="previewText">YOUR TEXT</div>
+      <div id="previewCaliber">.357 MAGNUM</div>
+    </div>
+  </div>
+
+  <p class="preview-note">
+    These previews are intended to help visualize your selections. Final colors may vary slightly depending on your display, but your box will be produced using the colors you selected.
+  </p>
+
+  <h2>6. Text Color</h2>
+  <div class="color-grid" id="textColor"></div>
 
   <div id="customTextInputContainer" class="custom-text-panel">
     <input
@@ -1451,12 +1480,12 @@ button.success {
     <strong>Current Order (<span id="currentOrderCount">0</span> <span id="currentOrderLabel">Boxes</span>):</strong>
     <div id="orderList">No boxes added yet</div>
 
-     <div class="add-another-wrap">
-    <button type="button" class="add-another-btn" onclick="scrollToBuilder()">
-      + Add Another Box
-    </button>
+    <div class="add-another-wrap">
+      <button type="button" class="add-another-btn" onclick="scrollToBuilder()">
+        + Add Another Box
+      </button>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="section">
