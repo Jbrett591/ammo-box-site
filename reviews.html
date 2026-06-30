@@ -270,18 +270,26 @@ h1 {
 
 .review-meta-row {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: 18px;
+  justify-content: space-between;
+  gap: 14px;
   margin-bottom: 14px;
+}
+
+.stars {
+  color: #d4af37;
+  font-size: 16px;
+  letter-spacing: 2px;
+  line-height: 1;
 }
 
 .review-badge {
   color: #d4af37;
-  text-transform: uppercase;
   font-size: 12px;
   font-weight: 900;
-  letter-spacing: 1.8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 
 .review-text {
@@ -336,11 +344,12 @@ h1 {
 }
 
 .carousel-frame img {
-  width: 100%;
-  display: block;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: center center;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    background: #111;
 }
 
 .carousel-btn {
