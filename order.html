@@ -1395,7 +1395,7 @@ button.success {
   <div class="color-grid" id="boxColor"></div>
 
   <div id="boxColorPreviewWrap" class="box-color-preview">
-    <p class="preview-title">Selected Box Color Preview</p>
+    <p class="preview-title">Box Body Preview</p>
     <img 
       id="boxColorPreview" 
       src="images/box-ash-gray.webp" 
@@ -1405,17 +1405,26 @@ button.success {
     <p id="boxColorPreviewLabel">Ash Gray</p>
   </div>
 
+  <div class="preview-container">
+    <p class="preview-title">Lid & Text Color Preview</p>
+    <img 
+      id="customPreviewImage"
+      src="images/custom-preview/ash-gray.webp" 
+      class="preview-image"
+      alt="Lid and text color preview"
+      loading="lazy"
+      decoding="async">
+
+    <div id="previewText">YOUR TEXT</div>
+    <div id="previewCaliber">.357 MAGNUM</div>
+  </div>
+
   <h2>5. Text Color</h2>
   <div class="color-grid" id="textColor"></div>
 </div>
 
 <div class="section">
-  <h2>6. Quantity</h2>
-  <input id="quantity" class="quantity-input" type="number" min="1" value="1">
-</div>
-
-<div class="section">
-  <h2>7. Custom Text on Cover (+$5)</h2>
+  <h2>6. Custom Text on Cover (+$5)</h2>
   <div class="toggle-wrap" id="customTextChoice">
     <div class="toggle-option selected" data-value="No">No</div>
     <div class="toggle-option" data-value="Yes">Yes</div>
@@ -1430,20 +1439,10 @@ button.success {
       maxlength="25">
     <div class="helper-text">Maximum 20 characters.</div>
   </div>
-  
-  <div class="preview-container">
-   <img 
-  id="customPreviewImage"
-  src="images/custom-preview/ash-gray.webp" 
-  class="preview-image"
-  alt="Custom text preview"
-  loading="lazy"
-  decoding="async">
-    
-    <div id="previewText">YOUR TEXT</div>
-    <div id="previewCaliber">.357 MAGNUM</div>
-  </div>
-    
+
+  <h2>7. Quantity</h2>
+  <input id="quantity" class="quantity-input" type="number" min="1" value="1">
+
   <button id="addBoxBtn" type="button" onclick="addBoxToOrder()">
     Add Box to Order
   </button>
@@ -1451,12 +1450,13 @@ button.success {
   <div class="summary">
     <strong>Current Order (<span id="currentOrderCount">0</span> <span id="currentOrderLabel">Boxes</span>):</strong>
     <div id="orderList">No boxes added yet</div>
-    
+
      <div class="add-another-wrap">
     <button type="button" class="add-another-btn" onclick="scrollToBuilder()">
       + Add Another Box
     </button>
   </div>
+</div>
 </div>
 
 <div class="section">
