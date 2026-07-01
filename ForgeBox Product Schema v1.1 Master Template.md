@@ -3,6 +3,10 @@
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "[PRODUCT NAME]",
+  "description": "[PRODUCT DESCRIPTION]",
+  "sku": "[SKU]",
+  "url": "https://www.forgeboxco.com/builds/[PAGE].html",
+
   "image": [
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/hero.webp",
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-2].webp",
@@ -10,19 +14,41 @@
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-4].webp",
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-5].webp"
   ],
-  "description": "[META DESCRIPTION / PRODUCT DESCRIPTION]",
-  "sku": "[SKU]",
+
   "brand": {
     "@type": "Brand",
     "name": "ForgeBox Co."
   },
+
   "manufacturer": {
     "@id": "https://www.forgeboxco.com/#organization"
   },
+
   "category": "Ammo Storage",
+
   "material": "PLA",
+
   "color": "[BODY COLOR] / [TEXT COLOR]",
-  "url": "https://www.forgeboxco.com/builds/[PAGE-FILENAME].html",
+
+  "audience": {
+    "@type": "PeopleAudience",
+    "suggestedMinAge": 18
+  },
+
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "United States"
+  },
+
+  "isFamilyFriendly": true,
+
+  "offers": {
+    "@type": "Offer",
+    "url": "https://www.forgeboxco.com/builds/[PAGE].html",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition"
+  },
+
   "additionalProperty": [
     {
       "@type": "PropertyValue",
@@ -32,7 +58,7 @@
     {
       "@type": "PropertyValue",
       "name": "Capacity",
-      "value": "[CAPACITY] Round"
+      "value": "[CAPACITY]"
     },
     {
       "@type": "PropertyValue",
@@ -44,6 +70,16 @@
       "name": "Text Color",
       "value": "[TEXT COLOR]"
     }
+
+    /* Optional
+    ,
+    {
+      "@type": "PropertyValue",
+      "name": "Custom Text",
+      "value": "[CUSTOM TEXT]"
+    }
+    */
+
   ]
 }
 </script>
