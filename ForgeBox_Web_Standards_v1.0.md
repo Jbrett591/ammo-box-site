@@ -1,4 +1,10 @@
 ForgeBox Web Standards v1.0
+
+ForgeBox Web Philosophy
+
+Every page should be built as if it is the first page a potential customer will ever see and the first page Google will ever crawl. Every page must stand on its own, accurately describe its content, provide value to visitors, and reinforce the ForgeBox brand. Technical SEO is not an afterthought—it is part of the design process.
+
+
 Purpose
 
 Every page added to ForgeBox should follow these standards to ensure:
