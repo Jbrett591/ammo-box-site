@@ -1,0 +1,325 @@
+ForgeBox Project Status
+Version 1.0
+
+Last Updated: July 2026
+
+Project Objective
+
+ForgeBox Co. is building a premium direct-to-consumer brand focused on custom, made-to-order 3D printed ammunition storage.
+
+The website is intended to become a long-term SEO asset built on high-quality content, real product photography, technically accurate structured data, and a consistent publishing workflow.
+
+Primary goals:
+
+Build a technically excellent website.
+Create searchable landing pages for completed builds.
+Drive organic traffic over time.
+Showcase real products rather than generic ecommerce listings.
+Maintain engineering-quality standards throughout the website.
+Website Philosophy
+
+Do it right the first time.
+
+Every page should provide value to both users and search engines.
+
+SEO should expose the quality of ForgeBox—not compensate for poor content.
+
+Quality always takes priority over quantity.
+
+Major Documents
+
+The following documents now exist and should be treated as project standards.
+
+ForgeBox Web Standards v1.0
+
+Defines:
+
+Website philosophy
+SEO standards
+Build page standard
+Product schema standard
+Image standards
+URL standards
+Publishing checklist
+Future enhancements
+ForgeBox Product Schema v1.1
+
+Master template for all build pages.
+
+Every future build page should follow this template with only product-specific information changed.
+
+Website Status
+Homepage
+
+Status:
+
+✅ Complete
+
+Completed:
+
+Canonical
+Meta Title
+Meta Description
+Open Graph
+Twitter Cards
+Organization Schema
+WebSite Schema
+Robots.txt
+Sitemap
+Internal linking
+Mobile optimization
+
+Organization Schema now includes:
+
+Name
+URL
+Logo
+Description
+Email
+sameAs
+Facebook
+Instagram
+YouTube
+LinkedIn
+Gallery
+
+Status:
+
+Good
+
+Future improvements:
+
+CollectionPage Schema
+ItemList Schema
+Build Pages
+
+Status:
+
+Standard finalized.
+
+Master architecture established.
+
+Completed:
+
+SINNER page
+9mm 50 Dark Green / White
+
+Both pages now serve as reference implementations for all future build pages.
+
+Build Page Standard
+
+Every build page includes:
+
+Optimized title
+Meta description
+Canonical
+Open Graph
+Twitter Card
+Product Schema
+Breadcrumb Schema
+H1
+Hero image
+Five gallery images
+Build Specs
+Internal links
+CTA to Builder
+Product Schema Standard
+
+Current Version:
+
+ForgeBox Product Schema v1.1
+
+Includes:
+
+Product
+Images
+Description
+SKU
+Brand
+Manufacturer
+Category
+Material
+Color
+URL
+AdditionalProperty
+Caliber
+Capacity
+Body Color
+Text Color
+Custom Text (when applicable)
+
+Future consideration:
+
+Possible Product Schema v1.2
+
+Additional fields under consideration:
+
+Offer
+Audience
+Country of Origin
+isFamilyFriendly
+
+These have NOT yet been adopted as project standards.
+
+Homepage Schema
+
+Homepage contains:
+
+Organization
+
+WebSite
+
+Organization references:
+
+Facebook
+Instagram
+LinkedIn
+YouTube
+
+Manufacturer references throughout Product Schema point back to:
+
+https://www.forgeboxco.com/#organization
+
+SEO Standards
+
+Every indexable page should contain:
+
+Unique Title
+Unique Meta Description
+Canonical
+Proper heading hierarchy
+Descriptive image alt text
+Structured Data
+Internal links
+Current Workflow
+
+When updating build pages:
+
+User provides entire HTML page.
+
+ChatGPT returns ONE complete replacement SEO block.
+
+Never snippets.
+
+Includes:
+
+Title
+Meta Description
+Canonical
+Open Graph
+Twitter Cards
+Product Schema
+Breadcrumb Schema
+
+User pastes block.
+
+Upload website.
+
+Validate.
+
+Move to next build.
+
+Validation Workflow
+
+Every completed page is checked using:
+
+Google Rich Results Test
+
+https://search.google.com/test/rich-results
+
+Schema Validator
+
+https://validator.schema.org/
+
+Current Priorities
+
+Priority 1
+
+Complete rollout of Build Page Standard across every existing build page.
+
+This is now mostly a repeatable copy/paste workflow.
+
+Priority 2
+
+Implement CollectionPage and ItemList schema on Gallery page.
+
+Priority 3
+
+Continue adding new completed builds.
+
+Each completed build is treated as:
+
+SEO landing page
+Portfolio piece
+Image search opportunity
+Social media content
+Website Strengths
+
+Major competitive advantages:
+
+Custom Builder
+Real product photography
+Fast production
+Made-to-order products
+Premium presentation
+Technical SEO
+Structured data
+Consistent branding
+Things We Do NOT Do
+Fake reviews
+Fake ratings
+Fake pricing
+Keyword stuffing
+AI-generated fake products
+Misleading schema
+
+Every piece of structured data must accurately reflect information visible on the page.
+
+Preferred Coding Workflow
+
+The user prefers:
+
+One change at a time.
+Complete copy/paste-ready code.
+Never snippets unless specifically requested.
+No guessing about existing code.
+Review the supplied HTML before making changes.
+After each completed page, move directly to the next build page.
+Future Roadmap
+
+Website
+
+CollectionPage Schema
+ItemList Schema
+ImageObject Schema (optional)
+
+Content
+
+Additional build pages
+More customer showcases
+Continue gallery expansion
+
+Marketing
+
+Continue weekly reels
+Continue photography
+Continue collecting Google reviews
+
+SEO
+
+Monitor Search Console
+Submit new pages after publishing
+Monitor indexing
+Expand organic keyword coverage
+Overall Project Status
+
+Foundation Phase: ✅ Complete
+
+The website has transitioned from foundational development to growth and expansion.
+
+Future work should focus on:
+
+Publishing more optimized build pages.
+Expanding content.
+Increasing organic visibility.
+Maintaining established technical standards.
