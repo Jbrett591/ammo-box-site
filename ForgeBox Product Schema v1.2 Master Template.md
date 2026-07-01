@@ -2,6 +2,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Product",
+
   "name": "[PRODUCT NAME]",
   "description": "[PRODUCT DESCRIPTION]",
   "sku": "[SKU]",
@@ -13,6 +14,9 @@
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-3].webp",
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-4].webp",
     "https://www.forgeboxco.com/images/gallery/[FOLDER]/[IMAGE-5].webp"
+
+    /* Add additional images here when available.
+       Five or more images are recommended. */
   ],
 
   "brand": {
@@ -26,58 +30,56 @@
 
   "category": "Ammo Storage",
 
-  "material": "PLA",
+  "material": "PLA Plastic",
 
   "color": "[BODY COLOR] / [TEXT COLOR]",
 
-  "audience": {
-    "@type": "PeopleAudience",
-    "suggestedMinAge": 18
-  },
-
-  "countryOfOrigin": {
-    "@type": "Country",
-    "name": "United States"
-  },
-
-  "isFamilyFriendly": true,
-
-  "offers": {
-    "@type": "Offer",
-    "url": "https://www.forgeboxco.com/builds/[PAGE].html",
-    "availability": "https://schema.org/InStock",
-    "itemCondition": "https://schema.org/NewCondition"
-  },
-
   "additionalProperty": [
+
     {
       "@type": "PropertyValue",
       "name": "Caliber",
       "value": "[CALIBER]"
-    },
+    }
+
+    /* For shotgun builds use instead:
+
+    {
+      "@type": "PropertyValue",
+      "name": "Gauge",
+      "value": "[GAUGE]"
+    }
+
+    */
+    ,
+
     {
       "@type": "PropertyValue",
       "name": "Capacity",
       "value": "[CAPACITY]"
     },
+
     {
       "@type": "PropertyValue",
       "name": "Body Color",
       "value": "[BODY COLOR]"
     },
+
     {
       "@type": "PropertyValue",
       "name": "Text Color",
       "value": "[TEXT COLOR]"
     }
 
-    /* Optional
+    /* Optional custom lid text
+
     ,
     {
       "@type": "PropertyValue",
       "name": "Custom Text",
       "value": "[CUSTOM TEXT]"
     }
+
     */
 
   ]
