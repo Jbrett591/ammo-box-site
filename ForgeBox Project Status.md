@@ -317,6 +317,114 @@ Foundation Phase: ✅ Complete
 
 The website has transitioned from foundational development to growth and expansion.
 
+
+Additions to the Build Page Standard
+
+Every build page should also include:
+
+SEO title following our standard:
+Custom [Caliber] Ammo Box | [Color 1] & [Color 2] | ForgeBox
+or custom build name first (example: SINNER | Custom 9mm Ammo Box | Scarlet & White | ForgeBox)
+Meta description describing:
+caliber
+capacity
+colors
+custom engraving (if applicable)
+made-to-order nature
+H1 targeting the primary keyword
+Image alt text optimized individually for each image
+Internal links to:
+Builder
+Gallery
+Build Page Image Standards
+
+Every build page uses exactly five images.
+
+Standard filenames:
+
+hero.webp
+top-angled.webp
+top-zoom.webp
+macro-text.webp
+macro-bullet.webp
+
+This consistency will make future publishing much faster.
+
+Product Schema Standards
+
+Current required properties:
+
+name
+image
+description
+sku
+brand
+manufacturer
+category
+material
+color
+additionalProperty
+Caliber
+Capacity
+Body Color
+Text Color
+Custom Text (when applicable)
+
+No AggregateRating.
+
+No Review.
+
+No fake Offers.
+
+Publishing Checklist
+
+After uploading every page:
+
+Validate Rich Results
+Validate Schema
+Check canonical
+Verify Open Graph image
+Verify page loads correctly
+Request indexing in Search Console
+Update sitemap if a new page was added
+Gallery Standards
+
+Every completed build should eventually exist in four places:
+
+Gallery page
+Individual SEO build page
+Google indexed URL
+Social media content (photo or reel)
+
+One product → multiple assets.
+
+Working Rules (important)
+
+During coding sessions:
+
+User supplies the entire HTML file.
+I review the whole document before making changes.
+I return one complete replacement SEO block, ready to paste.
+We make one coding change at a time, then stop for confirmation before moving to the next change.
+
+This has worked extremely well and has prevented regressions.
+
+Where I think we are now
+
+I actually think ForgeBox has crossed an important milestone.
+
+The first month was about building a store.
+
+The current phase is about building authority.
+
+That's a different mindset. Instead of asking "How do we get one sale?", we're asking:
+
+How do we become the best resource for custom ammo boxes?
+How do we create pages Google wants to rank?
+How do we create enough quality content that six months from now we're difficult to compete with?
+
+The SEO foundation is now strong enough that every new build page, customer review, gallery update, and reel compounds on the work you've already done. That compounding effect is exactly what we were aiming for.
+
 Future work should focus on:
 
 Publishing more optimized build pages.
