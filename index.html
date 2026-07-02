@@ -300,9 +300,9 @@ body {
 }
 
 .home-build-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 760px;
+    margin: 0 auto;
 }
 
 .home-build-card {
@@ -342,11 +342,11 @@ body {
     gap: 14px;
   }
 
-  .home-build-card:last-child {
-    grid-column: 1 / -1;
-    max-width: 240px;
-    justify-self: center;
-  }
+.home-build-card:last-child {
+  grid-column: auto;
+  max-width: none;
+  justify-self: stretch;
+}
 
 }
 
@@ -685,6 +685,11 @@ h1 {
     padding: 12px;
   }
 
+.brand-statement h2 {
+  font-size: clamp(30px, 10vw, 42px);
+  line-height: 1.14;
+}
+  
   .hero {
     padding: 8px;
     border-radius: 16px;
@@ -818,14 +823,6 @@ h1 {
       <img
         src="images/gallery/308-win-50-blue-white/hero.webp"
         alt="Blue and white .308 Winchester ForgeBox finished build"
-        loading="lazy"
-        decoding="async">
-    </a>
-
-    <a class="home-build-card" href="builds/9mm-50-dark-green-white.html">
-      <img
-        src="images/gallery/9mm-50-dark-green-white/hero.webp"
-        alt="Dark green and white 9mm ForgeBox finished build"
         loading="lazy"
         decoding="async">
     </a>
