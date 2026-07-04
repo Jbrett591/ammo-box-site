@@ -43,10 +43,31 @@ body {
   padding: 0;
 }
 
+.shipping-banner {
+  background:
+    linear-gradient(180deg, #111111 0%, #080808 100%);
+  color: #d4af37;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 15px;
+  border-bottom: 1px solid rgba(212,175,55,0.25);
+}
+
+@media (max-width: 760px) {
+  .shipping-banner {
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 9px 10px;
+  }
+}
+  
 .page-wrap {
   max-width: 1000px;
   margin: auto;
-  padding: 24px;
+  padding: 20px;
 }
 
   .top-nav {
@@ -99,7 +120,8 @@ body {
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: #d4af37;
 }
 
@@ -328,7 +350,12 @@ h1 {
   transform: translateY(-1px);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
+
+    .top-nav {
+    padding: 16px 0;
+}
+  
   .wholesale-form-section {
     padding: 22px 16px;
   }
@@ -336,12 +363,12 @@ h1 {
   .form-grid {
     grid-template-columns: 1fr;
   }
-
-  .nav-container {
+  
+.nav-container {
   width: 100%;
   padding: 0 12px;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .nav-brand img {
@@ -361,7 +388,7 @@ h1 {
 }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .form-grid {
     grid-template-columns: 1fr;
   }
@@ -379,7 +406,7 @@ h1 {
 }
 
 .footer-inner {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 18px 0;
   display: flex;
@@ -420,7 +447,7 @@ h1 {
 }
 
 .footer-bottom {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 12px auto 0;
   padding-top: 16px;
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -429,9 +456,9 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
   .page-wrap {
-    padding: 14px;
+    padding: 12px;
   }
 
   .grid {
@@ -458,9 +485,11 @@ h1 {
 </style>
 </head>
 
- <body>
+<body>
 
-<div class="page-wrap">
+<div class="shipping-banner">
+  📦 FREE SHIPPING ON ORDERS $70+
+</div>
 
 <header class="top-nav">
   <div class="nav-container">
@@ -469,20 +498,24 @@ h1 {
       <img src="images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
     </a>
 
-<nav class="nav-links">
-  <a href="index.html">Home</a>
-  <a href="order.html">Build Yours</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="contact.html">Contact</a>
-  <a href="wholesale.html">Wholesale</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="order.html">Build Yours</a>
+      <a href="gallery.html">Finished Builds</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="faq.html">FAQ</a>
+      <a href="aboutus.html">About Us</a>
+      <a href="contact.html">Contact</a>
 
-  <a class="nav-cart" href="order.html#currentOrder">
-  🛒 <span id="navCartCount">0</span>
-</a>
-</nav>
+      <a class="nav-cart" href="order.html#currentOrder">
+        🛒 <span id="navCartCount">0</span>
+      </a>
+    </nav>
 
   </div>
 </header>
+
+<div class="page-wrap">
 
   <section class="hero">
     <div class="eyebrow">Dealer & Bulk Ordering</div>
@@ -490,8 +523,7 @@ h1 {
     <p>
       Interested in carrying ForgeBox Co. products in your shop? We offer wholesale and bulk-order opportunities for retailers looking for premium, made-to-order ammo storage.
     </p>
-  
-</section>
+  </section>
 
   <section class="section">
     <h2 class="section-title">Built for Retail</h2>
@@ -519,38 +551,37 @@ h1 {
     <p>
       For wholesale pricing, local dealer opportunities, display options, or bulk custom orders, contact ForgeBox Co. directly with the form below.
     </p>
-    
   </section>
 
-<section class="section wholesale-form-section" id="wholesaleForm">
-  <h2 class="section-title">Wholesale Inquiry Form</h2>
+  <section class="section wholesale-form-section" id="wholesaleForm">
+    <h2 class="section-title">Wholesale Inquiry Form</h2>
 
-  <form class="wholesale-form" action="https://formspree.io/f/xjgjjjkq" method="POST">
-    
-    <div class="form-grid">
-      <input class="contact-input" type="text" name="Business Name" placeholder="Business Name" required>
-      <input class="contact-input" type="text" name="Contact Name" placeholder="Contact Name" required>
-      <input class="contact-input" type="email" name="Email" placeholder="Email Address" required>
-      <input class="contact-input" type="tel" name="Phone" placeholder="Phone Number">
-      <input class="contact-input full-width" type="text" name="Company Website" placeholder="Company Website">
-    </div>
+    <form class="wholesale-form" action="https://formspree.io/f/xjgjjjkq" method="POST">
+      
+      <div class="form-grid">
+        <input class="contact-input" type="text" name="Business Name" placeholder="Business Name" required>
+        <input class="contact-input" type="text" name="Contact Name" placeholder="Contact Name" required>
+        <input class="contact-input" type="email" name="Email" placeholder="Email Address" required>
+        <input class="contact-input" type="tel" name="Phone" placeholder="Phone Number">
+        <input class="contact-input full-width" type="text" name="Company Website" placeholder="Company Website">
+      </div>
 
-    <textarea
-      class="contact-input inquiry-box"
-      name="Inquiry"
-      placeholder="Tell us about your shop, what products you're interested in, estimated quantities, or any questions you may have."
-      required></textarea>
+      <textarea
+        class="contact-input inquiry-box"
+        name="Inquiry"
+        placeholder="Tell us about your shop, what products you're interested in, estimated quantities, or any questions you may have."
+        required></textarea>
 
-    <input type="hidden" name="_subject" value="New Wholesale Inquiry">
+      <input type="hidden" name="_subject" value="New Wholesale Inquiry">
 
-    <button class="form-button" type="submit">
-      Submit Wholesale Inquiry
-    </button>
+      <button class="form-button" type="submit">
+        Submit Wholesale Inquiry
+      </button>
 
-  </form>
-</section>
+    </form>
+  </section>
 
-   </div>
+</div>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -561,8 +592,11 @@ h1 {
 
     <div class="footer-links">
       <a href="index.html">Home</a>
-      <a href="order.html">Shop</a>
-      <a href="gallery.html">Gallery</a>
+      <a href="order.html">Build Yours</a>
+      <a href="gallery.html">Finished Builds</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="faq.html">FAQ</a>
+      <a href="aboutus.html">About Us</a>
       <a href="stack-codes.html">Stack Codes</a>
       <a href="contact.html">Contact Us</a>
       <a href="wholesale.html">Wholesale Inquiries</a>
