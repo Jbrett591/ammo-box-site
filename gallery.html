@@ -25,12 +25,6 @@ html {
 * {
   box-sizing: border-box;
 }
-
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
   
 body {
   font-family: Arial, sans-serif;
@@ -123,6 +117,20 @@ body {
   transition: color 0.2s ease;
 }
 
+.nav-links a:hover,
+.nav-links a.active {
+  color: #d4af37;
+}
+
+.nav-links a.active::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 6px;
+  background: #d4af37;
+  border-radius: 999px;
+}
+
 .nav-cart {
   color: #d4af37 !important;
   padding: 6px 10px;
@@ -142,8 +150,8 @@ body {
 .gallery-hero-copy {
   text-align: center;
   max-width: 790px;
-  margin: 0 auto 28px;
-  padding-top: 72px;
+  margin: 24px auto 28px;
+  padding-top: 24px;
 }
 
 .eyebrow {
@@ -444,18 +452,15 @@ h1 {
 }
 
 @media (max-width: 760px) {
-  .page-wrap {
-    width: 100%;
-    max-width: 100%;
-    padding: 12px;
-    overflow-x: hidden;
-  }
+.page-wrap {
+  padding: 12px;
+}
 
 .nav-container {
   width: 100%;
   padding: 0 12px;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
 }
 
 .nav-brand img {
@@ -464,11 +469,7 @@ h1 {
 }
 
 .top-nav {
-  padding: 12px 0;
-}
-
-.nav-container {
-  gap: 10px;
+  padding: 16px 0;
 }
 
   .nav-links {
@@ -529,13 +530,15 @@ h1 {
 <nav class="nav-links">
   <a href="index.html">Home</a>
   <a href="order.html">Build Yours</a>
-  <a href="gallery.html">Gallery</a>
+  <a class="active" href="gallery.html">Finished Builds</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="faq.html">FAQ</a>
+  <a href="aboutus.html">About Us</a>
   <a href="contact.html">Contact</a>
-  <a href="wholesale.html">Wholesale</a>
 
-<a class="nav-cart" href="order.html#currentOrder">
-  🛒 <span id="navCartCount">0</span>
-</a>
+  <a class="nav-cart" href="order.html#currentOrder">
+    🛒 <span id="navCartCount">0</span>
+  </a>
 </nav>
 
   </div>
@@ -769,14 +772,17 @@ Black lettering, and a purpose-built 25 shell layout.
       <span>Custom 3D-Printed Ammo Storage</span>
     </div>
 
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="order.html">Shop</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="stack-codes.html">Stack Codes</a>
-      <a href="contact.html">Contact Us</a>
-      <a href="wholesale.html">Wholesale Inquiries</a>
-    </div>
+<div class="footer-links">
+  <a href="index.html">Home</a>
+  <a href="order.html">Build Yours</a>
+  <a href="gallery.html">Finished Builds</a>
+  <a href="reviews.html">Reviews</a>
+  <a href="faq.html">FAQ</a>
+  <a href="aboutus.html">About Us</a>
+  <a href="stack-codes.html">Stack Codes</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="wholesale.html">Wholesale Inquiries</a>
+</div>
   </div>
 
   <div class="footer-bottom">
