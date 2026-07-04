@@ -26,6 +26,11 @@ body {
   font-family: Arial, sans-serif;
   background: #111;
   color: #eee;
+  margin: 0;
+  padding: 0;
+}
+
+.page-wrap {
   max-width: 1000px;
   margin: auto;
   padding: 20px;
@@ -108,6 +113,19 @@ body {
   color: #d4af37;
 }
 
+.nav-links a.active {
+  color: #d4af37;
+}
+
+.nav-links a.active::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 6px;
+  background: #d4af37;
+  border-radius: 999px;
+}  
+  
 .nav-cart {
   color: #d4af37 !important;
   padding: 6px 10px;
@@ -1124,17 +1142,12 @@ button.success {
   letter-spacing: 0.4px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 760px) {
   
-    html,
-  body {
-    overflow-x: hidden;
-  }
-  
-  body {
-    padding: 10px;
-    padding-bottom: 190px;
-  }
+.page-wrap {
+  padding: 12px;
+  padding-bottom: 190px;
+}
 
   .top-nav {
   padding: 16px 0;
@@ -1351,9 +1364,11 @@ button.success {
 
 <nav class="nav-links">
   <a href="index.html">Home</a>
-  <a href="order.html">Build Yours</a>
+  <a class="active" href="order.html">Build Yours</a>
   <a href="gallery.html">Finished Builds</a>
   <a href="reviews.html">Reviews</a>
+  <a href="faq.html">FAQ</a>
+  <a href="aboutus.html">About Us</a>
   <a href="contact.html">Contact</a>
 
   <a class="nav-cart" href="order.html#currentOrder">
@@ -1364,6 +1379,8 @@ button.success {
   </div>
 </header>
 
+<div class="page-wrap">
+  
 <div class="order-header">
   <img 
     src="images/order-form-header.webp"
@@ -2447,6 +2464,8 @@ function addBuildFromUrlParams() {
 addBuildFromUrlParams();
   
 </script>
+
+  </div>
   
 <footer class="site-footer">
   <div class="footer-inner">
@@ -2460,8 +2479,10 @@ addBuildFromUrlParams();
   <a href="order.html">Build Yours</a>
   <a href="gallery.html">Finished Builds</a>
   <a href="reviews.html">Reviews</a>
+  <a href="faq.html">FAQ</a>
+  <a href="aboutus.html">About Us</a>
   <a href="stack-codes.html">Stack Codes</a>
-  <a href="contact.html">Contact</a>
+  <a href="contact.html">Contact Us</a>
   <a href="wholesale.html">Wholesale Inquiries</a>
 </div>
 
