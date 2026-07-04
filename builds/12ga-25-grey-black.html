@@ -205,7 +205,8 @@ body {
   transition: color 0.2s ease;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.active {
   color: #d4af37;
 }
 
@@ -230,7 +231,7 @@ body {
 .build-hero-copy {
   text-align: center;
   max-width: 790px;
-  margin: 0 auto 34px;
+  margin: 24px auto 34px;
 }
 
 h1 {
@@ -543,6 +544,10 @@ h1 {
 /* MOBILE */
 @media (max-width: 760px) {
 
+  .top-nav {
+  padding: 16px 0;
+}
+
   .page-wrap {
     padding: 12px;
   }
@@ -569,10 +574,6 @@ h1 {
 .nav-links a {
   font-size: 13px;
 }
-
-  .nav-links {
-    justify-content: center;
-  }
 
   .cta-row,
   .spec-grid,
@@ -649,8 +650,6 @@ h1 {
 
 <body>
 
-<div class="page-wrap">
-
   <div class="shipping-banner">
   📦 FREE SHIPPING ON ORDERS $70+
 </div>
@@ -662,20 +661,24 @@ h1 {
       <img src="../images/branding/forgebox-header-logo-white.png" alt="ForgeBox Co.">
     </a>
 
-    <nav class="nav-links">
-      <a href="../index.html">Home</a>
-      <a href="../order.html">Build Yours</a>
-      <a href="../gallery.html">Gallery</a>
-      <a href="../contact.html">Contact</a>
-      <a href="../wholesale.html">Wholesale</a>
+<nav class="nav-links">
+  <a href="../index.html">Home</a>
+  <a href="../order.html">Build Yours</a>
+  <a class="active" href="../gallery.html">Finished Builds</a>
+  <a href="../reviews.html">Reviews</a>
+  <a href="../faq.html">FAQ</a>
+  <a href="../aboutus.html">About Us</a>
+  <a href="../contact.html">Contact</a>
 
-    <a class="nav-cart" href="../order.html#currentOrder">
-  🛒 <span id="navCartCount">0</span>
-</a>
-    </nav>
+  <a class="nav-cart" href="../order.html#currentOrder">
+    🛒 <span id="navCartCount">0</span>
+  </a>
+</nav>
 
   </div>
 </header>
+
+  <div class="page-wrap">
 
   <section class="build-hero-copy">
     <div class="eyebrow">Finished ForgeBox Build</div>
@@ -832,6 +835,8 @@ the same premium fit and finish to shotgun shell storage.
   ADD THIS BUILD TO ORDER
 </a>
 
+  </section>
+
 </div>
 
 <footer class="site-footer">
@@ -841,14 +846,17 @@ the same premium fit and finish to shotgun shell storage.
       <span>Custom 3D-Printed Ammo Storage</span>
     </div>
 
-    <div class="footer-links">
-      <a href="../index.html">Home</a>
-      <a href="../order.html">Shop</a>
-      <a href="../gallery.html">Gallery</a>
-      <a href="../stack-codes.html">Stack Codes</a>
-      <a href="../contact.html">Contact Us</a>
-      <a href="../wholesale.html">Wholesale Inquiries</a>
-    </div>
+<div class="footer-links">
+  <a href="../index.html">Home</a>
+  <a href="../order.html">Build Yours</a>
+  <a href="../gallery.html">Finished Builds</a>
+  <a href="../reviews.html">Reviews</a>
+  <a href="../faq.html">FAQ</a>
+  <a href="../aboutus.html">About Us</a>
+  <a href="../stack-codes.html">Stack Codes</a>
+  <a href="../contact.html">Contact Us</a>
+  <a href="../wholesale.html">Wholesale Inquiries</a>
+</div>
   </div>
 
   <div class="footer-bottom">
