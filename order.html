@@ -971,6 +971,11 @@ button.success {
   text-align: center;
   margin-top: 18px;
   margin-bottom: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .checkout-btn:hover {
@@ -1704,6 +1709,10 @@ Build Your Custom Ammo Box
   <div class="shipping-note">
     📦 Made to order • Typically ships in 3–5 business days
   </div>
+
+  <div class="shipping-note">
+    🚚 Most orders ship for $9–12 • Free shipping over $70
+  </div>
 </div>
   
 <script src="forgebox-sku-pricing-full.js"></script>
@@ -2393,7 +2402,7 @@ if (addAnotherWrap) {
     </div>
   `).join("") + `
     <div class="order-total-card">
-      <span>Estimated Order Total</span>
+      <span>Order Subtotal</span>
       <strong>$${getOrderTotal()}</strong>
     </div>
 
