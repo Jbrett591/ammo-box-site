@@ -736,6 +736,165 @@ h1 {
     justify-content: center;
   }
 }
+
+/* Labor Day Sale Popup */
+.labor-day-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.labor-day-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.labor-day-modal {
+  position: relative;
+  width: min(480px, 100%);
+  padding: 42px 34px 34px;
+  text-align: center;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top center, rgba(212,175,55,0.12), transparent 45%),
+    linear-gradient(145deg, #171717, #080808);
+  border: 1px solid rgba(212,175,55,0.55);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,0.85),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+.labor-day-close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #aaa;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.labor-day-close:hover {
+  color: #fff;
+}
+
+.labor-day-eyebrow {
+  margin: 0 0 10px;
+  color: #d4af37;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.labor-day-discount {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: clamp(54px, 12vw, 76px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.labor-day-dates {
+  margin: 0 0 24px;
+  color: #d4af37;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.labor-day-copy {
+  margin: 0 auto 22px;
+  max-width: 360px;
+  color: #c7c7c7;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.labor-day-code {
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.labor-day-shipping {
+  display: block;
+  margin-top: 8px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.labor-day-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  width: 100%;
+  padding: 0 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  background:
+    linear-gradient(90deg, rgba(255,140,0,0.22), transparent 22%, transparent 78%, rgba(255,140,0,0.22)),
+    linear-gradient(145deg, #3a260f, #15100a);
+  color: #f0e6d2;
+  border: 1px solid #7a5424;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.08),
+    inset 0 -3px 6px rgba(0,0,0,0.85),
+    0 6px 14px rgba(0,0,0,0.65);
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.labor-day-cta:hover {
+  color: #fff;
+  border-color: #b87333;
+  transform: translateY(-1px);
+}
+
+.labor-day-tagline {
+  margin: 20px 0 0;
+  color: #777;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+@media (max-width: 520px) {
+  .labor-day-modal {
+    padding: 38px 22px 28px;
+  }
+
+  .labor-day-discount {
+    font-size: 58px;
+  }
+
+  .labor-day-copy {
+    font-size: 15px;
+  }
+}
+  
 </style>
 </head>
 
@@ -863,6 +1022,56 @@ h1 {
 
 </div>
 
+  <!-- Labor Day Sale Popup -->
+<div
+  class="labor-day-overlay"
+  id="laborDayPopup"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="laborDayTitle"
+  aria-hidden="true">
+
+  <div class="labor-day-modal">
+
+    <button
+      class="labor-day-close"
+      id="laborDayClose"
+      type="button"
+      aria-label="Close Labor Day sale popup">
+      &times;
+    </button>
+
+    <p class="labor-day-eyebrow">Labor Day Weekend</p>
+
+    <div class="labor-day-discount" id="laborDayTitle">
+      10% OFF
+    </div>
+
+    <p class="labor-day-dates">
+      September 3–7
+    </p>
+
+    <p class="labor-day-copy">
+      Save 10% on your ForgeBox order with code
+      <span class="labor-day-code">LABORDAY10</span>
+      at checkout.
+
+      <span class="labor-day-shipping">
+        Free shipping on orders $70+
+      </span>
+    </p>
+
+    <a class="labor-day-cta" href="order.html">
+      Build Yours &amp; Save 10%
+    </a>
+
+    <p class="labor-day-tagline">
+      Made to Spec. Built to Last.
+    </p>
+
+  </div>
+</div>
+
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -902,7 +1111,58 @@ h1 {
 })();
 </script> 
 
-  
+  <script>
+(function() {
+  const popup = document.getElementById("laborDayPopup");
+  const closeButton = document.getElementById("laborDayClose");
+
+  if (!popup || !closeButton) return;
+
+  const sessionKey = "forgeboxLaborDay2026Seen";
+
+  /*
+    Labor Day promotion:
+    Sept. 3, 2026 at 12:00 AM Eastern
+    through Sept. 7, 2026 at 11:59:59 PM Eastern.
+
+    September is still daylight saving time in the Eastern U.S.,
+    so EDT = UTC-04:00.
+  */
+  const saleStart = new Date("2026-09-03T00:00:00-04:00");
+  const saleEnd = new Date("2026-09-07T23:59:59-04:00");
+  const now = new Date();
+
+  const saleIsActive = now >= saleStart && now <= saleEnd;
+  const alreadySeen = sessionStorage.getItem(sessionKey) === "true";
+
+  function closePopup() {
+    popup.classList.remove("is-visible");
+    popup.setAttribute("aria-hidden", "true");
+    sessionStorage.setItem(sessionKey, "true");
+  }
+
+  if (saleIsActive && !alreadySeen) {
+    setTimeout(function() {
+      popup.classList.add("is-visible");
+      popup.setAttribute("aria-hidden", "false");
+    }, 1000);
+  }
+
+  closeButton.addEventListener("click", closePopup);
+
+  popup.addEventListener("click", function(event) {
+    if (event.target === popup) {
+      closePopup();
+    }
+  });
+
+  document.addEventListener("keydown", function(event) {
+    if (event.key === "Escape" && popup.classList.contains("is-visible")) {
+      closePopup();
+    }
+  });
+})();
+</script>
   
 </body>
 </html>
