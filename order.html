@@ -2133,7 +2133,9 @@ function updateBoxColorPreview(colorName) {
 }
 
     function updateCustomTextPreview() {
-  const color = colors.find(c => c.name === selections.boxColor);
+  const color = colors.find(
+  c => c.name === (selections.boxColor || "Ash Gray")
+);
 
   const previewImage = document.getElementById("customPreviewImage");
   const previewText = document.getElementById("previewText");
