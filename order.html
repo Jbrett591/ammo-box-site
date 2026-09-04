@@ -1994,9 +1994,7 @@ updateCaliberPreview();
 document.getElementById("capacitySelect").addEventListener("change", function() {
   selections.capacity = this.value;
 
-  if (selections.boxColor) {
-  updateBoxColorPreview(selections.boxColor);
-}
+updateBoxColorPreview(selections.boxColor || "Ash Gray");
 
   document.getElementById("boxColor").scrollIntoView({
     behavior: "smooth",
