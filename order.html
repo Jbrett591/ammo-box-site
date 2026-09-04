@@ -1994,7 +1994,8 @@ updateCaliberPreview();
 document.getElementById("capacitySelect").addEventListener("change", function() {
   selections.capacity = this.value;
 
-updateBoxColorPreview(selections.boxColor || "Ash Gray");
+  updateBoxColorPreview(selections.boxColor || "Ash Gray");
+  updateCustomTextPreview();
 
   document.getElementById("boxColor").scrollIntoView({
     behavior: "smooth",
@@ -2088,12 +2089,15 @@ if (key === "textColor") {
   });
 }
 
-function getBoxPreviewImage(color) {
-  const is20RoundRifle =
+function is20RoundRifleFamily() {
+  return (
     selections.category === "Rifle" &&
-    Number(selections.capacity) === 20;
+    Number(selections.capacity) === 20
+  );
+}
 
-  if (is20RoundRifle) {
+function getBoxPreviewImage(color) {
+  if (is20RoundRifleFamily()) {
     const colorSlug = color.name
       .toLowerCase()
       .replace(/\s+/g, "-");
@@ -2102,7 +2106,7 @@ function getBoxPreviewImage(color) {
   }
 
   return color.image;
-}  
+}
   
 function updateBoxColorPreview(colorName) {
   const color = colors.find(c => c.name === colorName);
@@ -2135,9 +2139,17 @@ function updateBoxColorPreview(colorName) {
   const previewText = document.getElementById("previewText");
   const previewCaliber = document.getElementById("previewCaliber");
 
-  if (color && previewImage) {
+if (color && previewImage) {
+  if (is20RoundRifleFamily()) {
+    const colorSlug = color.name
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    previewImage.src = `images/custom-preview/rifle-20/${colorSlug}.webp`;
+  } else {
     previewImage.src = color.customPreview;
   }
+}
 
   const textColor = colors.find(c => c.name === selections.textColor);
 
