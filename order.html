@@ -1866,7 +1866,6 @@ const products = {
 
 const colors = [
   { name: "White", hex: "#FFFFFF", image: "images/box-white.webp", customPreview: "images/custom-preview/white.webp" },
-  { name: "Silver", hex: "#A6A9AA", image: "images/box-silver.webp", customPreview: "images/custom-preview/silver.webp" },
   { name: "Gray", hex: "#8E9089", image: "images/box-gray.webp", customPreview: "images/custom-preview/gray.webp" },
   { name: "Ash Gray", hex: "#9B9EA0", image: "images/box-ash-gray.webp", customPreview: "images/custom-preview/ash-gray.webp" },
   { name: "Black", hex: "#000000", image: "images/box-black.webp", customPreview: "images/custom-preview/black.webp" },
@@ -1884,7 +1883,6 @@ const colors = [
   { name: "Cobalt Blue", hex: "#0056B8", image: "images/box-cobalt-blue.webp", customPreview: "images/custom-preview/cobalt-blue.webp" },
   { name: "Ice Blue", hex: "#A3D8E1", image: "images/box-ice-blue.webp", customPreview: "images/custom-preview/ice-blue.webp" },
   { name: "Dark Blue", hex: "#042F56", image: "images/box-dark-blue.webp", customPreview: "images/custom-preview/dark-blue.webp" },
-  { name: "Bronze", hex: "#847D48", image: "images/box-bronze.webp", customPreview: "images/custom-preview/bronze.webp" },
   { name: "Tan", hex: "#D3B7A7", image: "images/box-latte.webp", customPreview: "images/custom-preview/tan.webp" },
   { name: "Dark Brown", hex: "#7D6556", image: "images/box-dark-brown.webp", customPreview: "images/custom-preview/dark-brown.webp" }
 ];
@@ -1904,6 +1902,10 @@ function selectHandler(container, key) {
         selections.caliber = "";
         selections.capacity = "";
         loadCalibers();
+
+        if (selections.boxColor) {
+  updateBoxColorPreview(selections.boxColor);
+}
 
         document.getElementById("caliberSelect").scrollIntoView({
           behavior: "smooth",
@@ -1976,6 +1978,10 @@ document.getElementById("caliberSelect").addEventListener("change", function() {
 updateCaliberPreview();
 
   loadCapacity();
+  
+  if (selections.boxColor) {
+  updateBoxColorPreview(selections.boxColor);
+}
 
   document.getElementById("capacitySelect").scrollIntoView({
     behavior: "smooth",
@@ -1987,6 +1993,10 @@ updateCaliberPreview();
 
 document.getElementById("capacitySelect").addEventListener("change", function() {
   selections.capacity = this.value;
+
+  if (selections.boxColor) {
+  updateBoxColorPreview(selections.boxColor);
+}
 
   document.getElementById("boxColor").scrollIntoView({
     behavior: "smooth",
@@ -2080,6 +2090,22 @@ if (key === "textColor") {
   });
 }
 
+function getBoxPreviewImage(color) {
+  const is20RoundRifle =
+    selections.category === "Rifle" &&
+    Number(selections.capacity) === 20;
+
+  if (is20RoundRifle) {
+    const colorSlug = color.name
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    return `images/builder/rifle-20/${colorSlug}.webp`;
+  }
+
+  return color.image;
+}  
+  
 function updateBoxColorPreview(colorName) {
   const color = colors.find(c => c.name === colorName);
   if (!color) return;
@@ -2093,7 +2119,7 @@ function updateBoxColorPreview(colorName) {
   previewLabel.classList.add("is-changing");
 
   setTimeout(() => {
-    previewImg.src = color.image;
+    previewImg.src = getBoxPreviewImage(color);
     previewImg.alt = `${color.name} box color preview`;
     previewLabel.textContent = color.name;
 
