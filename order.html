@@ -338,12 +338,36 @@ h1, h2 {
   white-space: nowrap;
 }
 
+.preview-container.rifle-20-variant-2 #previewText {
+  top: 13%;
+  width: 62%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-2 #previewCaliber {
+  bottom: 28%;
+  width: 30%;
+  font-size: 15px !important;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-2 #previewCaliberLine2 {
+  display: block;
+  bottom: 18%;
+  width: 30%;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewCaliber {
   bottom: 13.5%;
   width: 24%;
   font-size: 14px !important;
   white-space: nowrap;
 }
+
+
 
   #previewCaliber {
   position: absolute;
@@ -355,6 +379,21 @@ h1, h2 {
   font-weight: 700;
   color: #ddd;
   font-size: 22px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  pointer-events: none;
+  text-transform: uppercase;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.20));
+}
+
+#previewCaliberLine2 {
+  display: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  color: #ddd;
   letter-spacing: 0.02em;
   text-align: center;
   pointer-events: none;
@@ -1621,7 +1660,8 @@ Build Your Custom Ammo Box
         decoding="async">
 
       <div id="previewText">YOUR TEXT</div>
-      <div id="previewCaliber">.357 MAGNUM</div>
+<div id="previewCaliber">.357 MAGNUM</div>
+<div id="previewCaliberLine2"></div>
     </div>
   </div>
 
@@ -2133,6 +2173,73 @@ function is20RoundRifleStandard() {
   return standardCalibers.has(selections.caliber);
 }
 
+function is20RoundRifleVariant2() {
+  if (!is20RoundRifleFamily()) return false;
+
+  const variant2Calibers = new Set([
+    ".17 REMINGTON",
+    ".22 ARC",
+    ".22 CREEDMOOR",
+    ".22-250 REM",
+    ".204 Ruger",
+    ".220 SWIFT",
+    ".222 REM",
+    ".223 REM",
+    ".224 VALKYRIE",
+    ".243 WIN",
+    ".270 WIN",
+    ".270 WSM",
+    ".28 NOSLER",
+    ".280 REMINGTON",
+    ".284 WIN",
+    "30-30 WIN",
+    ".300 Blackout",
+    ".300 PRC",
+    ".300 RUM",
+    ".300 WSM",
+    ".303 BRITISH",
+    ".308 WIN",
+    ".338 EDGE",
+    ".338 RUM",
+    ".340 WBY MAG",
+    ".35 REM",
+    ".350 LEGEND",
+    ".360 BUCKHAMMER",
+    ".375 H&H MAG",
+    ".400 LEGEND",
+    ".444 MARLIN",
+    ".45-70 GOVT",
+    ".450 BUSHMASTER",
+    ".458 SOCOM",
+    ".50 BEOWULF",
+    "5.45x39MM",
+    "5.56 NATO",
+    "6MM ARC",
+    "6MM BR",
+    "6MM CREEDMOOR",
+    "6MM GT",
+    "6.5 GRENDEL",
+    "6.5 CREEDMOOR",
+    "6.5 PRC",
+    "6.5-300 WBY MAG",
+    "6.5 CARCANO",
+    "6.5X55 SWEDISH",
+    "6.8 WESTERN",
+    "6.8MM REM SPC",
+    "7MM BACKCOUNTRY",
+    "7MM PRC",
+    "7MM RUM",
+    "7.62x39",
+    "7.62x54R",
+    "8.5x55 BLASER",
+    "8.6 BLACKOUT"
+  ]);
+
+  return variant2Calibers.has(selections.caliber);
+}
+
+
+
 function get20RoundRifleStandardCaliberDisplay() {
   const displayMap = {
     "25-06": "25-06",
@@ -2148,13 +2255,79 @@ function get20RoundRifleStandardCaliberDisplay() {
   return displayMap[selections.caliber] || selections.caliber;
 }
 
+function get20RoundRifleVariant2CaliberDisplay() {
+  const displayMap = {
+    ".17 REMINGTON": ["17", "REM"],
+    ".22 ARC": ["22", "ARC"],
+    ".22 CREEDMOOR": ["22 CM", ""],
+    ".22-250 REM": ["22-250", "REM"],
+    ".204 Ruger": [".204", "RGR"],
+    ".220 SWIFT": [".220", "SWIFT"],
+    ".222 REM": [".222", "REM"],
+    ".223 REM": [".223", "REM"],
+    ".224 VALKYRIE": [".224", "VALK"],
+    ".243 WIN": [".243", "WIN"],
+    ".270 WIN": [".270", "WIN"],
+    ".270 WSM": [".270", "WSM"],
+    ".28 NOSLER": ["28", "NOSLER"],
+    ".280 REMINGTON": [".280", "REM"],
+    ".284 WIN": [".284", "WIN"],
+    "30-30 WIN": ["30-30", "WIN"],
+    ".300 Blackout": ["300", "BLK"],
+    ".300 PRC": ["300", "PRC"],
+    ".300 RUM": [".300", "RUM"],
+    ".300 WSM": [".300", "WSM"],
+    ".303 BRITISH": [".303", "BRIT"],
+    ".308 WIN": [".308", "WIN"],
+    ".338 EDGE": [".338", "EDGE"],
+    ".338 RUM": [".338", "RUM"],
+    ".340 WBY MAG": [".340", "WBY"],
+    ".35 REM": [".35", "REM"],
+    ".350 LEGEND": [".350", "LGND"],
+    ".360 BUCKHAMMER": ["360", "BHMR"],
+    ".375 H&H MAG": [".375", "H&H"],
+    ".400 LEGEND": ["400", "LGND"],
+    ".444 MARLIN": [".444", "MARLIN"],
+    ".45-70 GOVT": ["45-70", "GOVT"],
+    ".450 BUSHMASTER": [".450", "BM"],
+    ".458 SOCOM": [".458", "SOCOM"],
+    ".50 BEOWULF": [".50", "BEO"],
+    "5.45x39MM": ["5.45", "x 39"],
+    "5.56 NATO": ["5.56", "NATO"],
+    "6MM ARC": ["6mm", "ARC"],
+    "6MM BR": ["6mm", "BR"],
+    "6MM CREEDMOOR": ["6mm", "CM"],
+    "6MM GT": ["6mm", "GT"],
+    "6.5 GRENDEL": ["6.5", "GRNDL"],
+    "6.5 CREEDMOOR": ["6.5mm", "CM"],
+    "6.5 PRC": ["6.5", "PRC"],
+    "6.5-300 WBY MAG": ["6.5-300", "WBY MAG"],
+    "6.5 CARCANO": ["6.5x52", "CRCNO"],
+    "6.5X55 SWEDISH": ["6.5x55", "SWEDE"],
+    "6.8 WESTERN": ["6.8", "WSTRN"],
+    "6.8MM REM SPC": ["6.8", "SPC"],
+    "7MM BACKCOUNTRY": ["7mm", "BC"],
+    "7MM PRC": ["7mm", "PRC"],
+    "7MM RUM": ["7mm", "RUM"],
+    "7.62x39": ["7.62", "x 39"],
+    "7.62x54R": ["7.62", "x 54R"],
+    "8.5x55 BLASER": ["8.5x55", "BLASER"],
+    "8.6 BLACKOUT": ["8.6", "BLK"]
+  };
+
+  return displayMap[selections.caliber] || [selections.caliber, ""];
+}
+
 function updateCustomTextLimit() {
   const customInput = document.getElementById("customTextInput");
   const helper = document.getElementById("customTextHelper");
 
   if (!customInput) return;
 
-  const maxLength = is20RoundRifleStandard() ? 6 : 20;
+const maxLength =
+  (is20RoundRifleStandard() || is20RoundRifleVariant2())
+    ? 6
+    : 20;
 
   customInput.maxLength = maxLength;
 
@@ -2227,16 +2400,22 @@ if (previewContainer) {
   previewContainer.classList.toggle(
     "rifle-20-standard",
     is20RoundRifleStandard()
+  );
 
+  previewContainer.classList.toggle(
+    "rifle-20-variant-2",
+    is20RoundRifleVariant2()
   );
 }
 
 if (color && previewImage) {
-  if (is20RoundRifleFamily()) {
-    const colorSlug = color.name
-      .toLowerCase()
-      .replace(/\s+/g, "-");
+  const colorSlug = color.name
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 
+  if (is20RoundRifleVariant2()) {
+    previewImage.src = `images/custom-preview/rifle-20-variant-2/${colorSlug}.webp`;
+  } else if (is20RoundRifleStandard()) {
     previewImage.src = `images/custom-preview/rifle-20/${colorSlug}.webp`;
   } else {
     previewImage.src = color.customPreview;
@@ -2258,13 +2437,34 @@ if (textColor) {
 
 function updateCaliberPreview() {
   const previewCaliber = document.getElementById("previewCaliber");
+  const previewCaliberLine2 = document.getElementById("previewCaliberLine2");
+
   if (!previewCaliber) return;
 
-  const text = is20RoundRifleStandard()
-  ? get20RoundRifleStandardCaliberDisplay()
-  : (selections.caliber || ".357 MAGNUM");
+  let text;
 
-  previewCaliber.textContent = text;
+  if (is20RoundRifleVariant2()) {
+    const [line1, line2] = get20RoundRifleVariant2CaliberDisplay();
+
+    text = line1;
+    previewCaliber.textContent = line1;
+
+    if (previewCaliberLine2) {
+      previewCaliberLine2.textContent = line2;
+      previewCaliberLine2.style.display = line2 ? "block" : "none";
+    }
+  } else {
+    text = is20RoundRifleStandard()
+      ? get20RoundRifleStandardCaliberDisplay()
+      : (selections.caliber || ".357 MAGNUM");
+
+    previewCaliber.textContent = text;
+
+    if (previewCaliberLine2) {
+      previewCaliberLine2.textContent = "";
+      previewCaliberLine2.style.display = "none";
+    }
+  }
 
   if (text.length > 18) {
     previewCaliber.style.fontSize = "14px";
