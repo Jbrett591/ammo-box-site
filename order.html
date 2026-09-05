@@ -412,6 +412,20 @@ h1, h2 {
   white-space: nowrap;
 }
 
+.preview-container.rifle-20-variant-5 #previewText {
+  top: 10.5%;
+  width: 62%;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-5 #previewCaliber {
+  bottom: 13.5%;
+  width: 24%;
+  font-size: 14px !important;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewCaliber {
   bottom: 13.5%;
   width: 24%;
@@ -2317,6 +2331,13 @@ function is20RoundRifleVariant4() {
   return variant4Calibers.has(selections.caliber);
 }
 
+function is20RoundRifleVariant5() {
+  return (
+    is20RoundRifleFamily() &&
+    selections.caliber === ".35 WHELEN"
+  );
+}
+
 function get20RoundRifleStandardCaliberDisplay() {
   const displayMap = {
     "25-06": "25-06",
@@ -2417,6 +2438,10 @@ function get20RoundRifleVariant4CaliberDisplay() {
   return displayMap[selections.caliber] || [selections.caliber, "", ""];
 }
 
+function get20RoundRifleVariant5CaliberDisplay() {
+  return [".35", "WHLN"];
+}
+
 function updateCustomTextLimit() {
   const customInput = document.getElementById("customTextInput");
   const helper = document.getElementById("customTextHelper");
@@ -2426,7 +2451,10 @@ function updateCustomTextLimit() {
 
   if (!customInput) return;
 
-  if (is20RoundRifleVariant3()) {
+  if (
+  is20RoundRifleVariant3() ||
+  is20RoundRifleVariant5()
+) {
     selections.customTextChoice = "No";
     customInput.value = "";
 
@@ -2509,88 +2537,112 @@ function updateBoxColorPreview(colorName) {
   }, 140);
 }
 
-    function updateCustomTextPreview() {
+function updateCustomTextPreview() {
   const color = colors.find(
-  c => c.name === (selections.boxColor || "Ash Gray")
-);
-
-const previewImage = document.getElementById("customPreviewImage");
-const previewText = document.getElementById("previewText");
-const previewCaliber = document.getElementById("previewCaliber");
-const previewCaliberLine2 = document.getElementById("previewCaliberLine2");
-const previewCaliberLine3 = document.getElementById("previewCaliberLine3");
-const previewContainer = previewImage?.closest(".preview-container");
-
-if (previewContainer) {
-  previewContainer.classList.toggle(
-    "rifle-20",
-    is20RoundRifleFamily()
+    c => c.name === (selections.boxColor || "Ash Gray")
   );
 
-  previewContainer.classList.toggle(
-    "rifle-20-standard",
-    is20RoundRifleStandard()
-  );
+  if (!color) return;
 
-  previewContainer.classList.toggle(
-    "rifle-20-variant-2",
-    is20RoundRifleVariant2()
-  );
+  const previewImage = document.getElementById("customPreviewImage");
+  const previewText = document.getElementById("previewText");
+  const previewCaliber = document.getElementById("previewCaliber");
+  const previewCaliberLine2 = document.getElementById("previewCaliberLine2");
+  const previewCaliberLine3 = document.getElementById("previewCaliberLine3");
+  const previewContainer = previewImage?.closest(".preview-container");
 
-  previewContainer.classList.toggle(
-  "rifle-20-variant-3",
-  is20RoundRifleVariant3()
-  );
-
-    previewContainer.classList.toggle(
-    "rifle-20-variant-4",
-    is20RoundRifleVariant4()
-  );
-
-}
-
-if (color && previewImage) {
   const colorSlug = color.name
     .toLowerCase()
     .replace(/\s+/g, "-");
 
-if (
-  is20RoundRifleVariant2() ||
-  is20RoundRifleVariant3() ||
-  is20RoundRifleVariant4()
-) {
-  previewImage.src = `images/custom-preview/rifle-20-variant-2/${colorSlug}.webp`;
-} else if (is20RoundRifleStandard()) {
-  previewImage.src = `images/custom-preview/rifle-20/${colorSlug}.webp`;
-} else {
-  previewImage.src = color.customPreview;
-}
-}
+  if (previewContainer) {
+    previewContainer.classList.toggle(
+      "rifle-20",
+      is20RoundRifleFamily()
+    );
 
-const textColor = colors.find(c => c.name === selections.textColor);
+    previewContainer.classList.toggle(
+      "rifle-20-standard",
+      is20RoundRifleStandard()
+    );
 
-if (is20RoundRifleVariant3() && previewText) {
-  previewText.textContent = ".222";
-}
+    previewContainer.classList.toggle(
+      "rifle-20-variant-2",
+      is20RoundRifleVariant2()
+    );
 
-if (textColor) {
-  if (previewText) {
-    previewText.style.color = textColor.hex;
+    previewContainer.classList.toggle(
+      "rifle-20-variant-3",
+      is20RoundRifleVariant3()
+    );
+
+    previewContainer.classList.toggle(
+      "rifle-20-variant-4",
+      is20RoundRifleVariant4()
+    );
+
+    previewContainer.classList.toggle(
+      "rifle-20-variant-5",
+      is20RoundRifleVariant5()
+    );
   }
 
-  if (previewCaliber) {
-    previewCaliber.style.color = textColor.hex;
-  }
+  if (previewImage) {
+    if (
+      is20RoundRifleVariant2() ||
+      is20RoundRifleVariant3() ||
+      is20RoundRifleVariant4()
+    ) {
+      previewImage.src =
+        `images/custom-preview/rifle-20-variant-2/${colorSlug}.webp`;
 
-  if (previewCaliberLine2) {
-    previewCaliberLine2.style.color = textColor.hex;
-  }
+    } else if (
+      is20RoundRifleStandard() ||
+      is20RoundRifleVariant5()
+    ) {
+      previewImage.src =
+        `images/custom-preview/rifle-20/${colorSlug}.webp`;
 
-  if (previewCaliberLine3) {
-    previewCaliberLine3.style.color = textColor.hex;
-  }
-}
+    } else {
+      previewImage.src = color.customPreview;
     }
+  }
+
+  const textColor = colors.find(
+    c => c.name === selections.textColor
+  );
+
+if (previewText) {
+  if (is20RoundRifleVariant3()) {
+    previewText.textContent = ".222";
+  } else if (is20RoundRifleVariant5()) {
+    previewText.textContent = ".35";
+  } else {
+    const customInput = document.getElementById("customTextInput");
+
+    previewText.textContent =
+      customInput?.value || "YOUR TEXT";
+  }
+}
+
+  if (textColor) {
+    if (previewText) {
+      previewText.style.color = textColor.hex;
+    }
+
+    if (previewCaliber) {
+      previewCaliber.style.color = textColor.hex;
+    }
+
+    if (previewCaliberLine2) {
+      previewCaliberLine2.style.color = textColor.hex;
+    }
+
+    if (previewCaliberLine3) {
+      previewCaliberLine3.style.color = textColor.hex;
+    }
+  }
+}
 
 function updateCaliberPreview() {
   const previewCaliber = document.getElementById("previewCaliber");
@@ -2601,7 +2653,23 @@ function updateCaliberPreview() {
 
   let text;
 
-if (is20RoundRifleVariant4()) {
+if (is20RoundRifleVariant5()) {
+  const [, line2] = get20RoundRifleVariant5CaliberDisplay();
+
+  text = line2;
+  previewCaliber.textContent = line2;
+
+  if (previewCaliberLine2) {
+    previewCaliberLine2.textContent = "";
+    previewCaliberLine2.style.display = "none";
+  }
+
+  if (previewCaliberLine3) {
+    previewCaliberLine3.textContent = "";
+    previewCaliberLine3.style.display = "none";
+  }
+
+} else if (is20RoundRifleVariant4()) {
   const [line1, line2, line3] = get20RoundRifleVariant4CaliberDisplay();
 
   text = line1;
