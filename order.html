@@ -2137,9 +2137,14 @@ function updateBoxColorPreview(colorName) {
   c => c.name === (selections.boxColor || "Ash Gray")
 );
 
-  const previewImage = document.getElementById("customPreviewImage");
-  const previewText = document.getElementById("previewText");
-  const previewCaliber = document.getElementById("previewCaliber");
+const previewImage = document.getElementById("customPreviewImage");
+const previewText = document.getElementById("previewText");
+const previewCaliber = document.getElementById("previewCaliber");
+const previewContainer = previewImage?.closest(".preview-container");
+
+if (previewContainer) {
+  previewContainer.classList.toggle("rifle-20", is20RoundRifleFamily());
+}
 
 if (color && previewImage) {
   if (is20RoundRifleFamily()) {
