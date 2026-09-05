@@ -319,6 +319,7 @@ h1, h2 {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80%;
+  font-family: Arial, sans-serif; 
   font-weight: 700;
   color: #ddd;
   font-size: 16px;
@@ -326,6 +327,22 @@ h1, h2 {
   text-align: center;
   pointer-events: none;
   filter: drop-shadow(0 1px 1px rgba(0,0,0,.20));
+
+
+}
+
+.preview-container.rifle-20-standard #previewText {
+  top: 10.5%;
+  width: 62%;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-standard #previewCaliber {
+  bottom: 13.5%;
+  width: 24%;
+  font-size: 14px !important;
+  white-space: nowrap;
 }
 
   #previewCaliber {
@@ -334,6 +351,7 @@ h1, h2 {
   left: 50%;
   transform: translateX(-50%);
   width: 85%;
+  font-family: Arial, sans-serif;
   font-weight: 700;
   color: #ddd;
   font-size: 22px;
@@ -1587,7 +1605,7 @@ Build Your Custom Ammo Box
     type="text"
     placeholder="Enter cover text, e.g. DAD'S .380"
     maxlength="20">
-  <div class="helper-text">Up to 20 characters.</div>
+  <div id="customTextHelper" class="helper-text">Up to 20 characters.</div>
 </div>
 
   <div class="lid-preview-card">
@@ -1996,6 +2014,8 @@ document.getElementById("capacitySelect").addEventListener("change", function() 
 
   updateBoxColorPreview(selections.boxColor || "Ash Gray");
   updateCustomTextPreview();
+  updateCustomTextLimit();
+  updateCaliberPreview();
 
   document.getElementById("boxColor").scrollIntoView({
     behavior: "smooth",
@@ -2096,6 +2116,62 @@ function is20RoundRifleFamily() {
   );
 }
 
+function is20RoundRifleStandard() {
+  if (!is20RoundRifleFamily()) return false;
+
+  const standardCalibers = new Set([
+    "25-06",
+    ".280 AI",
+    "30-06",
+    "7MM-08",
+    "7x64 BRENNEKE",
+    "7x57MM MAUSER",
+    "8MM MAUSER",
+    "9.3X62MM MAUSER"
+  ]);
+
+  return standardCalibers.has(selections.caliber);
+}
+
+function get20RoundRifleStandardCaliberDisplay() {
+  const displayMap = {
+    "25-06": "25-06",
+    ".280 AI": "280 AI",
+    "30-06": "30-06",
+    "7MM-08": "7mm-08",
+    "7x64 BRENNEKE": "7x64",
+    "7x57MM MAUSER": "7x57",
+    "8MM MAUSER": "8x57",
+    "9.3X62MM MAUSER": "9.3x62"
+  };
+
+  return displayMap[selections.caliber] || selections.caliber;
+}
+
+function updateCustomTextLimit() {
+  const customInput = document.getElementById("customTextInput");
+  const helper = document.getElementById("customTextHelper");
+
+  if (!customInput) return;
+
+  const maxLength = is20RoundRifleStandard() ? 6 : 20;
+
+  customInput.maxLength = maxLength;
+
+  if (customInput.value.length > maxLength) {
+    customInput.value = customInput.value.slice(0, maxLength);
+
+    const previewText = document.getElementById("previewText");
+    if (previewText) {
+      previewText.textContent = customInput.value || "YOUR TEXT";
+    }
+  }
+
+  if (helper) {
+    helper.textContent = `Up to ${maxLength} characters.`;
+  }
+}
+
 function getBoxPreviewImage(color) {
   if (is20RoundRifleFamily()) {
     const colorSlug = color.name
@@ -2143,7 +2219,16 @@ const previewCaliber = document.getElementById("previewCaliber");
 const previewContainer = previewImage?.closest(".preview-container");
 
 if (previewContainer) {
-  previewContainer.classList.toggle("rifle-20", is20RoundRifleFamily());
+  previewContainer.classList.toggle(
+    "rifle-20",
+    is20RoundRifleFamily()
+  );
+
+  previewContainer.classList.toggle(
+    "rifle-20-standard",
+    is20RoundRifleStandard()
+
+  );
 }
 
 if (color && previewImage) {
@@ -2175,7 +2260,9 @@ function updateCaliberPreview() {
   const previewCaliber = document.getElementById("previewCaliber");
   if (!previewCaliber) return;
 
-  const text = selections.caliber || ".357 MAGNUM";
+  const text = is20RoundRifleStandard()
+  ? get20RoundRifleStandardCaliberDisplay()
+  : (selections.caliber || ".357 MAGNUM");
 
   previewCaliber.textContent = text;
 
@@ -2623,8 +2710,9 @@ selectHandler(document.getElementById("customTextChoice"), "customTextChoice");
 loadColors("boxColor", "boxColor");
 loadColors("textColor", "textColor");
 
-  updateCustomTextPreview();
-  updateCaliberPreview();
+updateCustomTextPreview();
+updateCustomTextLimit();
+updateCaliberPreview();
 updatePriceBox();
   loadCart();
 document.getElementById("quantity").addEventListener("input", updateSummary);
