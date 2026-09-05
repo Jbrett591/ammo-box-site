@@ -2224,6 +2224,74 @@ function is20RoundRifleFamily() {
   );
 }
 
+function is50RoundRifleFamily2() {
+  if (
+    selections.category !== "Rifle" ||
+    Number(selections.capacity) !== 50
+  ) {
+    return false;
+  }
+
+  const family2Calibers = new Set([
+    ".22 ARC",
+    ".22 CREEDMOOR",
+    ".22 SAVAGE",
+    ".22-250 REM",
+    ".204 Ruger",
+    ".222 REM MAG",
+    ".224 VALKYRIE",
+    ".243 WIN",
+    ".257 WEATHERBY",
+    ".270 WEATHERBY MAG",
+    ".270 WIN",
+    ".270 WSM",
+    "30-30 WIN",
+    "30-06",
+    ".300 Blackout",
+    ".300 PRC",
+    ".300 RUM",
+    ".300 WIN MAG",
+    ".300 WSM",
+    ".303 BRITISH",
+    ".308 WIN",
+    ".338 EDGE",
+    ".338 LAPUA",
+    ".338 NORMA",
+    ".338 RUM",
+    ".338 WIN MAG",
+    ".350 LEGEND",
+    ".400 LEGEND",
+    ".45-120 SHARPS",
+    ".45-70 GOVT",
+    ".45-90 SHARPS",
+    ".458 WIN MAG",
+    "6MM ARC",
+    "6MM CREEDMOOR",
+    "6MM GT",
+    "6.5 GRENDEL",
+    "6.5 CREEDMOOR",
+    "6.5 PRC",
+    "6.5X55 SWEDISH",
+    "6.8 WESTERN",
+    "6.8MM REM SPC",
+    "7MM BACKCOUNTRY",
+    "7MM PRC",
+    "7MM REM MAG",
+    "7MM RUM",
+    "7MM WEATHERBY MAG",
+    "7MM-08",
+    "7x64 BRENNEKE",
+    "7.5x55MM SWISS",
+    "7.62x39",
+    "7.62x51 NATO",
+    "8MM MAUSER",
+    "8.5x55 BLASER",
+    "8.6 BLACKOUT"
+  ]);
+
+  return family2Calibers.has(selections.caliber);
+}
+
 function is20RoundRifleStandard() {
   if (!is20RoundRifleFamily()) return false;
 
@@ -2502,12 +2570,16 @@ function updateCustomTextLimit() {
 }
 
 function getBoxPreviewImage(color) {
-  if (is20RoundRifleFamily()) {
-    const colorSlug = color.name
-      .toLowerCase()
-      .replace(/\s+/g, "-");
+  const colorSlug = color.name
+    .toLowerCase()
+    .replace(/\s+/g, "-");
 
+  if (is20RoundRifleFamily()) {
     return `images/builder/rifle-20/${colorSlug}.webp`;
+  }
+
+  if (is50RoundRifleFamily2()) {
+    return `images/builder/rifle-50-2/${colorSlug}.webp`;
   }
 
   return color.image;
