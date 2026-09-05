@@ -382,6 +382,36 @@ h1, h2 {
   white-space: nowrap;
 }
 
+.preview-container.rifle-20-variant-4 #previewText {
+  top: 13%;
+  width: 62%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-4 #previewCaliber {
+  bottom: 28%;
+  width: 30%;
+  font-size: 15px !important;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-4 #previewCaliberLine2 {
+  display: block;
+  bottom: 20%;
+  width: 30%;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-20-variant-4 #previewCaliberLine3 {
+  display: block;
+  bottom: 15%;
+  width: 30%;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewCaliber {
   bottom: 13.5%;
   width: 24%;
@@ -408,7 +438,8 @@ h1, h2 {
   filter: drop-shadow(0 1px 1px rgba(0,0,0,.20));
 }
 
-#previewCaliberLine2 {
+#previewCaliberLine2,
+#previewCaliberLine3 {
   display: none;
   position: absolute;
   left: 50%;
@@ -1684,6 +1715,7 @@ Build Your Custom Ammo Box
       <div id="previewText">YOUR TEXT</div>
 <div id="previewCaliber">.357 MAGNUM</div>
 <div id="previewCaliberLine2"></div>
+<div id="previewCaliberLine3"></div>
     </div>
   </div>
 
@@ -2267,6 +2299,24 @@ function is20RoundRifleVariant3() {
   );
 }
 
+function is20RoundRifleVariant4() {
+  if (!is20RoundRifleFamily()) return false;
+
+  const variant4Calibers = new Set([
+    ".257 WEATHERBY",
+    ".270 WEATHERBY MAG",
+    ".300 WIN MAG",
+    ".338 LAPUA",
+    ".338 NORMA",
+    ".338 WIN MAG",
+    ".458 WIN MAG",
+    "7MM REM MAG",
+    "7MM WEATHERBY MAG"
+  ]);
+
+  return variant4Calibers.has(selections.caliber);
+}
+
 function get20RoundRifleStandardCaliberDisplay() {
   const displayMap = {
     "25-06": "25-06",
@@ -2349,6 +2399,22 @@ function get20RoundRifleVariant2CaliberDisplay() {
   function get20RoundRifleVariant3CaliberDisplay() {
   return ["REM", "MAG"];
 
+}
+
+function get20RoundRifleVariant4CaliberDisplay() {
+  const displayMap = {
+    ".257 WEATHERBY": [".257", "WBY", "MAG"],
+    ".270 WEATHERBY MAG": [".270", "WBY", "MAG"],
+    ".300 WIN MAG": [".300", "WIN", "MAG"],
+    ".338 LAPUA": [".338", "LAPUA", "MAG"],
+    ".338 NORMA": [".338", "NORMA", "MAG"],
+    ".338 WIN MAG": [".338", "WIN", "MAG"],
+    ".458 WIN MAG": [".458", "WIN", "MAG"],
+    "7MM REM MAG": ["7mm", "REM", "MAG"],
+    "7MM WEATHERBY MAG": ["7mm", "WBY", "MAG"]
+  };
+
+  return displayMap[selections.caliber] || [selections.caliber, "", ""];
 }
 
 function updateCustomTextLimit() {
@@ -2451,6 +2517,8 @@ function updateBoxColorPreview(colorName) {
 const previewImage = document.getElementById("customPreviewImage");
 const previewText = document.getElementById("previewText");
 const previewCaliber = document.getElementById("previewCaliber");
+const previewCaliberLine2 = document.getElementById("previewCaliberLine2");
+const previewCaliberLine3 = document.getElementById("previewCaliberLine3");
 const previewContainer = previewImage?.closest(".preview-container");
 
 if (previewContainer) {
@@ -2474,6 +2542,11 @@ if (previewContainer) {
   is20RoundRifleVariant3()
   );
 
+    previewContainer.classList.toggle(
+    "rifle-20-variant-4",
+    is20RoundRifleVariant4()
+  );
+
 }
 
 if (color && previewImage) {
@@ -2481,7 +2554,11 @@ if (color && previewImage) {
     .toLowerCase()
     .replace(/\s+/g, "-");
 
-if (is20RoundRifleVariant2() || is20RoundRifleVariant3()) {
+if (
+  is20RoundRifleVariant2() ||
+  is20RoundRifleVariant3() ||
+  is20RoundRifleVariant4()
+) {
   previewImage.src = `images/custom-preview/rifle-20-variant-2/${colorSlug}.webp`;
 } else if (is20RoundRifleStandard()) {
   previewImage.src = `images/custom-preview/rifle-20/${colorSlug}.webp`;
@@ -2504,18 +2581,48 @@ if (textColor) {
   if (previewCaliber) {
     previewCaliber.style.color = textColor.hex;
   }
+
+  if (previewCaliberLine2) {
+    previewCaliberLine2.style.color = textColor.hex;
+  }
+
+  if (previewCaliberLine3) {
+    previewCaliberLine3.style.color = textColor.hex;
+  }
 }
     }
 
 function updateCaliberPreview() {
   const previewCaliber = document.getElementById("previewCaliber");
   const previewCaliberLine2 = document.getElementById("previewCaliberLine2");
+  const previewCaliberLine3 = document.getElementById("previewCaliberLine3");
 
   if (!previewCaliber) return;
 
   let text;
 
-if (is20RoundRifleVariant3()) {
+if (is20RoundRifleVariant4()) {
+  const [line1, line2, line3] = get20RoundRifleVariant4CaliberDisplay();
+
+  text = line1;
+  previewCaliber.textContent = line1;
+
+  if (previewCaliberLine2) {
+    previewCaliberLine2.textContent = line2;
+    previewCaliberLine2.style.display = line2 ? "block" : "none";
+  }
+
+  if (previewCaliberLine3) {
+    previewCaliberLine3.textContent = line3;
+    previewCaliberLine3.style.display = line3 ? "block" : "none";
+  }
+
+} else if (is20RoundRifleVariant3()) {
+  if (previewCaliberLine3) {
+    previewCaliberLine3.textContent = "";
+    previewCaliberLine3.style.display = "none";
+  }
+
   const [line1, line2] = get20RoundRifleVariant3CaliberDisplay();
 
   text = line1;
@@ -2525,7 +2632,13 @@ if (is20RoundRifleVariant3()) {
     previewCaliberLine2.textContent = line2;
     previewCaliberLine2.style.display = line2 ? "block" : "none";
   }
+
 } else if (is20RoundRifleVariant2()) {
+  if (previewCaliberLine3) {
+    previewCaliberLine3.textContent = "";
+    previewCaliberLine3.style.display = "none";
+  }
+
   const [line1, line2] = get20RoundRifleVariant2CaliberDisplay();
 
   text = line1;
@@ -2535,8 +2648,13 @@ if (is20RoundRifleVariant3()) {
     previewCaliberLine2.textContent = line2;
     previewCaliberLine2.style.display = line2 ? "block" : "none";
   }
+
 } else {
 
+    if (previewCaliberLine3) {
+      previewCaliberLine3.textContent = "";
+      previewCaliberLine3.style.display = "none";
+    }
 
     text = is20RoundRifleStandard()
       ? get20RoundRifleStandardCaliberDisplay()
