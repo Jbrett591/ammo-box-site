@@ -2338,6 +2338,33 @@ function is50RoundRifleFamily2() {
   return family2Calibers.has(selections.caliber);
 }
 
+function is100RoundRifleFamily1() {
+  if (selections.category !== "Rifle") {
+    return false;
+  }
+
+  const family1Builds = new Set([
+    ".17 HMR|100",
+    ".17 MACH 2|100",
+    ".21 SHARP|100",
+    ".22 LR|100",
+    ".22 MAG|100",
+    ".22 WMR|100",
+    ".22 SHORT|100",
+    ".204 Ruger|100",
+    ".223 REM|100",
+    ".30 CARBINE|100",
+    ".300 BLACKOUT|100",
+    "32-20 WIN|102",
+    "5.56 NATO|100",
+    "5.7x28|100"
+  ]);
+
+  return family1Builds.has(
+    `${selections.caliber}|${Number(selections.capacity)}`
+  );
+}
+
 function isF50RifleCustomPreviewFamily() {
   return (
     is50RoundRifleFamily1() ||
@@ -2686,6 +2713,10 @@ function getBoxPreviewImage(color) {
 
   if (is50RoundRifleFamily2()) {
     return `images/builder/rifle-50-2/${colorSlug}.webp`;
+  }
+
+    if (is100RoundRifleFamily1()) {
+    return `images/builder/rifle-100-1/${colorSlug}.webp`;
   }
 
   return color.image;
