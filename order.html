@@ -345,6 +345,20 @@ h1, h2 {
   white-space: nowrap;
 }
 
+.preview-container.rifle-100-1 #previewText {
+  top: 10%;
+  width: 72%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-100-1 #previewCaliber {
+  bottom: 9.5%;
+  width: 78%;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewText {
   top: 10.5%;
   width: 62%;
@@ -2770,6 +2784,11 @@ previewContainer.classList.toggle(
   isF50RifleCustomPreviewFamily()
 );
 
+previewContainer.classList.toggle(
+  "rifle-100-1",
+  is100RoundRifleFamily1()
+);
+
     previewContainer.classList.toggle(
       "rifle-20",
       is20RoundRifleFamily()
@@ -2820,6 +2839,10 @@ previewContainer.classList.toggle(
     } else if (isF50RifleCustomPreviewFamily()) {
       previewImage.src =
         `images/custom-preview/rifle-50/${colorSlug}.webp`;
+
+            } else if (is100RoundRifleFamily1()) {
+      previewImage.src =
+        `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
 
     } else {
       previewImage.src = color.customPreview;
