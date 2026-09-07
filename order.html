@@ -331,6 +331,20 @@ h1, h2 {
 
 }
 
+.preview-container.rifle-50 #previewText {
+  top: 10.5%;
+  width: 72%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-50 #previewCaliber {
+  bottom: 12.5%;
+  width: 78%;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewText {
   top: 10.5%;
   width: 62%;
@@ -2224,10 +2238,38 @@ function is20RoundRifleFamily() {
   );
 }
 
-function is50RoundRifleFamily2() {
+function is50RoundRifleFamily1() {
   if (
     selections.category !== "Rifle" ||
     Number(selections.capacity) !== 50
+  ) {
+    return false;
+  }
+
+  const family1Calibers = new Set([
+    ".17 HMR",
+    ".17 HORNET",
+    ".17 WSM",
+    ".21 SHARP",
+    ".218 BEE",
+    ".22 LR",
+    ".22 MAG",
+    ".22 WMR",
+    ".222 REM",
+    ".223 REM",
+    ".30 CARBINE",
+    "5.56 NATO",
+    "5.7x28"
+  ]);
+
+  return family1Calibers.has(selections.caliber);
+}
+
+
+function is50RoundRifleFamily2() {
+  if (
+    selections.category !== "Rifle" ||
+    ![40, 50, 60].includes(Number(selections.capacity))
   ) {
     return false;
   }
@@ -2254,17 +2296,20 @@ function is50RoundRifleFamily2() {
     ".300 WSM",
     ".303 BRITISH",
     ".308 WIN",
+    "32-20 WIN",
     ".338 EDGE",
     ".338 LAPUA",
     ".338 NORMA",
     ".338 RUM",
     ".338 WIN MAG",
+    ".35 WHELEN",
     ".350 LEGEND",
     ".400 LEGEND",
     ".45-120 SHARPS",
     ".45-70 GOVT",
     ".45-90 SHARPS",
     ".458 WIN MAG",
+    "5.45x39MM",
     "6MM ARC",
     "6MM CREEDMOOR",
     "6MM GT",
@@ -2284,12 +2329,20 @@ function is50RoundRifleFamily2() {
     "7.5x55MM SWISS",
     "7.62x39",
     "7.62x51 NATO",
+    "7.95x53 ARG MAUSER",
     "8MM MAUSER",
     "8.5x55 BLASER",
     "8.6 BLACKOUT"
   ]);
 
   return family2Calibers.has(selections.caliber);
+}
+
+function isF50RifleCustomPreviewFamily() {
+  return (
+    is50RoundRifleFamily1() ||
+    is50RoundRifleFamily2()
+  );
 }
 
 function is20RoundRifleStandard() {
@@ -2551,7 +2604,10 @@ function updateCustomTextLimit() {
     yesOption.style.display = "";
   }
 
-  const maxLength = is20RoundRifleFamily() ? 6 : 20;
+const maxLength =
+  is20RoundRifleFamily() ? 6 :
+  isF50RifleCustomPreviewFamily() ? 18 :
+  18;
 
   customInput.maxLength = maxLength;
 
@@ -2577,6 +2633,10 @@ function getBoxPreviewImage(color) {
   if (is20RoundRifleFamily()) {
     return `images/builder/rifle-20/${colorSlug}.webp`;
   }
+
+  if (is50RoundRifleFamily1()) {
+  return `images/builder/rifle-50-1/${colorSlug}.webp`;
+}
 
   if (is50RoundRifleFamily2()) {
     return `images/builder/rifle-50-2/${colorSlug}.webp`;
@@ -2628,6 +2688,11 @@ function updateCustomTextPreview() {
     .replace(/\s+/g, "-");
 
   if (previewContainer) {
+previewContainer.classList.toggle(
+  "rifle-50",
+  isF50RifleCustomPreviewFamily()
+);
+
     previewContainer.classList.toggle(
       "rifle-20",
       is20RoundRifleFamily()
@@ -2674,6 +2739,10 @@ function updateCustomTextPreview() {
     ) {
       previewImage.src =
         `images/custom-preview/rifle-20/${colorSlug}.webp`;
+
+    } else if (isF50RifleCustomPreviewFamily()) {
+      previewImage.src =
+        `images/custom-preview/rifle-50/${colorSlug}.webp`;
 
     } else {
       previewImage.src = color.customPreview;
