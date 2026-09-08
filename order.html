@@ -2285,6 +2285,38 @@ function is20RoundRifleFamily() {
   );
 }
 
+function is50RoundPistolFamily1() {
+  if (
+    selections.category !== "Pistol" ||
+    Number(selections.capacity) !== 50
+  ) {
+    return false;
+  }
+
+  const family1Calibers = new Set([
+    ".22 LR",
+    ".22 MAG",
+    ".22 WMR",
+    "9MM",
+    "9MM MAKAROV",
+    "10MM",
+    ".25 ACP",
+    ".30 LUGER",
+    ".32 ACP",
+    ".32 S&W LONG",
+    ".357 SIG",
+    ".380 ACP",
+    ".38 SUPER",
+    ".38 TPC",
+    ".40 S&W",
+    ".45 ACP",
+    ".450 SMC",
+    "7.62x25MM TOKAREV"
+  ]);
+
+  return family1Calibers.has(selections.caliber);
+}
+  
 function is50RoundRifleFamily1() {
   if (
     selections.category !== "Rifle" ||
@@ -2750,19 +2782,31 @@ function getBoxPreviewImage(color) {
     .toLowerCase()
     .replace(/\s+/g, "-");
 
+  if (
+    selections.category === "Pistol" &&
+    selections.caliber === "5.7x28" &&
+    Number(selections.capacity) === 50
+  ) {
+    return `images/builder/rifle-50-1/${colorSlug}.webp`;
+  }
+
+  if (is50RoundPistolFamily1()) {
+    return `images/builder/pistol-50-1/${colorSlug}.webp`;
+  }
+
   if (is20RoundRifleFamily()) {
     return `images/builder/rifle-20/${colorSlug}.webp`;
   }
 
   if (is50RoundRifleFamily1()) {
-  return `images/builder/rifle-50-1/${colorSlug}.webp`;
-}
+    return `images/builder/rifle-50-1/${colorSlug}.webp`;
+  }
 
   if (is50RoundRifleFamily2()) {
     return `images/builder/rifle-50-2/${colorSlug}.webp`;
   }
 
-    if (is100RoundRifleFamily1()) {
+  if (is100RoundRifleFamily1()) {
     return `images/builder/rifle-100-1/${colorSlug}.webp`;
   }
 
