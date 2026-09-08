@@ -2286,14 +2286,13 @@ function is20RoundRifleFamily() {
 }
 
 function is50RoundPistolFamily1() {
-  if (
-    selections.category !== "Pistol" ||
-    Number(selections.capacity) !== 50
-  ) {
+  if (selections.category !== "Pistol") {
     return false;
   }
 
-  const family1Calibers = new Set([
+  const capacity = Number(selections.capacity);
+
+  const family1Calibers50 = new Set([
     ".22 LR",
     ".22 MAG",
     ".22 WMR",
@@ -2314,7 +2313,22 @@ function is50RoundPistolFamily1() {
     "7.62x25MM TOKAREV"
   ]);
 
-  return family1Calibers.has(selections.caliber);
+  const family1Calibers66 = new Set([
+    ".22 LR",
+    "9MM",
+    ".380 ACP",
+    ".45 ACP"
+  ]);
+
+  if (capacity === 50) {
+    return family1Calibers50.has(selections.caliber);
+  }
+
+  if (capacity === 66) {
+    return family1Calibers66.has(selections.caliber);
+  }
+
+  return false;
 }
   
 function is50RoundRifleFamily1() {
