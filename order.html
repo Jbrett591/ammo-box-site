@@ -2345,6 +2345,40 @@ function is50RoundPistolFamily1() {
 
   return false;
 }
+
+function is100RoundPistolFamily1() {
+  if (
+    selections.category !== "Pistol" ||
+    Number(selections.capacity) !== 100
+  ) {
+    return false;
+  }
+
+  const family1Calibers = new Set([
+    ".22 LR",
+    ".22 MAG",
+    ".22 WMR",
+    "9MM"
+  ]);
+
+  return family1Calibers.has(selections.caliber);
+}
+
+function is102RoundPistolFamily1() {
+  if (
+    selections.category !== "Pistol" ||
+    Number(selections.capacity) !== 102
+  ) {
+    return false;
+  }
+
+  const family1Calibers = new Set([
+    "9MM",
+    ".380 ACP"
+  ]);
+
+  return family1Calibers.has(selections.caliber);
+}
   
 function is50RoundRifleFamily1() {
   if (
@@ -2608,6 +2642,7 @@ function getF50RifleCaliberDisplay() {
   return displayMap[selections.caliber] || selections.caliber;
 }
 
+
 function is20RoundRifleVariant3() {
   return (
     is20RoundRifleFamily() &&
@@ -2819,9 +2854,25 @@ function getBoxPreviewImage(color) {
     return `images/builder/rifle-50-1/${colorSlug}.webp`;
   }
 
+  if (
+  selections.category === "Pistol" &&
+  selections.caliber === "5.7x28" &&
+  Number(selections.capacity) === 100
+) {
+  return `images/builder/rifle-100-1/${colorSlug}.webp`;
+}
+
   if (is50RoundPistolFamily1()) {
     return `images/builder/pistol-50-1/${colorSlug}.webp`;
   }
+
+if (is100RoundPistolFamily1()) {
+  return `images/builder/pistol-100-1/${colorSlug}.webp`;
+}
+
+if (is102RoundPistolFamily1()) {
+  return `images/builder/pistol-102-1/${colorSlug}.webp`;
+}
 
   if (is20RoundRifleFamily()) {
     return `images/builder/rifle-20/${colorSlug}.webp`;
@@ -2949,18 +3000,32 @@ previewContainer.classList.toggle(
       previewImage.src =
         `images/custom-preview/rifle-20/${colorSlug}.webp`;
 
-    } else if (isF50RifleCustomPreviewFamily()) {
-      previewImage.src =
-        `images/custom-preview/rifle-50/${colorSlug}.webp`;
+} else if (
+  isF50RifleCustomPreviewFamily() ||
+  (
+    selections.category === "Pistol" &&
+    selections.caliber === "5.7x28" &&
+    Number(selections.capacity) === 50
+  )
+) {
+  previewImage.src =
+    `images/custom-preview/rifle-50/${colorSlug}.webp`;
 
-            } else if (is50RoundPistolFamily1()) {
+} else if (is50RoundPistolFamily1()) {
       previewImage.src =
         `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
 
 
-            } else if (is100RoundRifleFamily1()) {
-      previewImage.src =
-        `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
+} else if (
+  is100RoundRifleFamily1() ||
+  (
+    selections.category === "Pistol" &&
+    selections.caliber === "5.7x28" &&
+    Number(selections.capacity) === 100
+  )
+) {
+  previewImage.src =
+    `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
 
     } else {
       previewImage.src = color.customPreview;
