@@ -331,6 +331,21 @@ h1, h2 {
 
 }
 
+.preview-container.pistol-50-1 #previewText {
+  top: 12.5%;
+  width: 72%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.pistol-50-1 #previewCaliber {
+  bottom: 16.5%;
+  width: 72%;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+
 .preview-container.rifle-50 #previewText {
   top: 10.5%;
   width: 72%;
@@ -2868,8 +2883,15 @@ function updateCustomTextPreview() {
   const colorSlug = color.name
     .toLowerCase()
     .replace(/\s+/g, "-");
+    
 
   if (previewContainer) {
+
+previewContainer.classList.toggle(
+  "pistol-50-1",
+  is50RoundPistolFamily1()
+);
+
 previewContainer.classList.toggle(
   "rifle-50",
   isF50RifleCustomPreviewFamily()
@@ -2930,6 +2952,11 @@ previewContainer.classList.toggle(
     } else if (isF50RifleCustomPreviewFamily()) {
       previewImage.src =
         `images/custom-preview/rifle-50/${colorSlug}.webp`;
+
+            } else if (is50RoundPistolFamily1()) {
+      previewImage.src =
+        `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
+
 
             } else if (is100RoundRifleFamily1()) {
       previewImage.src =
