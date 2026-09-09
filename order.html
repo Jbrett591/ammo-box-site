@@ -2963,14 +2963,21 @@ function updateCustomTextPreview() {
 
   if (previewContainer) {
 
+const rifle22UsingPistol50Preview =
+  selections.category === "Rifle" &&
+  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  Number(selections.capacity) === 50;
+
 previewContainer.classList.toggle(
   "pistol-50-1",
-  is50RoundPistolFamily1()
+  is50RoundPistolFamily1() ||
+  rifle22UsingPistol50Preview
 );
 
 previewContainer.classList.toggle(
   "rifle-50",
-  isF50RifleCustomPreviewFamily()
+  isF50RifleCustomPreviewFamily() &&
+  !rifle22UsingPistol50Preview
 );
 
 previewContainer.classList.toggle(
