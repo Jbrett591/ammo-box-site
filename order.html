@@ -360,6 +360,20 @@ h1, h2 {
   white-space: nowrap;
 }
 
+ .preview-container.pistol-100-1 #previewText {
+  top: 10%;
+  width: 72%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.pistol-100-1 #previewCaliber {
+  bottom: 9.5%;
+  width: 78%;
+  font-size: 20px;
+  white-space: nowrap;
+} 
+
 .preview-container.rifle-100-1 #previewText {
   top: 10%;
   width: 72%;
@@ -2978,6 +2992,11 @@ previewContainer.classList.toggle(
   "rifle-50",
   isF50RifleCustomPreviewFamily() &&
   !rifle22UsingPistol50Preview
+);
+
+    previewContainer.classList.toggle(
+  "pistol-100-1",
+  is100RoundPistolFamily1()
 );
 
 previewContainer.classList.toggle(
