@@ -2902,12 +2902,13 @@ function getBoxPreviewImage(color) {
     return `images/builder/pistol-100-1/${colorSlug}.webp`;
   }
 
-  if (
-    rifle22UsingPistolPreview &&
-    Number(selections.capacity) === 250
-  ) {
-    return color.image;
-  }
+if (
+  ["Pistol", "Rifle"].includes(selections.category) &&
+  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  Number(selections.capacity) === 250
+) {
+  return `images/builder/pistol-102-1/${colorSlug}.webp`;
+}
 
   if (
     selections.category === "Pistol" &&
