@@ -2393,6 +2393,30 @@ function is102RoundPistolFamily1() {
 
   return family1Calibers.has(selections.caliber);
 }
+
+  function isPistol100Family2CustomPreview() {
+  const capacity = Number(selections.capacity);
+
+  // 102-round larger pistol box
+  if (
+    selections.category === "Pistol" &&
+    selections.caliber === ".357 MAGNUM" &&
+    capacity === 102
+  ) {
+    return true;
+  }
+
+  // 250-round .22 boxes use the same larger lid geometry
+  if (
+    ["Pistol", "Rifle"].includes(selections.category) &&
+    [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+    capacity === 250
+  ) {
+    return true;
+  }
+
+  return false;
+}
   
 function is50RoundRifleFamily1() {
   if (
@@ -3085,6 +3109,10 @@ previewContainer.classList.toggle(
 ) {
   previewImage.src =
     `images/custom-preview/pistol-100-1/${colorSlug}.webp`;
+
+      } else if (isPistol100Family2CustomPreview()) {
+  previewImage.src =
+    `images/custom-preview/pistol-100-2/${colorSlug}.webp`;
 
 } else if (
   is100RoundRifleFamily1() ||
