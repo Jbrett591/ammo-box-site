@@ -2899,6 +2899,13 @@ function getBoxPreviewImage(color) {
     .toLowerCase()
     .replace(/\s+/g, "-");
 
+    if (
+    selections.category === "Shotgun" &&
+    Number(selections.capacity) === 25
+  ) {
+    return `images/builder/shotgun-25/${colorSlug}.webp`;
+  }
+
     const rifle22UsingPistolPreview =
     selections.category === "Rifle" &&
     [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber);
