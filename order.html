@@ -2413,13 +2413,9 @@ function is102RoundPistolFamily1() {
   const capacity = Number(selections.capacity);
 
   // 102-round larger pistol box
-  if (
-    selections.category === "Pistol" &&
-    selections.caliber === ".357 MAGNUM" &&
-    capacity === 102
-  ) {
-    return true;
-  }
+if (is102RoundPistolFamily1()) {
+  return true;
+}
 
   // 250-round .22 boxes use the same larger lid geometry
   if (
