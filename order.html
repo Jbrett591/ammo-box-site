@@ -1943,7 +1943,7 @@ const products = {
     ".40 S&W": [50, 105],
     ".41 MAGNUM": [50],
     ".44 MAGNUM": [50, 105],
-    ".45 ACP": [50, 66, 105],
+    ".45 ACP": [50, 105],
     ".45 LONG COLT": [50],
     ".450 SMC": [50],
     ".454 CASULL": [50],
@@ -2846,6 +2846,31 @@ function getBoxPreviewImage(color) {
     .toLowerCase()
     .replace(/\s+/g, "-");
 
+    const rifle22UsingPistolPreview =
+    selections.category === "Rifle" &&
+    [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber);
+
+  if (
+    rifle22UsingPistolPreview &&
+    Number(selections.capacity) === 50
+  ) {
+    return `images/builder/pistol-50-1/${colorSlug}.webp`;
+  }
+
+  if (
+    rifle22UsingPistolPreview &&
+    Number(selections.capacity) === 100
+  ) {
+    return `images/builder/pistol-100-1/${colorSlug}.webp`;
+  }
+
+  if (
+    rifle22UsingPistolPreview &&
+    Number(selections.capacity) === 250
+  ) {
+    return color.image;
+  }
+
   if (
     selections.category === "Pistol" &&
     selections.caliber === "5.7x28" &&
@@ -3001,6 +3026,14 @@ previewContainer.classList.toggle(
         `images/custom-preview/rifle-20/${colorSlug}.webp`;
 
 } else if (
+  selections.category === "Rifle" &&
+  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  Number(selections.capacity) === 50
+) {
+  previewImage.src =
+    `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
+
+} else if (
   isF50RifleCustomPreviewFamily() ||
   (
     selections.category === "Pistol" &&
@@ -3015,6 +3048,14 @@ previewContainer.classList.toggle(
       previewImage.src =
         `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
 
+
+} else if (
+  selections.category === "Rifle" &&
+  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  Number(selections.capacity) === 100
+) {
+  previewImage.src =
+    `images/custom-preview/pistol-100-1/${colorSlug}.webp`;
 
 } else if (
   is100RoundRifleFamily1() ||
