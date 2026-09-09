@@ -2394,19 +2394,23 @@ function is100RoundPistolFamily1() {
 }
 
 function is102RoundPistolFamily1() {
-  if (
-    selections.category !== "Pistol" ||
-    Number(selections.capacity) !== 102
-  ) {
+  if (selections.category !== "Pistol") {
     return false;
   }
 
-  const family1Calibers = new Set([
-    "9MM",
-    ".380 ACP"
+  const capacity = Number(selections.capacity);
+
+  const family1Builds = new Set([
+    "9MM|102",
+    ".380 ACP|102",
+    "10MM|105",
+    ".40 S&W|105",
+    ".45 ACP|105"
   ]);
 
-  return family1Calibers.has(selections.caliber);
+  return family1Builds.has(
+    `${selections.caliber}|${capacity}`
+  );
 }
 
   function isPistol100Family2CustomPreview() {
