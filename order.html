@@ -417,12 +417,28 @@ h1, h2 {
   white-space: nowrap;
 }
 
+.preview-container.rifle-105-1 #previewText {
+  top: 12.5%;
+  width: 72%;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.preview-container.rifle-105-1 #previewCaliber {
+  bottom: 14%;
+  width: 78%;
+  font-size: 14px !important;
+  white-space: nowrap;
+}
+
 .preview-container.rifle-20-standard #previewText {
   top: 10.5%;
   width: 62%;
   font-size: 14px;
   white-space: nowrap;
 }
+
+
 
 .preview-container.rifle-20-variant-2 #previewText {
   top: 13%;
@@ -2983,6 +2999,10 @@ function updateCustomTextLimit() {
 
 const maxLength =
   is20RoundRifleFamily() ? 6 :
+  (
+    selections.category === "Rifle" &&
+    Number(selections.capacity) === 105
+  ) ? 20 :
   isF50RifleCustomPreviewFamily() ? 18 :
   18;
 
@@ -3084,6 +3104,13 @@ if (is102RoundPistolFamily1()) {
     return `images/builder/rifle-100-1/${colorSlug}.webp`;
   }
 
+  if (
+  selections.category === "Rifle" &&
+  Number(selections.capacity) === 105
+) {
+  return `images/builder/rifle-105-1/${colorSlug}.webp`;
+}
+
   return color.image;
 }
   
@@ -3168,6 +3195,12 @@ previewContainer.classList.toggle(
 previewContainer.classList.toggle(
   "rifle-100-1",
   is100RoundRifleFamily1()
+);
+
+previewContainer.classList.toggle(
+  "rifle-105-1",
+  selections.category === "Rifle" &&
+  Number(selections.capacity) === 105
 );
 
     previewContainer.classList.toggle(
@@ -3275,10 +3308,16 @@ if (previewImage) {
   previewImage.src =
     `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
 
-    } else {
-      previewImage.src = color.customPreview;
-    }
-  }
+} else if (
+  selections.category === "Rifle" &&
+  Number(selections.capacity) === 105
+) {
+  previewImage.src =
+    `images/custom-preview/rifle-105-1/${colorSlug}.webp`;
+
+} else {
+  previewImage.src = color.customPreview;
+}
 
   const textColor = colors.find(
     c => c.name === selections.textColor
@@ -3314,6 +3353,7 @@ if (previewText) {
       previewCaliberLine3.style.color = textColor.hex;
     }
   }
+}
 }
 
 function updateCaliberPreview() {
