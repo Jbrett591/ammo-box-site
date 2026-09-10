@@ -331,6 +331,20 @@ h1, h2 {
 
 }
 
+.preview-container.shotgun-25-1 #previewText {
+  top: 16%;
+  width: 72%;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.preview-container.shotgun-25-1 #previewCaliber {
+  bottom: 17.5%;
+  width: 78%;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
 .preview-container.pistol-50-1 #previewText {
   top: 12.5%;
   width: 72%;
@@ -628,6 +642,27 @@ h1, h2 {
   grid-template-columns: repeat(auto-fit, 56px);
   justify-content: center;
   gap: 12px;
+}
+
+.shotgun-shell-note {
+  display: none;
+  max-width: 620px;
+  margin: 18px auto 0;
+  padding: 12px 16px;
+
+  color: rgba(255,255,255,0.82);
+  font-size: 13px;
+  line-height: 1.45;
+  text-align: center;
+
+  background: rgba(212,175,55,0.07);
+  border: 1px solid rgba(212,175,55,0.28);
+  border-radius: 10px;
+}
+
+.shotgun-shell-note strong {
+  color: #fff;
+  font-weight: 900;
 }
 
 .color-swatch {
@@ -1785,11 +1820,13 @@ Build Your Custom Ammo Box
   <h2>4. Box Color</h2>
   <div class="color-grid" id="boxColor"></div>
 
+    <div id="shotgunShellColorNote" class="shotgun-shell-note"></div>
+
   <div id="boxColorPreviewWrap" class="box-color-preview">
     <p class="preview-title">Box Body Preview</p>
     <img 
       id="boxColorPreview" 
-      src="images/box-ash-gray.webp" 
+      src="images/builder/rifle-50-1/ash-gray.webp"
       alt="Selected box color preview"
       loading="lazy"
       decoding="async">
@@ -2082,8 +2119,8 @@ const products = {
   },
 
   Shotgun: {
-    ".410 GAUGE 2-1/2 inch": [25],
-    ".410 GAUGE 3 inch": [25],
+    ".410 Bore 2-1/2 inch": [25],
+    ".410 Bore 3 inch": [25],
     "28 Gauge 3 inch": [25],
     "20 Gauge 2-3/4 inch": [25],
     "20 Gauge 3 inch": [25],
@@ -2133,6 +2170,30 @@ function selectHandler(container, key) {
         selections.caliber = "";
         selections.capacity = "";
         loadCalibers();
+
+        const categoryDefaultPreview = {
+  Pistol: "images/builder/pistol-50-1/ash-gray.webp",
+  Rifle: "images/builder/rifle-50-1/ash-gray.webp",
+  Shotgun: "images/builder/shotgun-25/ash-gray.webp"
+};
+
+const categoryDefaultCustomPreview = {
+  Pistol: "images/custom-preview/pistol-50-1/ash-gray.webp",
+  Rifle: "images/custom-preview/rifle-50/ash-gray.webp",
+  Shotgun: "images/custom-preview/shotgun-25-1/ash-gray.webp"
+};
+
+const boxPreview = document.getElementById("boxColorPreview");
+
+if (boxPreview && categoryDefaultPreview[selections.category]) {
+  boxPreview.src = categoryDefaultPreview[selections.category];
+}
+
+const customPreview = document.getElementById("customPreviewImage");
+
+if (customPreview && categoryDefaultCustomPreview[selections.category]) {
+  customPreview.src = categoryDefaultCustomPreview[selections.category];
+}
 
         if (selections.boxColor) {
   updateBoxColorPreview(selections.boxColor);
@@ -2202,6 +2263,52 @@ function loadCapacity() {
   });
 }
 
+function updateShotgunShellColorNote() {
+  const note = document.getElementById("shotgunShellColorNote");
+
+  if (!note) return;
+
+  if (
+    selections.category !== "Shotgun" ||
+    !selections.caliber
+  ) {
+    note.style.display = "none";
+    note.innerHTML = "";
+    return;
+  }
+
+  let gauge = "";
+  let shellColor = "";
+
+  if (selections.caliber.startsWith("12 Gauge")) {
+    gauge = "12 Gauge";
+    shellColor = "red";
+  } else if (selections.caliber.startsWith("16 Gauge")) {
+    gauge = "16 Gauge";
+    shellColor = "purple";
+  } else if (selections.caliber.startsWith("10 Gauge")) {
+    gauge = "10 Gauge";
+    shellColor = "dark brown";
+  } else if (selections.caliber.startsWith("28 Gauge")) {
+    gauge = "28 Gauge";
+    shellColor = "green";
+  } else if (selections.caliber.startsWith(".410")) {
+    gauge = ".410 Bore";
+    shellColor = "red";
+  }
+
+  if (!gauge || !shellColor) {
+    note.style.display = "none";
+    note.innerHTML = "";
+    return;
+  }
+
+  note.innerHTML =
+    `<strong>Note:</strong> The ${gauge} shell emblem will be printed in <strong>${shellColor}</strong> and will differ from the shell color shown in the preview images.`;
+
+  note.style.display = "block";
+}
+
 document.getElementById("caliberSelect").addEventListener("change", function() {
   selections.caliber = this.value;
   selections.capacity = "";
@@ -2209,6 +2316,7 @@ document.getElementById("caliberSelect").addEventListener("change", function() {
 updateCaliberPreview();
 
   loadCapacity();
+    updateShotgunShellColorNote();
   
   if (selections.boxColor) {
   updateBoxColorPreview(selections.boxColor);
@@ -3024,6 +3132,12 @@ function updateCustomTextPreview() {
 
   if (previewContainer) {
 
+    previewContainer.classList.toggle(
+  "shotgun-25-1",
+  selections.category === "Shotgun" &&
+  Number(selections.capacity) === 25
+);
+
 const rifle22UsingPistol50Preview =
   selections.category === "Rifle" &&
   [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
@@ -3087,12 +3201,20 @@ previewContainer.classList.toggle(
     );
   }
 
-  if (previewImage) {
-    if (
-      is20RoundRifleVariant2() ||
-      is20RoundRifleVariant3() ||
-      is20RoundRifleVariant4()
-    ) {
+if (previewImage) {
+
+  if (
+    selections.category === "Shotgun" &&
+    Number(selections.capacity) === 25
+  ) {
+    previewImage.src =
+      `images/custom-preview/shotgun-25-1/${colorSlug}.webp`;
+
+  } else if (
+    is20RoundRifleVariant2() ||
+    is20RoundRifleVariant3() ||
+    is20RoundRifleVariant4()
+  ) {
       previewImage.src =
         `images/custom-preview/rifle-20-variant-2/${colorSlug}.webp`;
 
@@ -3292,6 +3414,13 @@ if (is20RoundRifleVariant5()) {
     text = is20RoundRifleStandard()
       ? get20RoundRifleStandardCaliberDisplay()
       : (selections.caliber || ".357 MAGNUM");
+
+      if (
+  selections.category === "Shotgun" &&
+  text.startsWith(".410 Bore")
+) {
+  text = text.replace(".410 Bore", ".410");
+}
 
     previewCaliber.textContent = text;
 
