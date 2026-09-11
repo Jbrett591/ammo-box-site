@@ -2499,6 +2499,29 @@ function is50RoundPistolFamily1() {
   return false;
 }
 
+  function is50RoundPistolFamily2() {
+  if (
+    selections.category !== "Pistol" ||
+    Number(selections.capacity) !== 50
+  ) {
+    return false;
+  }
+
+  const family2Calibers = new Set([
+    ".327 FEDERAL MAG",
+    ".357 MAGNUM",
+    ".38 SPECIAL",
+    ".38 SPECIAL WADCUTTER",
+    ".41 MAGNUM",
+    ".44 MAGNUM",
+    ".45 LONG COLT",
+    ".454 CASULL",
+    ".50 AE"
+  ]);
+
+  return family2Calibers.has(selections.caliber);
+}
+  
 function is100RoundPistolFamily1() {
   if (
     selections.category !== "Pistol" ||
@@ -3079,6 +3102,10 @@ if (
   if (is50RoundPistolFamily1()) {
     return `images/builder/pistol-50-1/${colorSlug}.webp`;
   }
+
+  if (is50RoundPistolFamily2()) {
+  return `images/builder/pistol-50-2/${colorSlug}.webp`;
+}
 
 if (is100RoundPistolFamily1()) {
   return `images/builder/pistol-100-1/${colorSlug}.webp`;
