@@ -2058,7 +2058,7 @@ const products = {
     ".222 REM MAG": [20, 50],
     ".223 REM": [20, 50, 100],
     ".224 VALKYRIE": [20, 50],
-    ".243 WIN": [20, 25, 50],
+    ".243 WIN": [20, 50],
     "25-06": [20],
     ".257 WEATHERBY": [20, 50],
     ".270 WEATHERBY MAG": [20, 50],
@@ -2124,11 +2124,11 @@ const products = {
     "7x64 BRENNEKE": [20, 50],
     "7x57MM MAUSER": [20],
     "7.5x55MM SWISS": [50],
-    "7.62x39": [20, 50, 60, 105],
+    "7.62x39": [20, 50, 105],
     "7.62x51 NATO": [50],
     "7.62x54R": [20],
     "7.95x53 ARG MAUSER": [40],
-    "8MM MAUSER": [10, 20, 50],
+    "8MM MAUSER": [20, 50],
     "8.5x55 BLASER": [20, 50],
     "8.6 BLACKOUT": [20, 50],
     "9.3X62MM MAUSER": [20]
@@ -2548,7 +2548,7 @@ if (is102RoundPistolFamily1()) {
   // 250-round .22 boxes use the same larger lid geometry
   if (
     ["Pistol", "Rifle"].includes(selections.category) &&
-    [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+    [".21 SHARP", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
     capacity === 250
   ) {
     return true;
@@ -3036,14 +3036,14 @@ function getBoxPreviewImage(color) {
 
     const rifle22UsingPistolPreview =
     selections.category === "Rifle" &&
-    [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber);
+    [".22 SHORT", ".21 SHARP", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber);
 
-  if (
-    rifle22UsingPistolPreview &&
-    Number(selections.capacity) === 50
-  ) {
-    return `images/builder/pistol-50-1/${colorSlug}.webp`;
-  }
+if (
+  rifle22UsingPistolPreview &&
+  [50, 66].includes(Number(selections.capacity))
+) {
+  return `images/builder/pistol-50-1/${colorSlug}.webp`;
+}
 
   if (
     rifle22UsingPistolPreview &&
@@ -3054,7 +3054,7 @@ function getBoxPreviewImage(color) {
 
 if (
   ["Pistol", "Rifle"].includes(selections.category) &&
-  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  [".21 SHARP", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
   Number(selections.capacity) === 250
 ) {
   return `images/builder/pistol-102-1/${colorSlug}.webp`;
@@ -3167,8 +3167,8 @@ function updateCustomTextPreview() {
 
 const rifle22UsingPistol50Preview =
   selections.category === "Rifle" &&
-  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
-  Number(selections.capacity) === 50;
+  [".22 SHORT", ".21 SHARP", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  [50, 66].includes(Number(selections.capacity));
 
 previewContainer.classList.toggle(
   "pistol-50-1",
@@ -3260,8 +3260,8 @@ if (previewImage) {
 
 } else if (
   selections.category === "Rifle" &&
-  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
-  Number(selections.capacity) === 50
+  [".21 SHARP", ".22 SHORT", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  [50, 66].includes(Number(selections.capacity))
 ) {
   previewImage.src =
     `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
@@ -3287,7 +3287,7 @@ if (previewImage) {
 
 } else if (
   selections.category === "Rifle" &&
-  [".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
+  [".21 SHARP", ".22 SHORT", ".22 LR", ".22 MAG", ".22 WMR"].includes(selections.caliber) &&
   Number(selections.capacity) === 100
 ) {
   previewImage.src =
