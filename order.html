@@ -2521,6 +2521,14 @@ function is50RoundPistolFamily1() {
 
   return family2Calibers.has(selections.caliber);
 }
+
+  function is105RoundPistolFamily2() {
+  return (
+    selections.category === "Pistol" &&
+    selections.caliber === ".44 MAGNUM" &&
+    Number(selections.capacity) === 105
+  );
+}
   
 function is100RoundPistolFamily1() {
   if (
@@ -3105,14 +3113,6 @@ if (
 
   if (is50RoundPistolFamily2()) {
   return `images/builder/pistol-50-2/${colorSlug}.webp`;
-}
-
-  function is105RoundPistolFamily2() {
-  return (
-    selections.category === "Pistol" &&
-    selections.caliber === ".44 MAGNUM" &&
-    Number(selections.capacity) === 105
-  );
 }
 
 if (is100RoundPistolFamily1()) {
