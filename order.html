@@ -3319,10 +3319,14 @@ if (previewImage) {
     `images/custom-preview/rifle-50/${colorSlug}.webp`;
 
 } else if (is50RoundPistolFamily1()) {
-      previewImage.src =
-        `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
+  previewImage.src =
+    `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
 
-      } else if (is100RoundPistolFamily1()) {
+} else if (is50RoundPistolFamily2()) {
+  previewImage.src =
+    `images/custom-preview/pistol-50-2/${colorSlug}.webp`;
+
+} else if (is100RoundPistolFamily1()) {
   previewImage.src =
     `images/custom-preview/pistol-100-1/${colorSlug}.webp`;
 
@@ -3348,6 +3352,10 @@ if (previewImage) {
 ) {
   previewImage.src =
     `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
+
+    } else if (is105RoundPistolFamily2()) {
+  previewImage.src =
+    `images/custom-preview/pistol-105-2/${colorSlug}.webp`;
 
 } else if (
   selections.category === "Rifle" &&
