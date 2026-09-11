@@ -2499,6 +2499,39 @@ function is50RoundPistolFamily1() {
   return false;
 }
 
+function is50RoundPistolFamily2() {
+  if (selections.category !== "Pistol") {
+    return false;
+  }
+
+  const capacity = Number(selections.capacity);
+
+  const family2Builds = new Set([
+    ".327 FEDERAL MAG|50",
+    ".357 MAGNUM|50",
+    ".357 MAGNUM|66",
+    ".38 SPECIAL|50",
+    ".38 SPECIAL WADCUTTER|50",
+    ".41 MAGNUM|50",
+    ".44 MAGNUM|50",
+    ".45 LONG COLT|50",
+    ".454 CASULL|50",
+    ".50 AE|50"
+  ]);
+
+  return family2Builds.has(
+    `${selections.caliber}|${capacity}`
+  );
+}
+
+  function is105RoundPistolFamily2() {
+  return (
+    selections.category === "Pistol" &&
+    selections.caliber === ".44 MAGNUM" &&
+    Number(selections.capacity) === 105
+  );
+}
+  
 function is100RoundPistolFamily1() {
   if (
     selections.category !== "Pistol" ||
@@ -3080,12 +3113,20 @@ if (
     return `images/builder/pistol-50-1/${colorSlug}.webp`;
   }
 
+  if (is50RoundPistolFamily2()) {
+  return `images/builder/pistol-50-2/${colorSlug}.webp`;
+}
+
 if (is100RoundPistolFamily1()) {
   return `images/builder/pistol-100-1/${colorSlug}.webp`;
 }
 
 if (is102RoundPistolFamily1()) {
   return `images/builder/pistol-102-1/${colorSlug}.webp`;
+}
+
+  if (is105RoundPistolFamily2()) {
+  return `images/builder/pistol-105-2/${colorSlug}.webp`;
 }
 
   if (is20RoundRifleFamily()) {
@@ -3278,10 +3319,14 @@ if (previewImage) {
     `images/custom-preview/rifle-50/${colorSlug}.webp`;
 
 } else if (is50RoundPistolFamily1()) {
-      previewImage.src =
-        `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
+  previewImage.src =
+    `images/custom-preview/pistol-50-1/${colorSlug}.webp`;
 
-      } else if (is100RoundPistolFamily1()) {
+} else if (is50RoundPistolFamily2()) {
+  previewImage.src =
+    `images/custom-preview/pistol-50-2/${colorSlug}.webp`;
+
+} else if (is100RoundPistolFamily1()) {
   previewImage.src =
     `images/custom-preview/pistol-100-1/${colorSlug}.webp`;
 
@@ -3307,6 +3352,10 @@ if (previewImage) {
 ) {
   previewImage.src =
     `images/custom-preview/rifle-100-1/${colorSlug}.webp`;
+
+    } else if (is105RoundPistolFamily2()) {
+  previewImage.src =
+    `images/custom-preview/pistol-105-2/${colorSlug}.webp`;
 
 } else if (
   selections.category === "Rifle" &&
