@@ -2499,27 +2499,29 @@ function is50RoundPistolFamily1() {
   return false;
 }
 
-  function is50RoundPistolFamily2() {
-  if (
-    selections.category !== "Pistol" ||
-    Number(selections.capacity) !== 50
-  ) {
+function is50RoundPistolFamily2() {
+  if (selections.category !== "Pistol") {
     return false;
   }
 
-  const family2Calibers = new Set([
-    ".327 FEDERAL MAG",
-    ".357 MAGNUM",
-    ".38 SPECIAL",
-    ".38 SPECIAL WADCUTTER",
-    ".41 MAGNUM",
-    ".44 MAGNUM",
-    ".45 LONG COLT",
-    ".454 CASULL",
-    ".50 AE"
+  const capacity = Number(selections.capacity);
+
+  const family2Builds = new Set([
+    ".327 FEDERAL MAG|50",
+    ".357 MAGNUM|50",
+    ".357 MAGNUM|66",
+    ".38 SPECIAL|50",
+    ".38 SPECIAL WADCUTTER|50",
+    ".41 MAGNUM|50",
+    ".44 MAGNUM|50",
+    ".45 LONG COLT|50",
+    ".454 CASULL|50",
+    ".50 AE|50"
   ]);
 
-  return family2Calibers.has(selections.caliber);
+  return family2Builds.has(
+    `${selections.caliber}|${capacity}`
+  );
 }
 
   function is105RoundPistolFamily2() {
