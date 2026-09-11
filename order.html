@@ -3107,12 +3107,24 @@ if (
   return `images/builder/pistol-50-2/${colorSlug}.webp`;
 }
 
+  function is105RoundPistolFamily2() {
+  return (
+    selections.category === "Pistol" &&
+    selections.caliber === ".44 MAGNUM" &&
+    Number(selections.capacity) === 105
+  );
+}
+
 if (is100RoundPistolFamily1()) {
   return `images/builder/pistol-100-1/${colorSlug}.webp`;
 }
 
 if (is102RoundPistolFamily1()) {
   return `images/builder/pistol-102-1/${colorSlug}.webp`;
+}
+
+  if (is105RoundPistolFamily2()) {
+  return `images/builder/pistol-105-2/${colorSlug}.webp`;
 }
 
   if (is20RoundRifleFamily()) {
